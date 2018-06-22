@@ -1,12 +1,15 @@
 package com.picovr.androidcollection.mvp.view;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.picovr.androidcollection.mvp.manager.ISampleContract;
+import com.picovr.androidcollection.mvp.model.LoadDataModeImpl;
+import com.picovr.androidcollection.mvp.presenter.SamplePresenterImpl;
 
 /**
  * @author patrick.ding
@@ -16,6 +19,7 @@ import com.picovr.androidcollection.mvp.manager.ISampleContract;
 public class SampleFragment extends Fragment implements ISampleContract.View{
     private static final String PARAMS = "params";
     private ISampleContract.Presenter presenter;
+    private SamplePresenterImpl mSamplePresenter;
 
     public static SampleFragment newInstance(String... params){
         SampleFragment sampleFragment = new SampleFragment();
@@ -23,6 +27,14 @@ public class SampleFragment extends Fragment implements ISampleContract.View{
         bundle.putStringArray(PARAMS,params);
         sampleFragment.setArguments(bundle);
         return sampleFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        // 创建Present对象
+        mSamplePresenter = new SamplePresenterImpl(new LoadDataModeImpl());
+        mSamplePresenter.attachView(this);
     }
 
     @Override
@@ -40,32 +52,33 @@ public class SampleFragment extends Fragment implements ISampleContract.View{
     }
 
     @Override
-    public void setPresenter(ISampleContract.Presenter presenter) {
-        this.presenter = presenter;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.isActive();
-    }
-
-    @Override
-    public void detach() {
-
-    }
-
-    @Override
     public void showLoading() {
 
     }
 
     @Override
-    public void refreshUI() {
+    public void hideLoading() {
 
     }
 
     @Override
-    public void showError() {
+    public void refreshUI(String data) {
 
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public Context getContexts() {
+        return null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mSamplePresenter.detachView();
     }
 }

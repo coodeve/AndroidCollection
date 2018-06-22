@@ -11,21 +11,13 @@ import com.picovr.androidcollection.mvp.view.IBaseView;
 
 public interface ISampleContract {
 
-    interface Presenter extends IBasePresenter {
+    interface Presenter extends IBasePresenter<View> {
         // 获取数据
         void getData();
-        // 检查数据是否有效
-        void checkData();
-        // 删除消息
-        void deleteMsg();
     }
 
-    interface View extends IBaseView<Presenter> {
-        // 显示loading
-        void showLoading();
+    interface View extends IBaseView {
         // 刷新界面
-        void refreshUI();
-        // 显示错误界面
-        void showError();
+        void refreshUI(String data);
     }
 }
