@@ -12,4 +12,5 @@ public interface  IBasePresenter<T extends IBaseView> {
     void detachView();
     void attachView(T view);
     boolean isViewAttached();
+    void getData();
 }

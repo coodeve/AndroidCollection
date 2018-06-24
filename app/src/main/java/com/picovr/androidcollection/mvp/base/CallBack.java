@@ -1,6 +1,6 @@
 package com.picovr.androidcollection.mvp.base;
 
-public interface OnLoadListener<T> {
+public interface CallBack<T> {
     /**
      * 加载成功
      * @param t

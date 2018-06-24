@@ -9,11 +9,11 @@ import com.picovr.androidcollection.mvp.view.IBaseView;
  * @date 18/6/21
  */
 
-public interface ISampleContract {
+public interface IMvpContract {
 
-    interface Presenter extends IBasePresenter<View> {
+    interface Presenter extends IBasePresenter<IBaseView> {
         // 获取数据
-        void getData();
+        void getUserInfo();
     }
 
     interface View extends IBaseView {

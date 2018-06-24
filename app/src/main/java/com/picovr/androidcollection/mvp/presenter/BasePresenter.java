@@ -2,27 +2,31 @@ package com.picovr.androidcollection.mvp.presenter;
 
 import com.picovr.androidcollection.mvp.view.IBaseView;
 
+import java.lang.ref.WeakReference;
+
 /**
+ * 此类，为一点基本的通用功能的提取，自己可直接使用接口进行实现。
  * @author patrick.ding
  * @date 18/6/22
  */
 
-public class BasePresenter<T extends IBaseView> {
-    private T view;
-
-    public void attachView(T view){
-        this.view = view;
+public abstract class BasePresenter<T extends IBaseView> implements IBasePresenter<T> {
+    private WeakReference<IBaseView> mWeakView;
+    @Override
+    public void detachView() {
+        if (mWeakView != null) {
+            mWeakView.clear();
+            mWeakView = null;
+        }
+    }
+    @Override
+    public void attachView(IBaseView view) {
+        mWeakView = new WeakReference<IBaseView>(view);
     }
 
-    public void detachView(){
-        this.view  = null;
+    @Override
+    public boolean isViewAttached() {
+        return mWeakView != null && mWeakView.get() != null;
     }
 
-    public boolean isViewAttached(){
-        return this.view != null;
-    }
-
-    public T getView(){
-        return this.view;
-    }
 }

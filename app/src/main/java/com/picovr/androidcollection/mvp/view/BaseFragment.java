@@ -12,7 +12,7 @@ import android.view.ViewGroup;
  * @date 18/6/22
  */
 
-public class BaseFragement extends Fragment implements IBaseView{
+public class BaseFragment extends Fragment implements IBaseView{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class BaseFragement extends Fragment implements IBaseView{
 
     @Override
     public Context getContexts() {
-        return getContext();
+        return getActivity();
     }
+
 }
