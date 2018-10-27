@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.picovr.androidcollection.widget.FilePathView;
 
 public class MainActivity extends Activity {
 
@@ -19,7 +18,6 @@ public class MainActivity extends Activity {
 
     private int index;
 
-    private FilePathView filePathView;
     private Button add;
 
     @Override
@@ -31,14 +29,7 @@ public class MainActivity extends Activity {
         TextView tv = (TextView) findViewById(R.id.sample_text);
         tv.setText(stringFromJNI());
 
-        filePathView = findViewById(R.id.file_container);
         add = findViewById(R.id.add);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filePathView.nextPath(randomStr());
-            }
-        });
     }
 
     private String randomStr(){
