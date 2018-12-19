@@ -3,4 +3,31 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="transparent">#00ffffff</color>
+    <!--灰色背景-->
+    <color name="background_gray">#64c8c8c8</color>
+
+    <color name="btn_text_color_pressed">#FFFFFF</color>
+    <color name="btn_text_color_normal">#000000</color>
+
+    <color name="btn_bg_hover">#9C7FD0</color>
+
+    <!--一级分类按钮背景颜色-->
+    <color name="cate_bg_normal">@color/transparent</color>
+    <color name="cate_bg_hover">@color/transparent</color>
+    <color name="cate_bg_press">#FF999999</color>
+    <color name="cate_bg_select">#FF9C7FD0</color>
+
+    <!--顶部分类按钮-->
+    <color name="top_btn_bg_normal">#FFF5F5F5</color>
+    <color name="top_btn_bg_hover">#FFCCCCCC</color>
+    <color name="top_btn_bg_press">#FF999999</color>
+    <color name="top_btn_bg_select">#FFF5F5F5</color>
+
+    <!--顶部按钮文字颜色-->
+    <color name="top_text_color_normal">#FF707070</color>
+    <color name="top_text_color_hover">#FF333333</color>
+    <color name="top_text_color_press">#FF333333</color>
+    <color name="top_text_color_select">#FF707070</color>
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportHeight="100"
+    android:viewportWidth="100">
+
+    <group
+        android:name="svg1"
+        android:rotation="0">
+        <path
+            android:fillColor="@android:color/holo_blue_light"
+            android:pathData="M 20 20 a 25,25 0 1,0 50,0" />
+
+    </group>
+
+</vector>

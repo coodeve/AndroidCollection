@@ -19,6 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
- #Gradle Retrolambda混淆规则
- -dontwarn java.lang.invoke.*
- -dontwarn **$$Lambda$*
