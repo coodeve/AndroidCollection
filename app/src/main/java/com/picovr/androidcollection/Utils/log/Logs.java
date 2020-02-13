@@ -1,9 +1,10 @@
-package com.picovr.androidcollection.Utils;
+package com.picovr.androidcollection.Utils.log;
 
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.picovr.androidcollection.BuildConfig;
+import com.picovr.androidcollection.Utils.common.Utils;
 
 /**
  * @author patrick.ding

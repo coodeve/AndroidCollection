@@ -1,4 +1,4 @@
-package com.picovr.androidcollection.Utils;
+package com.picovr.androidcollection.broadcast;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

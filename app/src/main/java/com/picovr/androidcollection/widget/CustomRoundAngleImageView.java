@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.picovr.androidcollection.R;
-import com.picovr.androidcollection.Utils.Logs;
+import com.picovr.androidcollection.Utils.log.Logs;
 
 
 public class CustomRoundAngleImageView extends AppCompatImageView {

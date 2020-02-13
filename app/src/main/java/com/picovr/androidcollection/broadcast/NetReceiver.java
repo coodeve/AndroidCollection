@@ -1,4 +1,4 @@
-package com.picovr.androidcollection.Utils;
+package com.picovr.androidcollection.broadcast;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
+
+import com.picovr.androidcollection.Utils.common.Utils;
+import com.picovr.androidcollection.Utils.log.Logs;
 
 public class NetReceiver extends BroadcastReceiver {
     private Context mContext;

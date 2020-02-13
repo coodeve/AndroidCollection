@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.picovr.androidcollection.Utils.Logs;
+import com.picovr.androidcollection.Utils.log.Logs;
 
 
 /**

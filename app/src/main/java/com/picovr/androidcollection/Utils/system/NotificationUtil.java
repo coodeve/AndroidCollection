@@ -1,4 +1,4 @@
-package com.picovr.androidcollection.Utils;
+package com.picovr.androidcollection.Utils.system;
 
 import android.annotation.SuppressLint;
 import android.app.AppOpsManager;

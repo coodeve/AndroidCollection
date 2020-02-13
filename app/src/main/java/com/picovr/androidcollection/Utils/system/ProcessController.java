@@ -1,9 +1,11 @@
-package com.picovr.androidcollection.Utils;
+package com.picovr.androidcollection.Utils.system;
 
 import android.app.ActivityManager;
 import android.app.IProcessObserver;
 import android.content.Context;
 import android.os.RemoteException;
+
+import com.picovr.androidcollection.Utils.log.Logs;
 
 import java.lang.reflect.Method;
 

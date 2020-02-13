@@ -1,4 +1,4 @@
-package com.picovr.androidcollection.Utils;
+package com.picovr.androidcollection.Utils.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,6 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
+
+import com.picovr.androidcollection.Utils.log.Logs;
+import com.picovr.androidcollection.Utils.shell.ShellUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +26,7 @@ public class Utils {
     private static final long END_TIME = System.currentTimeMillis();
     private static final long TIME_INTERVAL = 7 * 24 * 60 * 60 * 1000L;
     private static final long START_TIME = END_TIME - TIME_INTERVAL;
-    private static final String TAG = "Utils";
+    private static final String TAG = "DpPxUtils";
     private static final String PREFERENCES_NAME = "app";
     private static final String COMMAND = "dumpsys activity a | sed -n -e \"/Stack #/p\" -e \"/Running activities/,/Run #0/p\"";
 
@@ -78,7 +81,7 @@ public class Utils {
         return pref.getLong(key, defValue);
     }
 
-    static boolean getNetworkState(Context context) {
+    public static boolean getNetworkState(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
@@ -94,7 +97,7 @@ public class Utils {
     /**
      * 通过命令获取属性参数 , adb shell setprop <key> <value>,设置属性参数
      */
-    static String getProperties() {
+   public  static String getProperties() {
         String commandLine = null;
         Runtime runtime = Runtime.getRuntime();
         try {
@@ -115,36 +118,5 @@ public class Utils {
         return commandLine;
     }
 
-    /**
-     * dp转换成px
-     */
-    public static int dp2px(Context context, float dpValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    /**
-     * px转换成dp
-     */
-    public static int px2dp(Context context, float pxValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
-    /**
-     * sp转换成px
-     */
-    public static int sp2px(Context context, float spValue) {
-        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
-    }
-
-    /**
-     * px转换成sp
-     */
-    public static int px2sp(Context context, float pxValue) {
-        float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue / fontScale + 0.5f);
-    }
 
 }

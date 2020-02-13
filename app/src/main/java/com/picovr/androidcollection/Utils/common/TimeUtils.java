@@ -1,7 +1,8 @@
-package com.picovr.androidcollection.Utils;
+package com.picovr.androidcollection.Utils.common;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -16,6 +17,7 @@ import java.util.Locale;
  */
 
 public class TimeUtils {
+    public static final String TAG = TimeUtils.class.getSimpleName();
 
     private static final String TODAY = "今天";
     private static final String TOMORROW = "明天";
@@ -31,10 +33,6 @@ public class TimeUtils {
         Timestamp timestamp = new Timestamp(time);
         String sd = simpleDateFormat.format(timestamp);
         return sd;
-
-//        String localFormat = "yyyy年MM月";
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(localFormat, Locale.getDefault());
-//        return simpleDateFormat.format(new Date(time));
     }
 
     /**
@@ -180,5 +178,31 @@ public class TimeUtils {
         }
 
         return status;
+    }
+
+    /**
+     * 是否时同一天
+     *
+     * @param lastTime
+     * @param currTime
+     * @return
+     */
+    public static boolean isSameDay(long lastTime, long currTime) {
+        Calendar calendar = Calendar.getInstance();
+        Date date = new Date();
+
+        date.setTime(currTime);
+        calendar.setTime(date);
+        int curr_dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
+        int curr_year = calendar.get(Calendar.YEAR);
+        Log.i(TAG, "curr:" + curr_year + "," + curr_dayOfYear);
+
+        date.setTime(lastTime);
+        calendar.setTime(date);
+        int last_dayOfYear = calendar.get(Calendar.DAY_OF_YEAR);
+        int last_year = calendar.get(Calendar.YEAR);
+        Log.i(TAG, "curr:" + last_year + "," + last_dayOfYear);
+
+        return curr_year == last_year && curr_dayOfYear == last_dayOfYear;
     }
 }

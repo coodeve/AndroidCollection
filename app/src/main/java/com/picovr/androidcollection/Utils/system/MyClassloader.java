@@ -1,4 +1,4 @@
-package com.picovr.androidcollection.Utils;
+package com.picovr.androidcollection.Utils.system;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;

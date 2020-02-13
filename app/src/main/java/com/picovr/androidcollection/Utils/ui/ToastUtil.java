@@ -1,4 +1,4 @@
-package com.picovr.androidcollection.Utils;
+package com.picovr.androidcollection.Utils.ui;
 
 import android.content.Context;
 import android.os.Looper;
