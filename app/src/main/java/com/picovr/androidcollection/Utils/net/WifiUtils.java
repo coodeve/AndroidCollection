@@ -8,8 +8,13 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.net.Inet4Address;
@@ -17,14 +22,27 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
  *
  */
 public class WifiUtils {
+
+
+    public static final String TAG = "MacUtil";
+    /**
+     * 可能获取到的默认值
+     */
+    private static final String MAC_DEFAULT = "02:00:00:00:00:00";
+    /**
+     * 可能获取到的0值
+     */
+    private static final String MAC_DEFAULT_0 = "00:00:00:00:00:00";
 
     private static WifiManager getWifiManager(Context context) {
         Context contextRef = new WeakReference<Context>(context).get();
@@ -171,7 +189,6 @@ public class WifiUtils {
     }
 
     /**
-     *
      * @param context
      * @return
      */
@@ -192,6 +209,7 @@ public class WifiUtils {
 
     /**
      * 连接某个wifi
+     *
      * @param context
      * @param wifiSSID
      * @param password
@@ -226,5 +244,158 @@ public class WifiUtils {
         }
 
         return isConnection;
+    }
+
+
+    private static String getMacNow(Context context) {
+        String mac = "";
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            mac = getMacDefault(context);
+        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            mac = getMacAddress();
+        } else {
+            mac = getMacFromHardware();
+            if (TextUtils.isEmpty(mac)) {
+                mac = getMacDefault(context);
+            }
+        }
+        return mac;
+    }
+
+    private static boolean macIsAvailable(String mac) {
+        return !TextUtils.isEmpty(mac) && !MAC_DEFAULT.equals(mac) && !MAC_DEFAULT_0.equals(mac);
+    }
+
+
+    public static String getMac2(Context context) {
+        String mac = "";
+        mac = getMacByJavaAPI();
+        Log.i(TAG, "getMac2# " + mac);
+        return mac;
+    }
+
+    /**
+     * Android 6.0 之前（不包括6.0）获取mac地址
+     * 必须的权限 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+     *
+     * @param context * @return
+     */
+    public static String getMacDefault(Context context) {
+        String mac = "";
+        if (context == null) {
+            return mac;
+        }
+        WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = null;
+        try {
+            info = wifi.getConnectionInfo();
+
+            if (info == null) {
+                return null;
+            }
+            mac = info.getMacAddress();
+            if (TextUtils.isEmpty(mac)) {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mac;
+    }
+
+    /**
+     * Android 6.0-Android 7.0 获取mac地址
+     */
+    public static String getMacAddress() {
+        String macSerial = "";
+        String str = "";
+
+        try {
+            Process pp = Runtime.getRuntime().exec("cat /sys/class/net/wlan0/address");
+            InputStreamReader ir = new InputStreamReader(pp.getInputStream());
+            LineNumberReader input = new LineNumberReader(ir);
+
+            while (null != str) {
+                str = input.readLine();
+                if (str != null) {
+                    macSerial = str.trim();//去空格
+                    break;
+                }
+            }
+        } catch (IOException ex) {
+            // 赋予默认值
+            ex.printStackTrace();
+        }
+
+        return macSerial;
+    }
+
+    /**
+     * Android 7.0之后获取Mac地址
+     * 遍历循环所有的网络接口，找到接口是 wlan0
+     * 必须的权限 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+     *
+     * @return
+     */
+    public static String getMacFromHardware() {
+        try {
+            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface nif : all) {
+                if (!nif.getName().equalsIgnoreCase("wlan0")) {
+                    continue;
+                }
+                byte[] macBytes = nif.getHardwareAddress();
+                if (macBytes == null) {
+                    return null;
+                }
+
+                StringBuilder res1 = new StringBuilder();
+                for (byte b : macBytes) {
+                    res1.append(String.format("%02X:", b));
+                }
+
+                if (res1.length() > 0) {
+                    res1.deleteCharAt(res1.length() - 1);
+                }
+                return res1.toString().toUpperCase();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "02:00:00:00:00:00";
+    }
+
+    public static String getMacByJavaAPI() {
+        try {
+            Enumeration networkInterfaces = NetworkInterface.getNetworkInterfaces();
+
+            NetworkInterface networkInterface;
+            do {
+                if (!networkInterfaces.hasMoreElements()) {
+                    return null;
+                }
+
+                networkInterface = (NetworkInterface) networkInterfaces.nextElement();
+            }
+            while (!"wlan0".equals(networkInterface.getName()) && !"eth0".equals(networkInterface.getName()));
+
+            byte[] hardwareAddress = networkInterface.getHardwareAddress();
+            if (hardwareAddress != null && hardwareAddress.length != 0) {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < hardwareAddress.length; ++i) {
+                    stringBuilder.append(String.format("%02X:", hardwareAddress[i]));
+                }
+
+                if (stringBuilder.length() > 0) {
+                    stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+                }
+
+                return stringBuilder.toString().toLowerCase(Locale.getDefault());
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
