@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.base.BaseActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,6 @@
         <activity
             android:name=".ui.NavigationActivity"
             android:label="@string/title_activity_navigation" />
-
         <activity
             android:name=".widget.x5.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -44,7 +44,6 @@
                 <data android:scheme="pvrweb" />
                 <data android:scheme="http" />
                 <data android:scheme="https" />
-
             </intent-filter>
         </activity>
     </application>
