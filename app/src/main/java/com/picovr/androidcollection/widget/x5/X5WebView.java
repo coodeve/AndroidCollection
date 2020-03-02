@@ -9,7 +9,7 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.picovr.androidcollection.Utils.download.DownloadUtils;
+import com.picovr.androidcollection.Utils.io.DownloadUtils;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
