@@ -1,5 +1,6 @@
 package com.picovr.androidcollection.widget.x5;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String VERTICAL = "vertical";
     public static final int START_NET_SPEED = 10;
     public static final int START_NET_SPEED_CANCEL = 11;
+    public static final int START_DOWNLOAD_FILE = 12;
     private FrameLayout mFrameLayout;
     private ProgressBar mProgressBar;
     private X5WebView mX5WebView;
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case START_NET_SPEED_CANCEL:
                     mHandler.removeMessages(START_NET_SPEED);
+                    break;
+                case START_DOWNLOAD_FILE:
+                    Snackbar.make(mFrameLayout, "正在下载文件，请稍后...", Snackbar.LENGTH_SHORT).show();
                     break;
             }
         }

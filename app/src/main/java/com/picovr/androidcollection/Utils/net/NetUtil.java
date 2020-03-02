@@ -1,5 +1,8 @@
 package com.picovr.androidcollection.Utils.net;
 
+import android.content.Context;
+import android.telephony.TelephonyManager;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -230,5 +233,68 @@ public class NetUtil {
             parasm = parasm.substring(0, parasm.length() - 1);
         }
         return parasm;
+    }
+
+    /**
+     * Get the current networking
+     *
+     * @param context
+     * @return WIFI or MOBILE
+     */
+    public static String getNetworkType(Context context) {
+        TelephonyManager manager = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        int type = manager.getNetworkType();
+        String typeString = "UNKNOWN";
+        if (type == TelephonyManager.NETWORK_TYPE_CDMA) {
+            typeString = "CDMA";
+        }
+        if (type == TelephonyManager.NETWORK_TYPE_EDGE) {
+            typeString = "EDGE";
+        }
+        if (type == TelephonyManager.NETWORK_TYPE_EVDO_0) {
+            typeString = "EVDO_0";
+        }
+        if (type == TelephonyManager.NETWORK_TYPE_EVDO_A) {
+            typeString = "EVDO_A";
+        }
+        if (type == TelephonyManager.NETWORK_TYPE_GPRS) {
+            typeString = "GPRS";
+        }
+        if (type == TelephonyManager.NETWORK_TYPE_HSDPA) {
+            typeString = "HSDPA";
+        }
+        if (type == TelephonyManager.NETWORK_TYPE_HSPA) {
+            typeString = "HSPA";
+        }
+        if (type == TelephonyManager.NETWORK_TYPE_HSUPA) {
+            typeString = "HSUPA";
+        }
+        if (type == TelephonyManager.NETWORK_TYPE_UMTS) {
+            typeString = "UMTS";
+        }
+        if (type == TelephonyManager.NETWORK_TYPE_UNKNOWN) {
+            typeString = "UNKNOWN";
+        }
+        if (type == TelephonyManager.NETWORK_TYPE_1xRTT) {
+            typeString = "1xRTT";
+        }
+        if (type == 11) {
+            typeString = "iDen";
+        }
+        if (type == 12) {
+            typeString = "EVDO_B";
+        }
+        if (type == 13) {
+            typeString = "LTE";
+        }
+        if (type == 14) {
+            typeString = "eHRPD";
+        }
+        if (type == 15) {
+            typeString = "HSPA+";
+        }
+
+        return typeString;
     }
 }

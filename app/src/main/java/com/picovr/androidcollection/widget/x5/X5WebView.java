@@ -9,12 +9,14 @@ import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.picovr.androidcollection.Utils.download.DownloadUtils;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
 import com.tencent.smtt.export.external.interfaces.WebResourceError;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.sdk.CookieSyncManager;
+import com.tencent.smtt.sdk.DownloadListener;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
@@ -122,6 +124,7 @@ public class X5WebView extends WebView {
         this.context = context;
         this.setWebViewClient(client);
         this.setWebChromeClient(mWebChromeClient);
+        this.setDownloadListener(new X5DownloadListener());
         initWebViewSettings();
         this.getView().setClickable(true);
         Log.i(TAG, "X5WebView# X5 init Success");
@@ -179,5 +182,14 @@ public class X5WebView extends WebView {
 
     public void setProgressBar(ProgressBar progressBar) {
         mProgressBar = progressBar;
+    }
+
+    private class X5DownloadListener implements DownloadListener {
+
+        @Override
+        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimeType, long contentLength) {
+            DownloadUtils.downloadBySystem(getContext(),url, contentDisposition, mimeType);
+            mHandler.sendEmptyMessage(MainActivity.START_DOWNLOAD_FILE);
+        }
     }
 }
