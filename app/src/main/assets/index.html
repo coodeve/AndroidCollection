@@ -1,0 +1,22 @@
+<html>
+<script type="text/javascript">
+	function getToken(){
+		var token = androidObject.getUserToken();
+		alert("token:"+token);
+	}
+</script>
+<body>
+<p>1.如果把链接的 target 属性设置为 "_blank"，该链接会在新窗口中打开。</p>
+<a href="http://www.w3school.com.cn/" target="_blank">Visit W3School!</a>
+<p>没有"_blank"的，当前窗口打开</p>
+<a href="https://www.baidu.com">百度</a>
+<a href="http://bbs.picovr.com/" target="_blank">论坛</a>
+
+<p>2.选择文件</p>
+<input type="file" id="pic" name="camera" accept="image/*" οnchange="previewPhoto(this.id, 'img');"/>
+<p>3.获取token</p>
+<input type="button" name="token" onclick="getToken()" value="获取token"/>
+
+</body>
+
+</html>

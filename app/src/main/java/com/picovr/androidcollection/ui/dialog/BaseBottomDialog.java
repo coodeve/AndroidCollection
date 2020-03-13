@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.picovr.androidcollection.R;
+import com.picovr.androidcollection.widget.webview.WebHelper;
 
 /**
  * <pre>

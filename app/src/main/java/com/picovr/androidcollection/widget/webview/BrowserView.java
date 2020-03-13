@@ -1,6 +1,8 @@
 package com.picovr.androidcollection.widget.webview;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,14 +10,22 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.DownloadListener;
+import android.webkit.JavascriptInterface;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
+import android.webkit.PermissionRequest;
 import android.webkit.SslErrorHandler;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -24,14 +34,27 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+
+import com.picovr.androidcollection.MainActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * webview封装
  */
 public class BrowserView extends WebView implements DownloadListener {
+    public static final String TAG = BrowserView.class.getSimpleName();
+    private static final String WEBVIEW_TAG = "web_bridge";
     private Context mContext;
     private WebSettings mWebSettings;
     private OnWebViewClientStatusListener listener;
+    private WebHelper mWebHelper;
+    private FrameLayout mFrameLayout;
+    private List<String> mListImgSrc;
 
     public BrowserView(Context context) {
         super(context);
@@ -53,17 +76,29 @@ public class BrowserView extends WebView implements DownloadListener {
         initView(context);
     }
 
+    /**
+     * 设置网页播放全屏播放的container
+     *
+     * @param frameLayout
+     */
+    public void setVideoFullScreen(FrameLayout frameLayout) {
+        mFrameLayout = frameLayout;
+    }
+
     @SuppressLint("JavascriptInterface")
     private void initView(Context context) {
-        this.mContext = context.getApplicationContext();
+        this.mContext = context;
+
+        mWebHelper = new WebHelper(mContext);
 
         initSetting();
 
         setWebViewClient(mWebViewClient);
         setWebChromeClient(mWebChromeClient);
         setDownloadListener(this);
-
+        addJavascriptInterface(this, WEBVIEW_TAG);
         resume();
+
     }
 
     private void initSetting() {
@@ -119,13 +154,16 @@ public class BrowserView extends WebView implements DownloadListener {
         //数据库存储API可用
         mWebSettings.setDatabaseEnabled(true);
 
-        //DOM Storage
+        //DOM Storage （优酷视频播放必备）
         mWebSettings.setDomStorageEnabled(true);
 
         //https
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mWebSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
+        //代表支持多窗口打开
+        mWebSettings.setSupportMultipleWindows(true);
+
 
     }
 
@@ -184,7 +222,7 @@ public class BrowserView extends WebView implements DownloadListener {
             if (url == null) {
                 return false;
             }
-
+            Log.i(TAG, "shouldOverrideUrlLoading: " + url);
             try {
                 if (url.startsWith("http:") || url.startsWith("https:")) {
                     view.loadUrl(url);
@@ -218,6 +256,9 @@ public class BrowserView extends WebView implements DownloadListener {
             if (listener != null) {
                 listener.onPageFinished(view, url);
             }
+
+            parseHTML(view);
+            addImageClickListener();
         }
 
         @Override
@@ -245,6 +286,15 @@ public class BrowserView extends WebView implements DownloadListener {
     private WebChromeClient mWebChromeClient = new WebChromeClient() {
 
         @Override
+        public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
+            Log.i(TAG, "onCreateWindow: " + isDialog + "," + isUserGesture + "，" + resultMsg.toString());
+            WebActivity.sMessage = resultMsg;
+            Intent intent = new Intent(mContext, WebActivity.class);
+            mContext.startActivity(intent);
+            return true;
+        }
+
+        @Override
         public void onProgressChanged(WebView view, int newProgress) {
             if (listener != null) {
                 listener.onProgressChanged(view, newProgress);
@@ -257,6 +307,27 @@ public class BrowserView extends WebView implements DownloadListener {
                 listener.onReceivedTitle(view, title);
             }
         }
+
+        @Override
+        public void onShowCustomView(View view, CustomViewCallback callback) {
+            super.onShowCustomView(view, callback);
+            if (mFrameLayout != null) {
+                BrowserView.this.setVisibility(GONE);
+                mFrameLayout.addView(view);
+                mFrameLayout.setVisibility(VISIBLE);
+            }
+        }
+
+        @Override
+        public void onHideCustomView() {
+            super.onHideCustomView();
+            if (mFrameLayout != null) {
+                BrowserView.this.setVisibility(VISIBLE);
+                mFrameLayout.removeAllViews();
+                mFrameLayout.setVisibility(GONE);
+            }
+        }
+
 
         @Override
         public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
@@ -320,8 +391,54 @@ public class BrowserView extends WebView implements DownloadListener {
             return true;
         }
 
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public void onPermissionRequest(PermissionRequest request) {
+            // super.onPermissionRequest(request);//必须要注视掉
+            request.grant(request.getResources());
+        }
+
+        // For Android 3.0+
+        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+            mWebHelper.setUploadFile(uploadMsg);
+            mWebHelper.showOptions();
+        }
+
+        // For Android < 3.0
+        public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+            mWebHelper.setUploadFile(uploadMsg);
+            mWebHelper.showOptions();
+        }
+
+        // For Android  > 4.1.1
+        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+            mWebHelper.setUploadFile(uploadMsg);
+            mWebHelper.showOptions();
+        }
+
+        // For Android  >= 5.0
+        @Override
+        public boolean onShowFileChooser(WebView webView,
+                                         ValueCallback<Uri[]> filePathCallback,
+                                         WebChromeClient.FileChooserParams fileChooserParams) {
+            mWebHelper.setUploadFiles(filePathCallback);
+            mWebHelper.setFileChooserParams(fileChooserParams);
+            mWebHelper.showOptions();
+            return true;
+        }
+
     };
 
+
+    /**
+     * webview下载
+     *
+     * @param url
+     * @param userAgent
+     * @param contentDisposition
+     * @param mimetype
+     * @param contentLength
+     */
     @Override
     public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
 
@@ -330,6 +447,68 @@ public class BrowserView extends WebView implements DownloadListener {
     @Override
     public boolean performClick() {
         return super.performClick();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (mWebHelper != null) {
+            mWebHelper.onActivityForResult(requestCode, resultCode, data);
+        }
+    }
+
+    @JavascriptInterface
+    public void showImage(String url) {
+        Log.i(TAG, "showImage: " + url);
+        Intent intent = new Intent();
+        intent.putExtra("image", url);
+        //listImgSrc 该参数为页面所有图片对应的 url
+        intent.putStringArrayListExtra("url_all", (ArrayList) mListImgSrc);
+        intent.setClass(mContext, WebPageScannerActivity.class);
+        mContext.startActivity(intent);
+    }
+
+    @JavascriptInterface
+    public void parseSource(String html) {
+        Log.i(TAG, "parseSource: " + html);
+        getImageUrlsFromHtml(html);
+    }
+
+    private void parseHTML(WebView view) {
+        //这段 js 代码是解析获取到了 HTML 文本文件，然后调用本地定义的 Java 代码返回
+        //解析出来的 HTML 文本文件
+        view.loadUrl("javascript:window." + WEBVIEW_TAG + ".parseSource(''+"
+                + "document.getElementsByTagName('html')[0].innerHTML+'');");
+    }
+
+
+    public  List<String> getImageUrlsFromHtml(String htmlCode) {
+        mListImgSrc = new ArrayList<String>();
+        Pattern p = Pattern.compile("<img\\b[^>]*\\bsrc\\b\\s*=\\s*('|\")?([^'\"\n\r\f>]+(\\.jpg|\\.bmp|\\.eps|\\.gif|\\.mif|\\.miff|\\.png|\\.tif|\\.tiff|\\.svg|\\.wmf|\\.jpe|\\.jpeg|\\.dib|\\.ico|\\.tga|\\.cut|\\.pic|\\b)\\b)[^>]*>", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(htmlCode);
+        String quote = null;
+        String src = null;
+        while (m.find()) {
+            quote = m.group(1);
+            src = (quote == null || quote.trim().length() == 0) ? m.group(2).split("//s+")[0] : m.group(2);
+            mListImgSrc.add(src);
+        }
+        if (mListImgSrc.size() == 0) {
+            Log.e("imageSrcList", "资讯中未匹配到图片链接");
+            return null;
+        }
+        return mListImgSrc;
+    }
+
+    private void addImageClickListener() {
+        this.loadUrl("javascript:(function(){" +
+                "var objs = document.getElementsByTagName(\"img\"); " +
+                "for(var i=0;i<objs.length;i++)" +
+                "{"
+                + "    objs[i].onclick=function()  " +
+                "    {  "
+                + "        window." + WEBVIEW_TAG + ".showImage(this.src);  " +
+                "    }  " +
+                "}" +
+                "})()");
     }
 
     /**

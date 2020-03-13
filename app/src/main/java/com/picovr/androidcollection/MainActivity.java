@@ -1,17 +1,19 @@
 package com.picovr.androidcollection;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.webkit.WebView;
+import android.widget.FrameLayout;
+
+import com.picovr.androidcollection.widget.webview.BrowserView;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
-
-    // Used to load the 'native-lib' library on application startup.
-    static {
-        System.loadLibrary("native-lib");
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,5 +21,4 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
     }
-
 }

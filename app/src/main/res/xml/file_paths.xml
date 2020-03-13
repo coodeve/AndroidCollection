@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <root-path
+        name="root"
+        path="" />
+    <!--files-path  相当于 getFilesDir（）-->
+    <files-path
+        name="files"
+        path="path" />
+    <!--cache-path  相当于 getCacheDir（）-->
+    <cache-path
+        name="cache"
+        path="path" />
+    <!--external-path  相当于 Environment.getExternalStorageDirectory()-->
+    <external-path
+        name="external"
+        path="path" />
+    <!--external-files-path  相当于 getExternalFilesDir("") -->
+    <external-files-path
+        name="external-files"
+        path="." />
+    <!--external-cache-path  相当于 getExternalCacheDir（） -->
+    <external-cache-path
+        name="external-cache"
+        path="path" />
+</paths>
