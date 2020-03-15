@@ -81,17 +81,15 @@ public class WebHelper {
     }
 
 
-    void openGallery() {
-
+    void openCamera() {
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             realOpenCamera();
         } else {
             Toast.makeText(mContext, "您没有授权", Toast.LENGTH_SHORT).show();
         }
-
     }
 
-    private void realOpenCamera() {
+    public void openGallery() {
         Intent intent = null;
         Intent chooser = null;
         if (mFileChooserParams != null) {
@@ -113,7 +111,7 @@ public class WebHelper {
         }
     }
 
-    void openCamera() {
+    void realOpenCamera() {
         File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         String imgName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss", Locale.getDefault())
