@@ -15,14 +15,7 @@ import android.view.WindowManager;
 import com.picovr.androidcollection.R;
 import com.picovr.androidcollection.widget.webview.WebHelper;
 
-/**
- * <pre>
- *   @author  : lucien.feng
- *   e-mail  : fengfei0205@gmail.com
- *   time    : 2018/12/04 14:28
- *   desc    : 基础弹框(从底部弹框)
- * </pre>
- */
+
 public abstract class BaseBottomDialog extends DialogFragment {
     private View mRootView;
     private DialogInterface.OnDismissListener listener;

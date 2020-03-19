@@ -1,4 +1,4 @@
-package com.picovr.androidcollection.ui.dialog;
+package com.picovr.androidcollection.ui.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,12 +19,7 @@ import org.greenrobot.eventbus.EventBus;
 
 
 /**
- * <pre>
- *   @author  : lucien.feng
- *   e-mail  : fengfei0205@gmail.com
- *   time    : 2018/12/04 14:28
- *   desc    : 基础弹框
- * </pre>
+ * 基于DialogFragment的弹窗，需要使用FragmentActivity
  */
 public abstract class BaseDialog extends DialogFragment {
 
