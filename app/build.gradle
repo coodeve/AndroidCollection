@@ -68,6 +68,8 @@ dependencies {
     implementation 'com.blankj:utilcode:1.25.9'
     //抖音分享
     implementation 'com.bytedance.ies.ugc.aweme:open-sdk:0.0.1.4'
+    // apache common
+    implementation 'org.apache.commons:commons-lang3:3.7'
 
 
 }

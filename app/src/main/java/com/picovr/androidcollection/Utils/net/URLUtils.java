@@ -5,6 +5,8 @@ import java.net.URLEncoder;
 
 public class URLUtils {
     /**
+     * url中常见的头部参数：x-www-form-urlencoded
+     * 表示：
      * 用url即web形式的字符串进行编码
      * 主要是将除一下三种之外的字符，进行编码。将其转换为字节，每个字节
      * 要写为百分号后面加2个16进制数字，例如：%2B
