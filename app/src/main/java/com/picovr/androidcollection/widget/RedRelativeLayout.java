@@ -5,21 +5,19 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 
 /**
+<<<<<<< HEAD
  * 给第一个imageview空间绘制右上角的小红点
  */
 public class RedRelativeLayout extends RelativeLayout {
-
-    public static final String TAG = RedRelativeLayout.class.getSimpleName();
-
     private Context mContext;
     /**
      * 画笔对象
@@ -148,16 +146,15 @@ public class RedRelativeLayout extends RelativeLayout {
             float textHeight = Math.abs((fontMetrics.top + fontMetrics.bottom));
             // 数字左右增加一定的边距
             mRectF.setEmpty();
-            mRectF.set(pivotX - dp2px(7),
-                    pivotY - dp2px(8),
-                    pivotX + dp2px(15),
-                    pivotY + dp2px(8));
-            // 此处设定的是宽22，高16
+            mRectF.set(pivotX - dp2px(5),
+                    pivotY -  dp2px(8),
+                    pivotX + dp2px(17) + dp2px(3),
+                    pivotY  + dp2px(8));
             canvas.drawRoundRect(mRectF, dp2px(8), dp2px(8), mPaint);
             mPaint.setColor(Color.parseColor("#ffffff"));
             canvas.drawText(mNumberText,
-                    pivotX - dp2px(7)+dp2px(11),
-                    pivotY + dp2px(4),
+                    pivotX - dp2px(5)+dp2px(12),
+                    pivotY +dp2px(4),
                     mPaint);
         }
     }
@@ -172,7 +169,7 @@ public class RedRelativeLayout extends RelativeLayout {
         if (isShowDot) {
             isShowNumberDot = false;
         }
-        postInvalidate();
+        invalidate();
     }
 
     /**
@@ -187,7 +184,7 @@ public class RedRelativeLayout extends RelativeLayout {
         } else {
             mNumberText = "0";
         }
-        postInvalidate();
+        invalidate();
     }
 
     /**
@@ -195,10 +192,10 @@ public class RedRelativeLayout extends RelativeLayout {
      *
      * @param text
      */
-    public void setDotNumber(@NonNull String text) {
+    public void setDotNumber(String text) {
         this.mNumberText = text;
         if (isShowNumberDot) {
-            postInvalidate();
+            invalidate();
         }
     }
 
