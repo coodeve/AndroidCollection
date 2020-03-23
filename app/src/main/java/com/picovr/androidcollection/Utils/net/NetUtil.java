@@ -2,15 +2,21 @@ package com.picovr.androidcollection.Utils.net;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+
+import com.picovr.androidcollection.Utils.io.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Map;
@@ -296,5 +302,55 @@ public class NetUtil {
         }
 
         return typeString;
+    }
+
+    /**
+     * 判断某个ip上的端口是否有TCP服务
+     *
+     * @param ip
+     * @param port
+     * @return
+     */
+    public static boolean isTakeUpPort(String ip, int port) {
+        boolean takeUp = false;
+        Socket socket = null;
+        try {
+            socket = new Socket(ip, port);
+            Log.i(TAG, "isTakeUpPort: there is a server on port:" + port + " of " + ip);
+            takeUp = true;
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            takeUp = false;
+        } finally {
+            IOUtils.close(socket);
+        }
+
+        return takeUp;
+    }
+
+
+    /**
+     * 指定要连接的主机和端口，
+     * 可以作为强制软件许可认证的一部分
+     *
+     * @param targetIP         远程ip
+     * @param targetPort       远程端口
+     * @param netInterfaceName 本地host，可以是物理接口，也可以是虚拟机接口
+     * @param localPort        本地端口，如果传入0，会随机选择1024~65535之间一个可用端口
+     */
+    public static Socket bindServerInterface(String targetIP, int targetPort, String localHost, int localPort) {
+        Socket socket = null;
+        try {
+            InetAddress localAddress = InetAddress.getByName(localHost);
+            socket = new Socket(targetIP, targetPort, localAddress, localPort);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return socket;
     }
 }
