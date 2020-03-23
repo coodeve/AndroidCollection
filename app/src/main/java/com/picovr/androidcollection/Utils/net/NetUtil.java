@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -352,5 +353,10 @@ public class NetUtil {
         }
 
         return socket;
+    }
+
+
+    public boolean isOpen(ServerSocket serverSocket) {
+        return serverSocket.isBound() && !serverSocket.isClosed();
     }
 }
