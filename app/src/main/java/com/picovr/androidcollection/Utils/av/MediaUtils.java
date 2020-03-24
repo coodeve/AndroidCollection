@@ -14,11 +14,8 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.blankj.utilcode.util.FileUtils;
-import com.blankj.utilcode.util.ThreadUtils;
+import com.blankj.utilcode.util.ImageUtils;
 import com.picovr.androidcollection.R;
-import com.picovr.androidcollection.Utils.image.ImageUtils;
-import com.picovr.assistantphone.connect.IListCallback;
-import com.picovr.assistantphone.connect.bean.VideoBean;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -159,29 +156,6 @@ public class MediaUtils {
 
     /**
      * 获取手机中所有可见视频
-     *
-     * @param context
-     * @param callback
-     */
-    public static void queryAllVideos(final Context context, final IListCallback<VideoBean> callback) {
-        ThreadUtils.Task<List<VideoBean>> task = new ThreadUtils.SimpleTask<List<VideoBean>>() {
-            @Override
-            public List<VideoBean> doInBackground() throws Throwable {
-                return getAllVideos(context);
-            }
-
-            @Override
-            public void onSuccess(List<VideoBean> result) {
-                if (callback != null) {
-                    callback.list(result);
-                }
-            }
-        };
-        ThreadUtils.executeByIo(task);
-    }
-
-    /**
-     * 获取手机中所有可见视频
      */
     private static List<VideoBean> getAllVideos(Context context) {
         List<VideoBean> videoList = new ArrayList<>();
@@ -223,21 +197,6 @@ public class MediaUtils {
 
 
     /**
-     * 获取视频时长
-     *
-     * @param videoPath
-     * @return
-     */
-    public static long getVideoDuration(String videoPath) {
-        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-        mmr.setDataSource(videoPath);
-        String strDuration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        long duration = Long.valueOf(strDuration);
-        mmr.release();
-        return duration;
-    }
-
-    /**
      * 获取视频分辨率
      *
      * @param videoPath
@@ -268,7 +227,7 @@ public class MediaUtils {
         if (destFile.exists() && destFile.length() != 0) {
             return destFile;
         } else {
-            Bitmap source = ImageUtils.getBitmap(imagePath);
+            Bitmap source = com.blankj.utilcode.util.ImageUtils.getBitmap(imagePath);
             Bitmap dest = ImageUtils.compressByScale(source, source.getWidth() / 4, source.getHeight() / 4, true);
             boolean b = ImageUtils.save(dest, desPath, Bitmap.CompressFormat.PNG, true);
             if (b) {
@@ -306,7 +265,7 @@ public class MediaUtils {
             }
 
             if (source == null) {
-                source = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_movie);
+                source = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
             }
 
             boolean b = ImageUtils.save(source, desPath, Bitmap.CompressFormat.PNG, true);

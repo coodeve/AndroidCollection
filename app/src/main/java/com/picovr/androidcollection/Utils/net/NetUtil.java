@@ -406,24 +406,29 @@ public class NetUtil {
     }
 
     public static SSLContext getSSLContext(Context context) {
-        // 证书
-        InputStream inputStream = context.getAssets().open("test.cer");
-        // 证书工厂
-        CertificateFactory cf = CertificateFactory.getInstance("X.509");
-        Certificate ca = cf.generateCertificate(inputStream);
-        // 加载证书到密钥库
-        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-        keyStore.load(null);
-        keyStore.setCertificateEntry("cert", ca);
-        // 加载密钥库到信任管理器
-        String algorithm = TrustManagerFactory.getDefaultAlgorithm();
-        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(algorithm);
-        trustManagerFactory.init(keyStore);
-        TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
-        // 用 TrustManager 初始化一个 SSLContext
-        SSLContext sslContext = SSLContext.getInstance("TLS");
-        sslContext.init(null, trustManagers, null);
+        try {
+            // 证书
+            InputStream inputStream = context.getAssets().open("test.cer");
+            // 证书工厂
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            Certificate ca = cf.generateCertificate(inputStream);
+            // 加载证书到密钥库
+            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            keyStore.load(null);
+            keyStore.setCertificateEntry("cert", ca);
+            // 加载密钥库到信任管理器
+            String algorithm = TrustManagerFactory.getDefaultAlgorithm();
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(algorithm);
+            trustManagerFactory.init(keyStore);
+            TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+            // 用 TrustManager 初始化一个 SSLContext
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustManagers, null);
 
-        return sslContext;
+            return sslContext;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
