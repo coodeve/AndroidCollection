@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.util.Log;
+
+import java.lang.reflect.Method;
 
 /**
  * @author patrick.ding
@@ -96,5 +99,32 @@ public class SystemOperation {
 
     }
 
+    /**
+     * 屏幕唤醒，需要权限
+     * @param context
+     */
+    public static void wakeUp(Context context) {
+        try {
+            PowerManager mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            Method wakeUp = PowerManager.class.getMethod("wakeUp", long.class);
+            wakeUp.invoke(mPowerManager, SystemClock.uptimeMillis());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 屏幕休眠，需要权限
+     * @param context
+     */
+    public static void sleep(Context context) {
+        try {
+            PowerManager mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            Method goToSleep = PowerManager.class.getMethod("goToSleep", long.class);
+            goToSleep.invoke(mPowerManager, SystemClock.uptimeMillis());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

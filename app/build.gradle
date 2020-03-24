@@ -64,7 +64,7 @@ dependencies {
     implementation 'com.bm.photoview:library:1.4.1'
     // photoView
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
-
+    // utilcode
     implementation 'com.blankj:utilcode:1.25.9'
     //抖音分享
     implementation 'com.bytedance.ies.ugc.aweme:open-sdk:0.0.1.4'

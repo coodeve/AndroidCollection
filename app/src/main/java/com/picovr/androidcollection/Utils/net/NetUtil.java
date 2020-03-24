@@ -8,6 +8,7 @@ import com.picovr.androidcollection.Utils.io.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -18,16 +19,24 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
+import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSessionContext;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 /**
@@ -47,27 +56,6 @@ public class NetUtil {
         void onError(String var1);
     }
 
-    private static class TrustAllTrustManager implements TrustManager, X509TrustManager {
-        public X509Certificate[] getAcceptedIssuers() {
-            return null;
-        }
-
-        public boolean isServerTrusted(X509Certificate[] certs) {
-            return true;
-        }
-
-        public boolean isClientTrusted(X509Certificate[] certs) {
-            return true;
-        }
-
-        public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
-            return;
-        }
-
-        public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
-            return;
-        }
-    }
 
     //设置URLConnection的连接超时时间
     private final static int CONNET_TIMEOUT = 5 * 1000;
@@ -134,6 +122,29 @@ public class NetUtil {
                 connect.disconnect();
         }
         return null;
+    }
+
+
+    private static class TrustAllTrustManager implements TrustManager, X509TrustManager {
+        public X509Certificate[] getAcceptedIssuers() {
+            return null;
+        }
+
+        public boolean isServerTrusted(X509Certificate[] certs) {
+            return true;
+        }
+
+        public boolean isClientTrusted(X509Certificate[] certs) {
+            return true;
+        }
+
+        public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+            return;
+        }
+
+        public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
+            return;
+        }
     }
 
     /**
@@ -242,68 +253,6 @@ public class NetUtil {
         return parasm;
     }
 
-    /**
-     * Get the current networking
-     *
-     * @param context
-     * @return WIFI or MOBILE
-     */
-    public static String getNetworkType(Context context) {
-        TelephonyManager manager = (TelephonyManager) context
-                .getSystemService(Context.TELEPHONY_SERVICE);
-        int type = manager.getNetworkType();
-        String typeString = "UNKNOWN";
-        if (type == TelephonyManager.NETWORK_TYPE_CDMA) {
-            typeString = "CDMA";
-        }
-        if (type == TelephonyManager.NETWORK_TYPE_EDGE) {
-            typeString = "EDGE";
-        }
-        if (type == TelephonyManager.NETWORK_TYPE_EVDO_0) {
-            typeString = "EVDO_0";
-        }
-        if (type == TelephonyManager.NETWORK_TYPE_EVDO_A) {
-            typeString = "EVDO_A";
-        }
-        if (type == TelephonyManager.NETWORK_TYPE_GPRS) {
-            typeString = "GPRS";
-        }
-        if (type == TelephonyManager.NETWORK_TYPE_HSDPA) {
-            typeString = "HSDPA";
-        }
-        if (type == TelephonyManager.NETWORK_TYPE_HSPA) {
-            typeString = "HSPA";
-        }
-        if (type == TelephonyManager.NETWORK_TYPE_HSUPA) {
-            typeString = "HSUPA";
-        }
-        if (type == TelephonyManager.NETWORK_TYPE_UMTS) {
-            typeString = "UMTS";
-        }
-        if (type == TelephonyManager.NETWORK_TYPE_UNKNOWN) {
-            typeString = "UNKNOWN";
-        }
-        if (type == TelephonyManager.NETWORK_TYPE_1xRTT) {
-            typeString = "1xRTT";
-        }
-        if (type == 11) {
-            typeString = "iDen";
-        }
-        if (type == 12) {
-            typeString = "EVDO_B";
-        }
-        if (type == 13) {
-            typeString = "LTE";
-        }
-        if (type == 14) {
-            typeString = "eHRPD";
-        }
-        if (type == 15) {
-            typeString = "HSPA+";
-        }
-
-        return typeString;
-    }
 
     /**
      * 判断某个ip上的端口是否有TCP服务
@@ -356,7 +305,125 @@ public class NetUtil {
     }
 
 
-    public boolean isOpen(ServerSocket serverSocket) {
+    public static boolean isOpen(ServerSocket serverSocket) {
         return serverSocket.isBound() && !serverSocket.isClosed();
+    }
+
+    /**
+     * 创建一个SSL的socket,可以强制转换为{@link SSLSocket}
+     * <p>
+     * 可以获取{@link SSLSocket#getSupportedCipherSuites()}
+     * 和设置{@link SSLSocket#setEnabledCipherSuites(String[])}加密算法
+     * getSupportedCipherSuites可以获取到Socket可用的算法组合，比如
+     * TLS_KRB5_EXPORT_WITH_RC4_CBC_40_SHA256
+     * 其组成部分是：协议、密钥交换算法、加密算法和校验
+     *
+     * @param host
+     * @param port
+     * @return
+     */
+    public static Socket getSSLSocket(String host, int port) {
+        Socket socket = null;
+        try {
+            socket = SSLSocketFactory.getDefault().createSocket(host, port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return socket;
+    }
+
+    /**
+     * 1.创建一个SSLContext
+     * 2.为证书源创建一个TurstManagerFactory
+     * 3.为密钥类型创建一个KeyManagerFactory
+     * 4.为密钥和证书数据库创建一个KeyStore对象
+     * 5.用密钥和证书填充KeyStore
+     * 6.用KeyStore初始化KeyManagerFactory
+     * 7.KeyManagerFactory，TrustManagerFactory，和一个随机来源初始化上下文
+     */
+    public static SSLSocketFactory getSimpleSSLFactorySocket() {
+        try {
+            SSLContext context = SSLContext.getInstance("SSL");
+            KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+            KeyStore ks = KeyStore.getInstance("JKS");
+            // 加载密钥库和密钥库的密码
+            ks.load(null, null);
+            kmf.init(ks, null);
+            context.init(kmf.getKeyManagers(), null, null);
+
+            return context.getSocketFactory();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 返回默认SSLSocketFactory
+     *
+     * @return
+     */
+    public static SSLSocketFactory getDefaultSSLSocketFactory() {
+        try {
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, null, null);
+            return sslContext.getSocketFactory();
+        } catch (GeneralSecurityException e) {
+            throw new AssertionError();
+        }
+    }
+
+    /**
+     * 返回默认SSLSocketFactory
+     *
+     * @return
+     */
+    public static SSLSocketFactory getSSLSocketFactoryByTrustFactoryManager() {
+        try {
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, new TrustManager[]{new X509TrustManager() {
+                @Override
+                public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+
+                }
+
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+            }}, null);
+            return sslContext.getSocketFactory();
+        } catch (GeneralSecurityException e) {
+            throw new AssertionError();
+        }
+    }
+
+    public static SSLContext getSSLContext(Context context) {
+        // 证书
+        InputStream inputStream = context.getAssets().open("test.cer");
+        // 证书工厂
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        Certificate ca = cf.generateCertificate(inputStream);
+        // 加载证书到密钥库
+        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+        keyStore.load(null);
+        keyStore.setCertificateEntry("cert", ca);
+        // 加载密钥库到信任管理器
+        String algorithm = TrustManagerFactory.getDefaultAlgorithm();
+        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(algorithm);
+        trustManagerFactory.init(keyStore);
+        TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+        // 用 TrustManager 初始化一个 SSLContext
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, trustManagers, null);
+
+        return sslContext;
     }
 }
