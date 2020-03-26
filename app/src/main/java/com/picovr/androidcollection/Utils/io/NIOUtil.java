@@ -1,5 +1,7 @@
 package com.picovr.androidcollection.Utils.io;
 
+import android.widget.Button;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -7,6 +9,7 @@ import java.net.ServerSocket;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
+import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -23,20 +26,20 @@ public class NIOUtil {
      * <p>
      * <p>
      * Bytebuffer {@link ByteBuffer}部分方法说明：
-     *      position()：将要读取或者写入的下一个位置
-     *      capacity()：容量
-     *      limit(): 可访问数据的末尾位置，读写无法超过这个位置
-     *      clear(): 将位置设置为0，并将limit设置为最大容量capacity。数据并没有删除，可以是个get方法或者改变位置和限度进行读取。
-     *      reset(): 将当前位置设置为mark位置
-     *      rewind(): 将位置置为0，不改变limit
-     *      flip(): limit设置为当前位置，位置再置为0
-     *      remainning(): 返回缓冲区当前位置和限度位置之间的元素个数
+     * position()：将要读取或者写入的下一个位置
+     * capacity()：容量
+     * limit(): 可访问数据的末尾位置，读写无法超过这个位置
+     * clear(): 将位置设置为0，并将limit设置为最大容量capacity。数据并没有删除，可以是个get方法或者改变位置和限度进行读取。
+     * reset(): 将当前位置设置为mark位置
+     * rewind(): 将位置置为0，不改变limit
+     * flip(): limit设置为当前位置，位置再置为0
+     * remainning(): 返回缓冲区当前位置和限度位置之间的元素个数
      *
      * @param host
      * @param port
      * @param configBlocking
      */
-    public void createSampleNIOClient(String host, int port, boolean configBlocking) {
+    public void createTCPSampleNIOClient(String host, int port, boolean configBlocking) {
         try {
             InetSocketAddress inetSocketAddress = new InetSocketAddress(host, port);
             SocketChannel socketChannel = SocketChannel.open(inetSocketAddress);
@@ -70,7 +73,7 @@ public class NIOUtil {
      *
      * @param port
      */
-    public void createSampleNIOServer(int port) {
+    public void createTCPSampleNIOServer(int port) {
 
         ServerSocketChannel serverSocketChannel;
         Selector selector;
@@ -132,6 +135,67 @@ public class NIOUtil {
             }
         }
 
+    }
+
+
+    public static void createUDPSampleNIOClient(int port) {
+        try {
+            DatagramChannel datagramChannel = DatagramChannel.open();
+            datagramChannel.configureBlocking(false);
+            datagramChannel.connect(new InetSocketAddress(port));
+            //如果是服务端，就用bind
+
+            Selector selector = Selector.open();
+            datagramChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+
+
+            ByteBuffer byteBuffer = ByteBuffer.allocate(4);
+            int n = 0;
+            int numbersRead = 0;
+            while (true) {
+                if (numbersRead == 100) {
+                    break;
+                }
+                // 为一个链接等待一分钟
+                selector.select(60 * 1000);
+                Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                if (selectionKeys.isEmpty() && n == 100) {
+                    // 所有包已经写入
+                    break;
+                } else {
+                    Iterator<SelectionKey> iterator = selectionKeys.iterator();
+                    while (iterator.hasNext()) {
+                        SelectionKey key = iterator.next();
+                        iterator.remove();
+                        if (key.isReadable()) {
+                            byteBuffer.clear();
+                            datagramChannel.read(byteBuffer);
+                            byteBuffer.flip();
+                            int echo = byteBuffer.getInt();
+                            System.out.println("Read:" + echo);
+                            numbersRead++;
+                        }
+
+                        if (key.isWritable()) {
+                            byteBuffer.clear();
+                            byteBuffer.putInt(n);
+                            byteBuffer.flip();
+                            datagramChannel.write(byteBuffer);
+                            System.out.println("Wirte:" + n);
+                            n++;
+                            if (n == 100) {
+                                // 如果所有包已经写入，切换只读模式
+                                key.interestOps(SelectionKey.OP_READ);
+                            }
+                        }
+                    }
+                }
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
