@@ -4,12 +4,17 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.Closeable;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 public class IOUtils {
 
@@ -90,5 +95,76 @@ public class IOUtils {
             close(bufferedOutput);
         }
         return file;
+    }
+
+    /**
+     * 解压压缩文件
+     * 压缩大量小文件时，建议使用ZipInputStream
+     * @param sourceFile
+     * @param targetDir
+     */
+    public static void zipReadByZipInput(File sourceFile, File targetDir) {
+        FileInputStream fis = null;
+        BufferedInputStream bufferedInputStream = null;
+        try {
+            fis = new FileInputStream(sourceFile);
+            ZipInputStream zipInputStream = new ZipInputStream(new BufferedInputStream(fis));
+            bufferedInputStream = new BufferedInputStream(zipInputStream);
+            byte[] buffer = new byte[8192];
+            ZipEntry zipEntry = null;
+            while ((zipEntry = zipInputStream.getNextEntry()) != null) {
+                File zipFile = new File(targetDir, zipEntry.getName());
+                FileOutputStream fos = new FileOutputStream(zipFile);
+                int count = 0;
+                while ((count = bufferedInputStream.read(buffer)) != -1) {
+                    fos.write(buffer, 0, count);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.close(fis);
+            IOUtils.close(bufferedInputStream);
+        }
+
+    }
+
+    /**
+     * 加压压缩文件
+     * @param sourceFile
+     * @param targetDir
+     */
+    public static void zipReadByZipFile(File sourceFile, File targetDir) {
+        ZipFile zipFile = null;
+        InputStream in = null;
+        FileOutputStream fileOutputStream = null;
+        try {
+            zipFile = new ZipFile(sourceFile);
+            byte[] bytes = new byte[8192];
+            Enumeration<? extends ZipEntry> entries = zipFile.entries();
+            ZipEntry zipEntry;
+            while (entries.hasMoreElements()) {
+                zipEntry = entries.nextElement();
+                fileOutputStream = new FileOutputStream(new File(targetDir, zipEntry.getName()));
+                // 低压缩率，比如文本
+                if (zipEntry.getName().endsWith(".txt")) {
+                    in = new BufferedInputStream(zipFile.getInputStream(zipEntry));
+                    int count = 0;
+                    while ((count = in.read(bytes)) != -1) {
+                        fileOutputStream.write(bytes, 0, count);
+                    }
+                } else {// 高压缩率比如，图片
+                    in = zipFile.getInputStream(zipEntry);
+                    int count = 0;
+                    while ((count = in.read(bytes)) != -1) {
+                        fileOutputStream.write(bytes, 0, count);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
