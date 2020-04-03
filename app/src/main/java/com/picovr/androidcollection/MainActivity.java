@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
+    private BrowserView mBrowserView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

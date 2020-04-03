@@ -190,14 +190,6 @@ public class BrowserView extends WebView implements DownloadListener {
         super.destroy();
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && canGoBack()) {
-            goBack();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
     /**
      * 设置webView监听
