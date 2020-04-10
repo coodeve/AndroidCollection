@@ -3,53 +3,33 @@ package com.picovr.androidcollection.Utils.dev.ble;
 import java.util.UUID;
 
 public class BleConfig {
-    /**
-     * service uuid
-     */
-    public static UUID UUID_SERVICE;
+
+    /* Current Time Service UUID */
+    private final static UUID UUID_SERVICE = UUID.fromString("00001805-0000-1000-8000-00805f9b34fb");
+    /* Mandatory Current Time Information Characteristic */
+    private final static UUID UUID_CHARACTERISTIC = UUID.fromString("00002a2b-0000-1000-8000-00805f9b34fb");
+
+
 
     /**
-     * characteristic uuid
+     * 默认服务的UUID
+     *
+     * @return
      */
-    public static UUID UUID_CHARACTERISTIC;
-
-
-    public static int MAX_RECONNECT_COUNT = -1;
+    public static UUID getServiceUuid() {
+        return UUID_SERVICE;
+    }
 
     /**
-     * 修改默认值
-     * @param uuidService
-     * @param uuidCharacteristic
-     * @param reconnectCount
+     * 默认Characteristic的UUID
+     *
+     * @return
      */
-    public static void init(UUID uuidService, UUID uuidCharacteristic, int reconnectCount) {
-        UUID_SERVICE = uuidService;
-        UUID_CHARACTERISTIC = uuidCharacteristic;
-        MAX_RECONNECT_COUNT = reconnectCount;
+    public static UUID getCharacteristicUuid() {
+        return UUID_CHARACTERISTIC;
     }
 
-    public static UUID getServiceUuid(){
-        if (UUID_SERVICE == null){
-            return UUID.fromString("00001000-0000-1000-8000-00805f9b34fb");
-        }else {
-            return UUID_SERVICE;
-        }
-    }
 
-    public static UUID getCharacteristicUuid(){
-        if (UUID_CHARACTERISTIC == null){
-            return UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
-        }else {
-            return UUID_CHARACTERISTIC;
-        }
-    }
-
-    public static int getMaxReconnectCount(){
-        if (MAX_RECONNECT_COUNT == -1){
-            return Integer.MAX_VALUE;
-        }else {
-            return MAX_RECONNECT_COUNT;
-        }
-    }
+    public static int MAX_RECONNECT = 2;
 
 }

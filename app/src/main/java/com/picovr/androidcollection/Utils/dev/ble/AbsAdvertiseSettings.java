@@ -22,41 +22,36 @@ public abstract class AbsAdvertiseSettings {
      */
     protected abstract AdvertiseData buildData();
 
-    public static class DefaultAbsAdvertiseSettings extends AbsAdvertiseSettings {
 
-        private String advertiseData = "hello from servser";
+    /**
+     * 默认
+     */
+    public final static AbsAdvertiseSettings DEFAULT = new DefaultAbsAdvertiseSettings();
+
+    public static class DefaultAbsAdvertiseSettings extends AbsAdvertiseSettings {
+        /**
+         * 自定义广播数据
+         */
+        private String advertiseData = "Hello from BleServser";
 
         @Override
         protected AdvertiseSettings buildSettings() {
             return new AdvertiseSettings.Builder()
-                    /*
-                    ADVERTISE_MODE_LOW_LATENCY 100ms
-                    ADVERTISE_MODE_LOW_POWER 1s(默认)
-                    ADVERTISE_MODE_BALANCED  250ms
-                    */
                     .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_BALANCED)
-                    /*
-                    ADVERTISE_TX_POWER_ULTRA_LOW
-                    ADVERTISE_TX_POWER_LOW
-                    ADVERTISE_TX_POWER_MEDIUM(默认)
-                    ADVERTISE_TX_POWER_HIGH
-                    */
                     .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_MEDIUM)
                     .build();
         }
 
         @Override
         protected AdvertiseData buildData() {
-            AdvertiseData.Builder builder = new AdvertiseData.Builder();
-            builder.addServiceUuid(new ParcelUuid(BleConfig.getServiceUuid()));
-            builder.setIncludeDeviceName(true);
-            builder.addServiceData(new ParcelUuid(BleConfig.getServiceUuid()), advertiseData.getBytes());
+            AdvertiseData.Builder builder = new AdvertiseData.Builder()
+                    .addServiceUuid(new ParcelUuid(BleConfig.getServiceUuid()))
+                    .setIncludeDeviceName(true)
+                    .setIncludeTxPowerLevel(false)
+                    .addServiceData(new ParcelUuid(BleConfig.getServiceUuid()), advertiseData.getBytes());
             return builder.build();
         }
     }
-
-
-    public final static AbsAdvertiseSettings DEFAULT = new DefaultAbsAdvertiseSettings();
 
 
 }
