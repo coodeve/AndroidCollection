@@ -8,4 +8,8 @@
     android:background="@android:color/darker_gray"
     tools:context="com.picovr.androidcollection.MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hello world" />
 </RelativeLayout>

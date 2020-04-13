@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -276,6 +277,18 @@ public class MediaUtils {
             }
 
         }
+    }
+
+    /**
+     * 扫描指定文件夹，将文件更新到媒体库，类似{@link #notifyContentResolve(Context, String)}
+     *
+     *
+     * MediaScannerConnection还有其他方法可用
+     * @param context
+     * @param path
+     */
+    public void scanMedia(Context context, String path) {
+        MediaScannerConnection.scanFile(context, new String[]{path}, null, null);
     }
 
 }

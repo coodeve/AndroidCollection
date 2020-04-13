@@ -129,7 +129,6 @@ public class InstallUtil {
             PackageInstaller.SessionParams sessionParams = new PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL);
             sessionParams.setAppPackageName(apkName);
             setDontKillApp(sessionParams, dontKillApp);
-
             // 安装
 
             PackageInstaller.Session session = null;

@@ -70,6 +70,8 @@ dependencies {
     implementation 'com.bytedance.ies.ugc.aweme:open-sdk:0.0.1.4'
     // apache common
     implementation 'org.apache.commons:commons-lang3:3.7'
+    // gson
+    implementation 'com.google.code.gson:gson:2.8.6'
 
 
 }
