@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 
 
 /**
-<<<<<<< HEAD
  * 给第一个imageview空间绘制右上角的小红点
  */
 public class RedRelativeLayout extends RelativeLayout {

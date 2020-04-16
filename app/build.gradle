@@ -59,7 +59,12 @@ dependencies {
     // basepopu
     implementation 'com.github.razerdp:BasePopup:2.1.4'
     // 权限申请
-//    implementation 'com.karumi:dexter:6.0.2'
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    // For developers using AndroidX in their applications
+    // implementation 'pub.devrel:easypermissions:3.0.0'
+    // For developers using the Android Support Library
+    implementation 'pub.devrel:easypermissions:2.0.1'
+
     // photoview
     implementation 'com.bm.photoview:library:1.4.1'
     // photoView

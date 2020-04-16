@@ -2,71 +2,52 @@ package com.picovr.androidcollection.Utils.thread;
 
 import android.text.TextUtils;
 
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author patrick.ding
  * @since 20/2/25
  */
 public class ThreadPoolUtils {
-    private static final String TAG = "ThreadPool";
-    private static ThreadPoolUtils mInstance;
-    private final ThreadPoolExecutor threadPoolExecutor;
 
-    private ThreadPoolUtils() {
-        ThreadFactory threadFactory = new ThreadFactoryBuilder().build();
-        threadPoolExecutor = new ThreadPoolExecutor(10,
-                50,
-                10,
-                TimeUnit.MILLISECONDS,
-                new LinkedBlockingQueue<Runnable>(1024), threadFactory);
-    }
+    private static final ThreadPoolExecutor THREAD_POOL_EXECUTOR;
 
-    public static ThreadPoolUtils getInstance() {
-        if (mInstance == null) {
-            synchronized ("") {
-                if (mInstance == null) {
-                    mInstance = new ThreadPoolUtils();
-                }
-            }
-        }
-        return mInstance;
-    }
+    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
 
-    public void execute(Runnable r) {
-        if (threadPoolExecutor != null) {
-            threadPoolExecutor.submit(r);
-        }
-    }
+    private static final int CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4));
 
-    public class ThreadFactoryBuilder implements ThreadFactory {
-        private int tcount = 0;
-        private String name;
-        private int priority = Thread.NORM_PRIORITY;
+    private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
 
-        public void setName(String name) {
-            this.name = name;
-        }
+    private static final int KEEP_ALIVE_SECONDS = 30;
 
-        public void setPriority(int priority) {
-            this.priority = priority;
-        }
+    private static final ThreadFactory sThreadFactory = new ThreadFactory() {
+        private final AtomicInteger mCount = new AtomicInteger(1);
 
-        public ThreadFactory build() {
-            return this;
-        }
-
-        @Override
         public Thread newThread(Runnable r) {
-            Thread t = new Thread(r);
-            if (!TextUtils.isEmpty(name)) {
-                t.setName(name + (tcount++));
-            }
-            t.setPriority(priority);
-            return t;
+            return new Thread(r, "AsyncTaskUtils #" + mCount.getAndIncrement());
         }
+    };
+
+    private static final BlockingQueue<Runnable> sPoolWorkQueue = new LinkedBlockingQueue<Runnable>(16);
+
+    static {
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
+                CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,
+                sPoolWorkQueue, sThreadFactory);
+        threadPoolExecutor.allowCoreThreadTimeOut(true);
+        THREAD_POOL_EXECUTOR = threadPoolExecutor;
+    }
+
+    public static void execute(Runnable runnable) {
+        THREAD_POOL_EXECUTOR.execute(runnable);
+    }
+
+    public static void stopPool() {
+        THREAD_POOL_EXECUTOR.shutdown();
     }
 }

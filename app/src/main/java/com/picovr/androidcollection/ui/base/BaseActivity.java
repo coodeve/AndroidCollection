@@ -8,15 +8,27 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import com.picovr.androidcollection.R;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
 
-public abstract class BaseActivity extends AppCompatActivity {
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+import pub.devrel.easypermissions.PermissionRequest;
+
+
+public abstract class BaseActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+
+    private static final int REQUEST_PERMISSION_CODE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,5 +150,58 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+    }
+
+    public boolean checkPermission(String permission) {
+        return EasyPermissions.hasPermissions(this, permission);
+    }
+
+    public void requestPermission(String rationsl, String... permissions) {
+        EasyPermissions.requestPermissions(this, rationsl, REQUEST_PERMISSION_CODE, permissions);
+    }
+
+    public void requestPermissionDialog(String rationsl, String... permissions) {
+        EasyPermissions.requestPermissions(
+                new PermissionRequest.Builder(this, REQUEST_PERMISSION_CODE, permissions)
+                        .setRationale(rationsl)
+                        .setPositiveButtonText("ok")
+                        .setNegativeButtonText("cancel")
+                        .setTheme(R.style.AppTheme)
+                        .build());
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> list) {
+        // Some permissions have been granted
+        // ...
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> list) {
+        // Some permissions have been denied
+        // ...
+        // (Optional) Check whether the user denied any permissions and checked "NEVER ASK AGAIN."
+        // This will display a dialog directing them to enable the permission in app settings.
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, list)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
+            // Do something after user returned from app settings screen, like showing a Toast.
+            Toast.makeText(getApplicationContext(), "has permission", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 }
