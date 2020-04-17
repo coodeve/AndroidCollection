@@ -5,7 +5,10 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 
 public class ToastUtil {
@@ -46,7 +49,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
             } else {
-                mToast.setText(message);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(message);
             }
             mToast.show();
         }
@@ -63,7 +67,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, resId, Toast.LENGTH_SHORT);
             } else {
-                mToast.setText(resId);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(resId);
             }
             mToast.show();
         }
@@ -80,7 +85,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, message, Toast.LENGTH_LONG);
             } else {
-                mToast.setText(message);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(message);
             }
             mToast.show();
         }
@@ -97,7 +103,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, resId, Toast.LENGTH_LONG);
             } else {
-                mToast.setText(resId);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(resId);
             }
             mToast.show();
         }
@@ -136,7 +143,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, message, duration);
             } else {
-                mToast.setText(message);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(message);
             }
             mToast.show();
         }
@@ -154,7 +162,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, resId, duration);
             } else {
-                mToast.setText(resId);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(resId);
             }
             mToast.show();
         }
@@ -173,7 +182,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, message, duration);
             } else {
-                mToast.setText(message);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(message);
             }
             if (view != null) {
                 mToast.setView(view);
@@ -197,7 +207,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, message, duration);
             } else {
-                mToast.setText(message);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(message);
             }
             mToast.setGravity(gravity, xOffset, yOffset);
             mToast.show();
@@ -220,7 +231,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, message, duration);
             } else {
-                mToast.setText(message);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(message);
             }
             mToast.setGravity(gravity, xOffset, yOffset);
             LinearLayout toastView = (LinearLayout) mToast.getView();
@@ -251,7 +263,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, message, duration);
             } else {
-                mToast.setText(message);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(message);
             }
             if (view != null) {
                 mToast.setView(view);
@@ -286,7 +299,8 @@ public class ToastUtil {
             if (mToast == null) {
                 mToast = Toast.makeText(context, resId, duration);
             } else {
-                mToast.setText(resId);
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(resId);
             }
             if (view != null) {
                 mToast.setView(view);
@@ -309,11 +323,11 @@ public class ToastUtil {
      */
     public static void showSafe2(Context context, String text) {
         try {
-            if (mToast != null) {
-                mToast.setText(text);
-            } else {
+            if (mToast == null) {
                 mToast = Toast.makeText(context, null, Toast.LENGTH_SHORT);
-                mToast.setText(text);
+            } else {
+                TextView textView = mToast.getView().findViewById(android.R.id.message);
+                textView.setText(text);
             }
             mToast.show();
         } catch (Exception e) {//子线程中Toast异常情况处理
