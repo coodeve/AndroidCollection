@@ -102,7 +102,7 @@ public class ShareUtils {
             Intent share = new Intent(Intent.ACTION_SEND);
             Uri uri;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                uri = FileProvider.getUriForFile(context, "com.picovr.assistantphone.FileProvider", file);
+                uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", file);
             } else {
                 uri = Uri.fromFile(file);
             }
@@ -131,7 +131,7 @@ public class ShareUtils {
                 Intent share = new Intent(Intent.ACTION_SEND);
                 Uri uri;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    uri = FileProvider.getUriForFile(context, "com.picovr.assistantphone.FileProvider", file);
+                    uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", file);
                 } else {
                     uri = Uri.fromFile(file);
                 }
@@ -168,7 +168,7 @@ public class ShareUtils {
                 Intent share = new Intent(Intent.ACTION_SEND);
                 Uri uri;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    uri = FileProvider.getUriForFile(context, "com.picovr.assistantphone.FileProvider", file);
+                    uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", file);
                 } else {
                     uri = Uri.fromFile(file);
                 }
@@ -240,7 +240,7 @@ public class ShareUtils {
             Intent share = new Intent(Intent.ACTION_SEND);
             Uri uri;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                uri = FileProvider.getUriForFile(context, "com.picovr.assistantphone.FileProvider", file);
+                uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", file);
             } else {
                 uri = Uri.fromFile(file);
             }
@@ -269,7 +269,7 @@ public class ShareUtils {
             Intent share = new Intent(Intent.ACTION_SEND);
             Uri uri;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                uri = FileProvider.getUriForFile(context, "com.picovr.assistantphone.FileProvider", file);
+                uri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileProvider", file);
             } else {
                 uri = Uri.fromFile(file);
             }

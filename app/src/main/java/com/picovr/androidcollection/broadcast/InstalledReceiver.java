@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.util.Log;
 
 public class InstalledReceiver extends BroadcastReceiver {
     private Context mContext;
@@ -24,18 +25,36 @@ public class InstalledReceiver extends BroadcastReceiver {
 
         try {
             String packageName = intent.getData().getSchemeSpecificPart();
-            if (action.equals("android.intent.action.PACKAGE_ADDED")) {     // install
-
-                if (mCallback != null) {
-                    mCallback.install(packageName);
+            boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
+            Log.i("NestServer", "action :" + action + "," + packageName);
+            if (action.equals(Intent.ACTION_PACKAGE_REMOVED)) {   // uninstall
+                Log.i("NestServer", "Uninstall :" + packageName + "," + replacing);
+                if (replacing) {
+                    return;
                 }
-            } else if (action.equals("android.intent.action.PACKAGE_REMOVED")) {   // uninstall
                 if (mCallback != null) {
                     mCallback.uninstall(packageName);
                 }
-            } else if (action.equals("android.intent.action.INSTALL_PACKAGE")) {
-
             }
+
+            if (action.equals(Intent.ACTION_PACKAGE_ADDED)) {     // install
+                Log.i("NestServer", "Install :" + packageName + "," + replacing);
+                if (replacing) {
+                    return;
+                }
+                if (mCallback != null) {
+                    mCallback.install(packageName);
+                }
+            }
+
+            if (action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
+                Log.i("NestServer", "Replaced :" + packageName + "," + replacing);
+                if (mCallback != null) {
+                    mCallback.replace(packageName);
+                }
+            }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,5 +79,7 @@ public class InstalledReceiver extends BroadcastReceiver {
         void install(String installPackageName);
 
         void uninstall(String uninstallPackageName);
+
+        void replace(String packageName);
     }
 }

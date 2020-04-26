@@ -66,7 +66,7 @@
         <!-- 用于向外提供数据 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.picovr.androidcollection"
+            android:authorities="com.picovr.androidcollection.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

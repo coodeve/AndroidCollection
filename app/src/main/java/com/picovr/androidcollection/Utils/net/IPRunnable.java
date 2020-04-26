@@ -16,6 +16,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 获取公网ip
+ */
 public class IPRunnable implements Runnable {
 
     private static ThreadPoolExecutor sThreadPoolExecutor =
