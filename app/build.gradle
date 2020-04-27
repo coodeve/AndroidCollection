@@ -80,6 +80,9 @@ dependencies {
     // okhttp & okio
     implementation 'com.squareup.okhttp3:okhttp:3.14.2'
     implementation 'com.squareup.okio:okio:1.17.4'
+    // anotationlib
+    implementation project(path: ':annotationlib:annotation')
+    annotationProcessor project(path: ':annotationlib:complier')
 
 
 }

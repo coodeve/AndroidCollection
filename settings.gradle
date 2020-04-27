@@ -1,1 +1,4 @@
-include ':app', ':androidlibrary', ':javalib', ':androidmodule'
+include ':app', ':annotationlib:annotation', ':annotationlib:complier'
+include ':androidlibrary'
+include ':javalib'
+include ':androidmodule'

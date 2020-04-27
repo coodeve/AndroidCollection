@@ -35,6 +35,13 @@ public class TimeUtils {
         return sd;
     }
 
+    public static String formatTime(Context context, long times) {
+        String localFormat = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(localFormat, Locale.getDefault());
+        String sd = simpleDateFormat.format(new Date(times));
+        return sd;
+    }
+
     /**
      * 1.如果是今天 则返回 <上午/下午 08:00>
      * 2.如果是明天 则返回 <明天上午/明天下午 08：00>
@@ -208,6 +215,7 @@ public class TimeUtils {
 
     /**
      * 格式化
+     *
      * @param seconds
      * @return
      */

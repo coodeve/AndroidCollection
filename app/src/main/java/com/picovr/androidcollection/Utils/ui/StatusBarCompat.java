@@ -7,15 +7,6 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * <pre>
- *   @author  : fpt
- *   e-mail  : fengfei0205@gmail.com
- *   time    : 2018/12/07 11:32
- *   desc    : 状态栏沉浸式工具
- *   version : 1.0.0
- * </pre>
- */
 public class StatusBarCompat {
     private static final int INVALID_VAL = -1;
     private static final int COLOR_DEFAULT = Color.parseColor("#00000000");

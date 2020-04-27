@@ -25,8 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".test.BleClientActivity"></activity>
-        <activity android:name=".test.BleServerActivity" />
+        <activity android:name=".test.butterknife.ButterknifeActivity"></activity>
+        <activity android:name=".test.ble.BleClientActivity" />
+        <activity android:name=".test.ble.BleServerActivity" />
         <activity android:name=".widget.webview.WebActivity" />
         <activity
             android:name=".MainActivity"
@@ -61,9 +62,7 @@
                 <data android:scheme="http" />
                 <data android:scheme="https" />
             </intent-filter>
-        </activity>
-
-        <!-- 用于向外提供数据 -->
+        </activity> <!-- 用于向外提供数据 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.picovr.androidcollection.fileProvider"

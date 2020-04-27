@@ -1,4 +1,4 @@
-package com.picovr.androidcollection.Utils.common;
+package com.picovr.androidcollection.Utils.io;
 
 import android.text.TextUtils;
 

@@ -1,6 +1,6 @@
 package com.picovr.androidcollection.Utils.net.okhttp;
 
-import com.picovr.androidcollection.Utils.common.FileUtil;
+import com.picovr.androidcollection.Utils.io.FileUtil;
 
 import org.json.JSONObject;
 
