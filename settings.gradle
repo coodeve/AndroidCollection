@@ -1,4 +1,2 @@
 include ':app', ':annotationlib:annotation', ':annotationlib:complier'
-include ':androidlibrary'
-include ':javalib'
-include ':androidmodule'
+

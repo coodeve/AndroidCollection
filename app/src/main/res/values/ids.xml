@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ID,可以引用和动态设置View的id -->
+    <item name="btn_click" type="id" />
+</resources>

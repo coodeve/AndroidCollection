@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--fontWeight常见为400，粗体时一般为700.值时100的整数倍，介于100~900-->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400" />
+    android:font="@font/din_bold" />
+    <font
+        android:font="@font/din_bold"
+        android:fontStyle="italic"
+        android:fontWeight="400" />
+</font-family>
