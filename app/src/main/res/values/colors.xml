@@ -30,4 +30,9 @@
     <color name="top_text_color_hover">#FF333333</color>
     <color name="top_text_color_press">#FF333333</color>
     <color name="top_text_color_select">#FF707070</color>
+
+     <!--下载颜色-->
+    <color name="progressbar_progress_download_color">#FFC000</color>
+    <color name="progressbar_progress_install_color">#CCCCCD</color>
+    <color name="progressbar_background_color">#545457</color>
 </resources>

@@ -21,6 +21,10 @@ import android.webkit.WebView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.util.ReflectUtils;
+import com.picovr.androidcollection.Utils.common.JNIUtil;
+import com.picovr.androidcollection.Utils.io.IOUtils;
+import com.picovr.androidcollection.Utils.net.NetUtil;
 import com.picovr.androidcollection.Utils.ui.DpPxUtils;
 import com.picovr.androidcollection.widget.webview.BrowserView;
 
@@ -28,12 +32,12 @@ import java.util.List;
 
 public class MainActivity extends FragmentActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
-    private BrowserView mBrowserView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
 }

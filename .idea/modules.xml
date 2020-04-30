@@ -5,7 +5,10 @@
       <module fileurl="file://$PROJECT_DIR$/AndroidCollection.iml" filepath="$PROJECT_DIR$/AndroidCollection.iml" group="AndroidCollection" />
       <module fileurl="file://$PROJECT_DIR$/androidlibrary/androidlibrary.iml" filepath="$PROJECT_DIR$/androidlibrary/androidlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidmodule/androidmodule.iml" filepath="$PROJECT_DIR$/androidmodule/androidmodule.iml" />
+      <module fileurl="file://$PROJECT_DIR$/annotationlib/annotation/annotation.iml" filepath="$PROJECT_DIR$/annotationlib/annotation/annotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/annotationlib/annotationlib.iml" filepath="$PROJECT_DIR$/annotationlib/annotationlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="AndroidCollection/app" />
+      <module fileurl="file://$PROJECT_DIR$/annotationlib/complier/complier.iml" filepath="$PROJECT_DIR$/annotationlib/complier/complier.iml" />
       <module fileurl="file://$PROJECT_DIR$/javalib/javalib.iml" filepath="$PROJECT_DIR$/javalib/javalib.iml" />
       <module fileurl="file://$PROJECT_DIR$/utillibrary/utillibrary.iml" filepath="$PROJECT_DIR$/utillibrary/utillibrary.iml" group="AndroidCollection/utillibrary" />
     </modules>
