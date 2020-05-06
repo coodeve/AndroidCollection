@@ -10,7 +10,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
-            abiFilters "armeabi-v7a"
+            abiFilters "armeabi-v7a", "arm64-v8a"
         }
 
         externalNativeBuild {
@@ -125,4 +125,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     // 标签控件
     implementation 'com.github.donkingliang:LabelsView:1.5.0'
+
+    // breakpad
+    implementation project(path: ":breakpad_build")
 }

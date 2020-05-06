@@ -1,6 +1,7 @@
 package com.picovr.androidcollection;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import com.tencent.smtt.sdk.QbSdk;
@@ -10,10 +11,17 @@ import com.tencent.smtt.sdk.QbSdk;
  * @since 20/2/12
  */
 public class App extends Application {
+    private static Context mContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = getApplicationContext();
         initX5();
+    }
+
+    public static Context getContext() {
+        return mContext;
     }
 
     /**

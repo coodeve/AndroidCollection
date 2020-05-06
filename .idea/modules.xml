@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/annotationlib/annotation/annotation.iml" filepath="$PROJECT_DIR$/annotationlib/annotation/annotation.iml" />
       <module fileurl="file://$PROJECT_DIR$/annotationlib/annotationlib.iml" filepath="$PROJECT_DIR$/annotationlib/annotationlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="AndroidCollection/app" />
+      <module fileurl="file://$PROJECT_DIR$/breakpad_build/breakpad_build.iml" filepath="$PROJECT_DIR$/breakpad_build/breakpad_build.iml" />
       <module fileurl="file://$PROJECT_DIR$/annotationlib/complier/complier.iml" filepath="$PROJECT_DIR$/annotationlib/complier/complier.iml" />
       <module fileurl="file://$PROJECT_DIR$/javalib/javalib.iml" filepath="$PROJECT_DIR$/javalib/javalib.iml" />
       <module fileurl="file://$PROJECT_DIR$/utillibrary/utillibrary.iml" filepath="$PROJECT_DIR$/utillibrary/utillibrary.iml" group="AndroidCollection/utillibrary" />

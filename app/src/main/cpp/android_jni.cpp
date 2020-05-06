@@ -48,6 +48,9 @@ JNIEnv *jniEnv;
 JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
     LOGI("%s", "vm");
 
+    JavaVM *gJavaVM;
+    gJavaVM = vm;
+
     if (JNI_OK != vm->GetEnv(reinterpret_cast<void **>(&jniEnv), JNI_VERSION_1_4)) {
         return JNI_ERR;
     }
@@ -70,6 +73,15 @@ JNIEXPORT void JNICALL Java_com_picovr_androidcollection_Utils_common_JNIUtil_in
         (JNIEnv *jniEnv, jclass jcls) {
     LOGI("%s", "init");
 }
+
+JNIEXPORT void JNICALL Java_com_picovr_androidcollection_Utils_crash_NativeCrash_nativeCrashTest
+        (JNIEnv *jniEnv, jclass jcls) {
+    LOGI("%s", "nativeCrashTest");
+    // 引起crash
+    volatile int *a = (int *) (NULL);
+    *a = 1;
+}
+
 
 #ifdef __cplusplus
 }
