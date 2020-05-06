@@ -2,6 +2,7 @@ package com.picovr.androidcollection.Utils.ui;
 
 import android.content.Context;
 import android.os.Looper;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;

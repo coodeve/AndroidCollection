@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+    android:orientation="vertical"
+    android:padding="10dp"
     tools:context="com.picovr.androidcollection.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.donkingliang.labels.LabelsView
+        android:id="@+id/labels"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hello world" />
-</RelativeLayout>
+        app:labelBackground="@drawable/label_bg"
+        app:labelTextColor="@drawable/label_text_color"
+        app:labelTextPaddingBottom="5dp"
+        app:labelTextPaddingLeft="10dp"
+        app:labelTextPaddingRight="10dp"
+        app:labelTextPaddingTop="5dp"
+        app:labelTextSize="14sp"
+        app:lineMargin="10dp"
+        app:maxLines="0"
+        app:selectType="NONE"
+        app:wordMargin="10dp" />
+</ScrollView>
