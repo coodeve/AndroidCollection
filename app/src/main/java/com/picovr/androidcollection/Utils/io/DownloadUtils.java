@@ -13,6 +13,9 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.webkit.URLUtil;
 
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -177,5 +180,6 @@ public class DownloadUtils {
         }
         return type;
     }
+
 
 }

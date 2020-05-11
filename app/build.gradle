@@ -128,4 +128,7 @@ dependencies {
 
     // breakpad
     implementation project(path: ":breakpad_build")
+
+    //xUtils3
+    implementation 'org.xutils:xutils:3.5.0'
 }

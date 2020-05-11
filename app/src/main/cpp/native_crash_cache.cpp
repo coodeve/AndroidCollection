@@ -52,7 +52,7 @@ void my_handler(int code, struct siginfo *pSiginfo, void *sc) {
 
 void *DumpThreadEntry(void *argv) {
     JNIEnv *env = NULL;
-    JavaVM* gJavaVM;
+    JavaVM *gJavaVM;
     int estatus = 1;
     if (gJavaVM->AttachCurrentThread(&env, NULL) != JNI_OK) {
         LOGE("AttachCurrentThread() failed");
