@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.coo.alloctrack"
+        applicationId "com.pvr.atracehook"
         minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
@@ -18,7 +18,6 @@ android {
                 abiFilters "armeabi-v7a"
             }
         }
-
     }
 
     buildTypes {
@@ -28,17 +27,15 @@ android {
         }
     }
 
-
-    externalNativeBuild {
-        cmake {
-            path "src/main/cpp/CMakeLists.txt"
-        }
-    }
+     externalNativeBuild{
+         cmake{
+             path "src/main/cpp/CMakeLists.txt"
+         }
+     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
