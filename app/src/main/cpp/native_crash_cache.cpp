@@ -9,7 +9,19 @@
 #include <jni.h>
 #include <pthread.h>
 #include <dlfcn.h>
-#include "Logger.h"
+#include <unistd.h>
+
+
+
+void callback(Thread *thread, void *p) {
+
+}
+
+void get_native_thread() {
+    void *handle = dlopen("libart.so", RTLD_LAZY);
+    void (*foreach)()
+    dlsym(handle, "ForEach")
+}
 
 
 /**

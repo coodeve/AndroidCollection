@@ -1,2 +1,2 @@
-include ':app', ':annotationlib:annotation', ':annotationlib:complier', ':breakpad_build',':DumpPrinter',':alloctrack', ':atracehook'
+include ':app', ':annotationlib:annotation', ':annotationlib:complier', ':breakpad_build', ':DumpPrinter', ':alloctrack', ':atracehook', ':ThreadHook'
 
