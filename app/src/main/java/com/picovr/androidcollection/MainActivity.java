@@ -1,5 +1,6 @@
 package com.picovr.androidcollection;
 
+import android.app.ActivityManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class MainActivity extends FragmentActivity {
 
 
     private void init() {
+        ActivityManager am;
         mLabelsView.setLabels(TestActionFactory.getAll(), new LabelsView.LabelTextProvider<TestAction>() {
             @Override
             public CharSequence getLabelText(TextView label, int position, TestAction data) {

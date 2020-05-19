@@ -6,6 +6,7 @@ buildscript {
         google()
         maven { url "https://jitpack.io" }
         jcenter()
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.2'
@@ -13,6 +14,10 @@ buildscript {
         classpath 'me.tatarka:gradle-retrolambda:3.7.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        // systrace-gradle-plugin
+        classpath "com.github.dcendents:android-maven-gradle-plugin:1.5"
+        classpath ("com.geektime.systrace:systrace-gradle-plugin:1.0")
     }
 }
 
@@ -21,6 +26,7 @@ allprojects {
         google()
         maven { url "https://jitpack.io" }
         jcenter()
+        mavenLocal()
     }
 }
 
