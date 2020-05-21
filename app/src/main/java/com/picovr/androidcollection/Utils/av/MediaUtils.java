@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
@@ -282,14 +283,48 @@ public class MediaUtils {
 
     /**
      * 扫描指定文件夹，将文件更新到媒体库，类似{@link #notifyContentResolve(Context, String)}
-     *
-     *
+     * <p>
+     * <p>
      * MediaScannerConnection还有其他方法可用
+     *
      * @param context
      * @param path
      */
     public void scanMedia(Context context, String path) {
         MediaScannerConnection.scanFile(context, new String[]{path}, null, null);
+    }
+
+    public static class ImageBean {
+        public String path;
+        public String name;
+    }
+
+    public static List<ImageBean> getAllImages(Context context) {
+        Uri imageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        ContentResolver contentResolver = context.getContentResolver();
+        Cursor cursor = contentResolver.query(imageUri,
+                null,
+                MediaStore.Images.Media.MIME_TYPE + "=? or "
+                        + MediaStore.Images.Media.MIME_TYPE + "=?",
+                new String[]{"image/jpg", "image/png"},
+                MediaStore.Images.Media.DATE_MODIFIED);
+        if (cursor == null) {
+            return null;
+        }
+
+        List<ImageBean> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            String displayName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
+            ImageBean imageBean = new ImageBean();
+            imageBean.path = path;
+            imageBean.name = displayName;
+            list.add(imageBean);
+        }
+
+        cursor.close();
+
+        return list;
     }
 
 }

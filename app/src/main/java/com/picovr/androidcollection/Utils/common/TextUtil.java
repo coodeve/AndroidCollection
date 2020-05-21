@@ -4,9 +4,14 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v4.graphics.TypefaceCompat;
 import android.text.Html;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
@@ -62,5 +67,25 @@ public class TextUtil {
         textView.setTypeface(Typeface.createFromFile(fontPath));
     }
 
+    /**
+     * 关键字高亮
+     * @param color
+     * @param text
+     * @param keyword
+     * @return
+     */
+    public static SpannableString matcherTextHighLight(int color, String text, String[] keyword) {
+        SpannableString s = new SpannableString(text);
+        for (int i = 0, len = keyword.length; i < len; i++) {
+            Pattern compile = Pattern.compile(keyword[i]);
+            Matcher matcher = compile.matcher(s);
+            while (matcher.find()) {
+                int start = matcher.start();
+                int end = matcher.end();
+                s.setSpan(new ForegroundColorSpan(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+        return s;
+    }
 
 }

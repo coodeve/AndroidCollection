@@ -1,10 +1,18 @@
 package com.picovr.androidcollection.Utils.io;
 
+import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -81,5 +89,65 @@ public class FileUtil {
             IOUtils.close(fileReader);
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * 获取uri地址
+     *
+     * @param context
+     * @param file
+     * @return
+     */
+    public static Uri getUriForFile(Context context, File file) {
+        Uri fileUri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //参数：authority 需要和清单文件中配置的保持完全一致：${applicationId}.xxx
+            fileUri = FileProvider.getUriForFile(context, context.getPackageName(), file);
+        } else {
+            fileUri = Uri.fromFile(file);
+        }
+        return fileUri;
+    }
+
+    /**
+     * 删除文件或文件夹
+     * @param file
+     */
+    public static void delete(File file) {
+        if (file.exists() && file.isFile()) {
+            file.delete();
+            return;
+        }
+        File[] files = file.listFiles();
+        if (files.length == 0) {
+            file.delete();
+        } else {
+            for (File childFile : files) {
+                delete(childFile);
+            }
+            file.delete();
+        }
+
+    }
+
+    /**
+     * 文件复制
+     * @param source
+     * @param target
+     */
+    public static void copy(File source,File target){
+        try{
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(source));
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(target));
+            byte[] buffer = new byte[4096];
+            int len = 0;
+            while ((len = bufferedInputStream.read()) != -1) {
+                bufferedOutputStream.write(buffer,0,len);
+            }
+            bufferedInputStream.close();
+            bufferedOutputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
