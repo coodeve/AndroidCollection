@@ -24,8 +24,7 @@ class SystracePlugin implements Plugin<Project> {
         project.afterEvaluate {
             def android = project.extensions.android
             def configuration = project.systrace
-            android.applicatinVoariants.all { variant ->
-
+            android.applicationVariants.all { variant ->
                 String output = configuration.output
                 if (Util.isNullOrNil(output)) {
                     configuration.output = project.getBuildDir().getAbsolutePath() + File.separator + "systrace_output"

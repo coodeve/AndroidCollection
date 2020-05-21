@@ -1,2 +1,11 @@
-include ':app', ':annotationlib:annotation', ':annotationlib:complier', ':breakpad_build', ':DumpPrinter', ':alloctrack', ':atracehook', ':ThreadHook'
+include ':app',
+        ':annotationlib:annotation',
+        ':annotationlib:complier',
+        ':breakpad_build',
+        ':DumpPrinter',
+        ':alloctrack',
+        ':atracehook',
+        ':ThreadHook',
+        ':systrace-gradle-plugin',
+        ':systrace_sample_android'
 
