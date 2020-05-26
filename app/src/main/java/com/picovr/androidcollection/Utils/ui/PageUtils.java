@@ -20,4 +20,29 @@ public class PageUtils {
         }
         return pageIndex;
     }
+
+    /**
+     * 判断是否是最后一行
+     * 用于GridLayout类似的布局进行判断
+     *
+     * @param currentItemPosition 当前item位置
+     * @param totalItems          总共items
+     * @param spanCount           分为几列
+     * @return
+     */
+    private static boolean isLastRow(int currentItemPosition, int totalItems, int spanCount) {
+        boolean result = false;
+        int rowCount = 0;
+
+        if (0 == totalItems % spanCount) {
+            rowCount = totalItems / spanCount;
+        } else {
+            rowCount = totalItems / spanCount + 1;
+        }
+        if ((currentItemPosition + 1) > (rowCount - 1) * spanCount)
+            result = true;
+
+        return result;
+    }
+
 }

@@ -7,5 +7,5 @@ include ':app',
         ':atracehook',
         ':ThreadHook',
         ':systrace-gradle-plugin',
-        ':systrace_sample_android'
+        ':systrace_sample_android', ':verifycheck'
 

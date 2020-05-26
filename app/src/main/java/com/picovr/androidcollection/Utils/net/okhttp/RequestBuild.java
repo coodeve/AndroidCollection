@@ -63,7 +63,7 @@ public class RequestBuild {
      */
     public Request createPostRequestRaw(String url, String params) {
         RequestBody requestBody =
-                FormBody.create(MediaType.get("application/json"), params);
+                FormBody.create(MediaType.parse("application/json"), params);
         return new Request.Builder().url(url).post(requestBody).build();
     }
 
@@ -80,7 +80,7 @@ public class RequestBuild {
             return null;
         }
         MultipartBody.Builder builder = new MultipartBody.Builder();
-        builder.addFormDataPart(fileName, fileName, RequestBody.create(MediaType.get("application/octet-stream"), new File(filePath)));
+        builder.addFormDataPart(fileName, fileName, RequestBody.create(MediaType.parse("application/octet-stream"), new File(filePath)));
         return new Request.Builder().url(url).post(builder.build()).build();
     }
 }

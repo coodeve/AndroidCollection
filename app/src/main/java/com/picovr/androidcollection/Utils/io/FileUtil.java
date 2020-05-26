@@ -16,8 +16,11 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FileUtil {
+    public static final String TAG = FileUtil.class.getSimpleName();
 
     /**
      * 获取应用名称
@@ -111,6 +114,7 @@ public class FileUtil {
 
     /**
      * 删除文件或文件夹
+     *
      * @param file
      */
     public static void delete(File file) {
@@ -132,22 +136,76 @@ public class FileUtil {
 
     /**
      * 文件复制
+     *
      * @param source
      * @param target
      */
-    public static void copy(File source,File target){
-        try{
+    public static void copy(File source, File target) {
+        try {
             BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(source));
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(target));
             byte[] buffer = new byte[4096];
             int len = 0;
             while ((len = bufferedInputStream.read()) != -1) {
-                bufferedOutputStream.write(buffer,0,len);
+                bufferedOutputStream.write(buffer, 0, len);
             }
             bufferedInputStream.close();
             bufferedOutputStream.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 文件复制
+     *
+     * @param sourceFile
+     * @param targetFile
+     */
+    public static void copyFile(String sourceFile, String targetFile) {
+        File file = new File(sourceFile);
+        if (!file.exists()) {
+            Log.w(TAG, "copyFile: sourceFile: " + sourceFile + " is not exists");
+            return;
+        }
+
+        copyFile(file, new File(targetFile));
+    }
+
+    /**
+     * 复制文件
+     *
+     * @param in
+     * @param out
+     */
+    public static void copyFile(File in, File out) {
+        try {
+            copyFile(new FileInputStream(in), new FileOutputStream(out));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 复制文件
+     *
+     * @param in
+     * @param out
+     * @return
+     */
+    public static void copyFile(InputStream in, OutputStream out) {
+        byte[] buffer = new byte[4096];
+        int read;
+        try {
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.close(in);
+            IOUtils.close(out);
         }
     }
 }

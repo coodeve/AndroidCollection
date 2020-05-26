@@ -1,5 +1,7 @@
 package com.picovr.androidcollection.Utils.net.okhttp;
 
+import android.util.Log;
+
 import com.picovr.androidcollection.Utils.net.SSLManager;
 
 import java.io.IOException;
@@ -11,6 +13,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.WebSocketListener;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class CooHttp {
     public static final String TAG = CooHttp.class.getSimpleName();
@@ -21,15 +24,28 @@ public class CooHttp {
 
     private static OkHttpClient mOkHttpClient;
 
+    public static class HttpLogger implements HttpLoggingInterceptor.Logger {
+        @Override
+        public void log(String message) {
+            Log.i(TAG, message);
+        }
+    }
+
+
     static {
-        mOkHttpClient = new OkHttpClient.Builder()
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(TIME_OUT_CONNECT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT_READ, TimeUnit.SECONDS)
                 .followRedirects(true)
                 .retryOnConnectionFailure(true)
                 .hostnameVerifier(SSLManager.getEmptyHostNameVerifier())// https的支持
-                .sslSocketFactory(SSLManager.getSSLContextNone().getSocketFactory(), SSLManager.getEmptyTrustManager())// https的支持
-                .build();
+                .sslSocketFactory(SSLManager.getSSLContextNone().getSocketFactory(), SSLManager.getEmptyTrustManager());// https的支持
+
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLogger());
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        builder.addNetworkInterceptor(httpLoggingInterceptor);
+
 
     }
 

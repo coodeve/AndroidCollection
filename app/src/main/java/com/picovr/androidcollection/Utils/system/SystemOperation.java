@@ -8,6 +8,8 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import java.lang.reflect.Method;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author patrick.ding
@@ -101,6 +103,7 @@ public class SystemOperation {
 
     /**
      * 屏幕唤醒，需要权限
+     *
      * @param context
      */
     public static void wakeUp(Context context) {
@@ -115,6 +118,7 @@ public class SystemOperation {
 
     /**
      * 屏幕休眠，需要权限
+     *
      * @param context
      */
     public static void sleep(Context context) {
@@ -125,6 +129,32 @@ public class SystemOperation {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 获取当前运行环境是ART还是Davilk
+     * 获取到的版本值大于等于2，即为ART
+     *
+     * @return 返回true则为art环境
+     */
+    public static boolean isArtofRuntime() {
+        StringBuilder stringBuilder = new StringBuilder();
+        String version = PropertyUtils.getSysProperty("java.vm.version");
+        boolean isART = false;
+        if (version != null) {
+            Matcher matcher = Pattern.compile("(\\d+)\\.(\\d+)(\\.\\d+)?").matcher(version);
+            if (matcher.matches()) {
+                try {
+                    int major = Integer.parseInt(matcher.group(1));
+                    int minor = Integer.parseInt(matcher.group(2));
+                    isART = major > 2 || major == 2 && minor >= 1;
+                } catch (NumberFormatException var5) {
+                }
+            }
+        }
+
+        Log.i(TAG, "VM with version " + version + (isART ? " has ART support" : " does not have ART support"));
+        return isART;
     }
 
 }

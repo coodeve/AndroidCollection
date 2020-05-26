@@ -167,4 +167,60 @@ public class IOUtils {
         }
 
     }
+
+    public static boolean unzip(File file, File outDir) throws IOException {
+        if (!file.exists()) {
+            return false;
+        }
+        if (!file.isFile()) {
+            return false;
+        }
+        if (!outDir.exists()) {
+            boolean mkResult = outDir.mkdirs();
+            if (!mkResult) {
+                return false;
+            }
+        }
+
+        ZipFile zipFile = null;
+        try {
+            zipFile = new ZipFile(file);
+            int len = 0;
+            byte[] bytes = new byte[1024];
+            ZipEntry entry = null;
+            Enumeration<ZipEntry> entries = (Enumeration<ZipEntry>) zipFile.entries();
+            while (entries.hasMoreElements()) {
+                entry = entries.nextElement();
+
+                File out = new File(outDir, entry.getName());
+                if (entry.isDirectory()) {
+                    if (!out.exists()) {
+                        out.mkdirs();
+                    }
+                } else {
+                    InputStream in = zipFile.getInputStream(entry);
+                    if (!out.exists()) {
+                        out.getParentFile().mkdirs();
+                    }
+                    BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(out));
+
+                    while ((len = in.read(bytes)) > 0) {
+                        bos.write(bytes, 0, len);
+                    }
+                    bos.flush();
+                    bos.close();
+                    in.close();
+                }
+            }
+        } finally {
+            if (zipFile != null) {
+                try {
+                    zipFile.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return true;
+    }
 }
