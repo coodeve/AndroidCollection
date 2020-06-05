@@ -30,5 +30,13 @@ public class IntentUtil {
     }
 
 
-
+    /**
+     * 进入 启用/禁用 下载管理程序界面
+     */
+    public static void skipToDownloadManager(Context context) {
+        String packageName = "com.android.providers.downloads";
+        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + packageName));
+        context.startActivity(intent);
+    }
 }

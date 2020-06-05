@@ -1,4 +1,4 @@
-package com.picovr.androidcollection.Utils.system;
+package com.picovr.androidcollection.Utils.crash;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

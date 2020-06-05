@@ -36,4 +36,12 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+    <!--自定义折叠textView-->
+    <declare-styleable name="FolderTextView">
+        <attr name="foldText" format="string"/>
+        <attr name="unFoldText" format="string"/>
+        <attr name="foldLine" format="integer"/>
+        <attr name="tailTextColor" format="color"/>
+        <attr name="canFoldAgain" format="boolean"/>
+    </declare-styleable>
 </resources>

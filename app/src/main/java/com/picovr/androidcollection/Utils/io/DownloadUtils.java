@@ -96,7 +96,8 @@ public class DownloadUtils {
                     Cursor cursor = downloadManager.query(query);
                     if (cursor.moveToFirst()) {
                         String fileUri = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                        if (fileUri != null) {
+                        int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                        if (fileUri != null && status == DownloadManager.STATUS_SUCCESSFUL) {
                             Log.i(TAG, "onReceive: fileUri=" + fileUri);
                             action(context, Uri.parse(fileUri), type);
                         }

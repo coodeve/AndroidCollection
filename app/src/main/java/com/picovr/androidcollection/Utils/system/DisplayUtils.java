@@ -8,6 +8,7 @@ import android.hardware.display.DisplayManager;
 import android.util.Log;
 import android.view.Display;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class DisplayUtils {
@@ -61,7 +62,7 @@ public class DisplayUtils {
         return mLaunchDisplayId;
     }
 
-    public void startActivityOnDisplay(Class<? extends Activity> activity , int launchDisplayId){
+    public void startActivityOnDisplay(Class<? extends Activity> activity, int launchDisplayId) {
 
         ActivityOptions activityOptions = null;
         if (launchDisplayId > 0) {
@@ -70,10 +71,10 @@ public class DisplayUtils {
         }
 
         Intent intent = new Intent(mContext, activity);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (activityOptions != null) {
-            mContext.startActivity(intent,activityOptions.toBundle());
-        }else{
+            mContext.startActivity(intent, activityOptions.toBundle());
+        } else {
             mContext.startActivity(intent);
         }
 
@@ -81,11 +82,32 @@ public class DisplayUtils {
     }
 
 
-    public void startActivityOnDisplay(Class<? extends Activity> activity){
-        startActivityOnDisplay(activity,getLaunchDisplayId());
+    public void startActivityOnDisplay(Class<? extends Activity> activity) {
+        startActivityOnDisplay(activity, getLaunchDisplayId());
     }
 
-
+    /**
+     * 获取所属包名
+     *
+     * @param display
+     * @return
+     */
+    public static String getOwnerPackageName(Display display) {
+        String ownerPkg = "";
+        try {
+            Method mtd = display.getClass().getDeclaredMethod("getOwnerPackageName");
+            mtd.setAccessible(true);
+            Object v = mtd.invoke(display);
+            ownerPkg = (String) v;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return ownerPkg;
+    }
 
     /**
      * DISPLAY_TYPE_UNKNOWN = 0;

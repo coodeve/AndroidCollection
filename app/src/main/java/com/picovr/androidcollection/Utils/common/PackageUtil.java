@@ -108,4 +108,60 @@ public class PackageUtil {
         }
         return names;
     }
+
+    /**
+     * 判断给定包名的应用是否已经安装
+     *
+     * @param packageName
+     * @return 0未安装，1已经安装
+     */
+    public static int isInstall(Context context, String packageName) {
+
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = context
+                    .getPackageManager()
+                    .getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+        } catch (PackageManager.NameNotFoundException e) {
+            packageInfo = null;
+        }
+        if (packageInfo != null) {//已经安装
+            return 1;
+        }
+
+
+        return 0;
+    }
+
+
+    /**
+     * 判断给定包名的应用是否已经安装
+     *
+     * @param packageName
+     * @return -1未安装，0已经安装且没有更新，1安装且有更新
+     */
+    public static int isInstall(Context context, String packageName, int versionCode) {
+
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = context
+                    .getPackageManager()
+                    .getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+        } catch (PackageManager.NameNotFoundException e) {
+            packageInfo = null;
+        }
+        if (packageInfo != null) {//已经安装
+            if (packageInfo.versionCode >= versionCode) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+        return -1;
+    }
+
+
+    public static int isInstall(Context context, String packageName, String versionCode) {
+        return isInstall(context, packageName, Integer.valueOf(versionCode));
+    }
 }

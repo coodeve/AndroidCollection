@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Trace;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.blankj.utilcode.util.FileUtils;
@@ -21,12 +22,14 @@ import com.blankj.utilcode.util.ImageUtils;
 import com.picovr.androidcollection.R;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 
 public class MediaUtils {
+    public static final String TAG = MediaUtils.class.getSimpleName();
 
     public static class VideoBean {
         private int id;
@@ -282,6 +285,24 @@ public class MediaUtils {
     }
 
     /**
+     * 获取视频宽高比
+     *
+     * @param file
+     * @return
+     */
+    public static Float getVideoRadio(File file) {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(file.getAbsolutePath());
+        int height = Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)); // 视频高度
+        int width = Integer.parseInt(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)); // 视频宽度
+        Log.d(TAG, "height:" + height + "***width:" + width);
+        DecimalFormat df = new DecimalFormat("0.0");
+        float radio = Float.parseFloat(df.format((float) width / height));
+        Log.d(TAG, "radio = " + radio);
+        return radio;
+    }
+
+    /**
      * 扫描指定文件夹，将文件更新到媒体库，类似{@link #notifyContentResolve(Context, String)}
      * <p>
      * <p>
@@ -293,6 +314,7 @@ public class MediaUtils {
     public void scanMedia(Context context, String path) {
         MediaScannerConnection.scanFile(context, new String[]{path}, null, null);
     }
+
 
     public static class ImageBean {
         public String path;
