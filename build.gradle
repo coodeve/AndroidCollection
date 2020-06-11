@@ -17,7 +17,7 @@ buildscript {
 
         // systrace-gradle-plugin
         classpath "com.github.dcendents:android-maven-gradle-plugin:1.5"
-        classpath ("com.geektime.systrace:systrace-gradle-plugin:1.0")
+//        classpath ("com.geektime.systrace:systrace-gradle-plugin:1.0")
     }
 }
 

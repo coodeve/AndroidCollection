@@ -6,6 +6,7 @@ include ':app',
         ':alloctrack',
         ':atracehook',
         ':ThreadHook',
-        ':systrace-gradle-plugin',
-        ':systrace_sample_android', ':verifycheck'
+//        ':systrace-gradle-plugin',
+//        ':systrace_sample_android',
+        ':verifycheck'
 

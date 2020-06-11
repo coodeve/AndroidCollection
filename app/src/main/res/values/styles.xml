@@ -44,4 +44,10 @@
         <attr name="tailTextColor" format="color"/>
         <attr name="canFoldAgain" format="boolean"/>
     </declare-styleable>
+
+    <style name="Dialog_back_style" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/top_2_center</item>
+        <item name="android:windowExitAnimation">@anim/center_2_bottom</item>
+    </style>
+
 </resources>

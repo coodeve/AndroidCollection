@@ -14,7 +14,14 @@ public class PopWindowHelper {
         mContext = context;
     }
 
-    public void show(View anchor, int layout) {
+    /**
+     * 显示popupwindow
+     *
+     * @param anchor
+     * @param layout
+     * @return
+     */
+    public PopupWindow show(View anchor, int layout) {
         LayoutInflater from = LayoutInflater.from(mContext);
         View view = from.inflate(layout, null);
         PopupWindow popupWindow =
@@ -27,5 +34,27 @@ public class PopWindowHelper {
             popupWindow.showAsDropDown(anchor);
         }
 
+        return popupWindow;
+    }
+
+    /**
+     * 显示popupwindow
+     *
+     * @param anchor
+     * @param view
+     * @return
+     */
+    public PopupWindow show(View anchor, View view) {
+        PopupWindow popupWindow =
+                new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setAnimationStyle(android.R.style.Widget_Holo_PopupWindow);
+        popupWindow.setFocusable(false);
+
+        if (!popupWindow.isShowing()) {
+            popupWindow.showAsDropDown(anchor);
+        }
+
+        return popupWindow;
     }
 }
