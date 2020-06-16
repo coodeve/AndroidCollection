@@ -50,4 +50,14 @@
         <item name="android:windowExitAnimation">@anim/center_2_bottom</item>
     </style>
 
+    <declare-styleable name="InfoView">
+        <attr name="infoView_canFlod" format="boolean" />
+        <attr name="infoView_canExpand" format="boolean" />
+        <attr name="infoView_spanCount" format="integer" />
+        <attr name="infoView_rowFoldCount" format="integer" />
+        <attr name="infoView_rowHeight" format="dimension" />
+        <attr name="infoView_textSize" format="dimension" />
+        <attr name="infoView_textColor" format="color" />
+    </declare-styleable>
+
 </resources>
