@@ -72,15 +72,20 @@ public class RequestBuild {
      *
      * @param url
      * @param filePath
+     * @param mimeType like "image/jpg"
      * @return
      */
-    public Request createUploadRequest(String url, String filePath) {
+    public Request createUploadRequest(String url, String filePath, String mimeType) {
         String fileName = FileUtil.getFileName(filePath);
         if (fileName == null) {
             return null;
         }
+        if (mimeType == null) {
+            mimeType = "application/octet-stream";
+        }
         MultipartBody.Builder builder = new MultipartBody.Builder();
-        builder.addFormDataPart(fileName, fileName, RequestBody.create(MediaType.parse("application/octet-stream"), new File(filePath)));
-        return new Request.Builder().url(url).post(builder.build()).build();
+        builder.addFormDataPart(fileName, fileName, RequestBody.create(MediaType.parse(mimeType), new File(filePath)));
+        MultipartBody multipartBody = builder.build();
+        return new Request.Builder().url(url).post(multipartBody).build();
     }
 }
