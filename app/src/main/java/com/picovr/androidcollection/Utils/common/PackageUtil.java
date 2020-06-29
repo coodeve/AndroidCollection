@@ -1,16 +1,23 @@
 package com.picovr.androidcollection.Utils.common;
 
 import android.app.ActivityManager;
+import android.app.usage.StorageStats;
+import android.app.usage.StorageStatsManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.os.Process;
+import android.os.storage.StorageManager;
+import android.text.format.Formatter;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -163,5 +170,52 @@ public class PackageUtil {
 
     public static int isInstall(Context context, String packageName, String versionCode) {
         return isInstall(context, packageName, Integer.valueOf(versionCode));
+    }
+
+    /**
+     * 获取权限信息
+     *
+     * @return
+     */
+    public PermissionInfo[] getPermissionString(Context context, String packageName) {
+        if (packageName == null) {
+            return null;
+        }
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
+            if (packageInfo != null) {
+                return packageInfo.permissions;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static class AppInfo {
+        public String appSize;
+        public String cacheSize;
+        public String dataSize;
+        public String totalSize;
+
+    }
+
+    public AppInfo getAppSize(Context context, String packageName) {
+        AppInfo appInfo = new AppInfo();
+        StorageStatsManager storageStatsManager = (StorageStatsManager) context.getSystemService(Context.STORAGE_STATS_SERVICE);
+        try {
+            StorageStats storageStats = storageStatsManager.queryStatsForPackage(StorageManager.UUID_DEFAULT, packageName, Process.myUserHandle());
+            appInfo.appSize = Formatter.formatFileSize(context, storageStats.getAppBytes());
+            appInfo.cacheSize = Formatter.formatFileSize(context, storageStats.getCacheBytes());
+            appInfo.dataSize = Formatter.formatFileSize(context, storageStats.getDataBytes());
+            appInfo.totalSize = Formatter.formatFileSize(context, storageStats.getAppBytes() + storageStats.getCacheBytes() + storageStats.getDataBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return appInfo;
     }
 }

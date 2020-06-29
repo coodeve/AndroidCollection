@@ -1,6 +1,7 @@
 package com.picovr.androidcollection.Utils.dev;
 
 import android.content.Context;
+import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
@@ -48,14 +49,14 @@ public class WifiUtil {
 
     private String mCurrentSSID;
 
-    private WifiUtil(Context context){
+    private WifiUtil(Context context) {
         mWifiManager = (WifiManager) context.getSystemService(WIFI_SERVICE);
     }
 
     public static WifiUtil getInstance(Context context) {
         if (instance == null) {
             synchronized (WifiUtils.class) {
-                if(instance == null) {
+                if (instance == null) {
                     instance = new WifiUtil(context);
                 }
             }
@@ -63,16 +64,33 @@ public class WifiUtil {
         return instance;
     }
 
+
     /**
      * 获得wifiManager
+     *
      * @return
      */
-    public WifiManager getWifiManager(){
+    public WifiManager getWifiManager() {
         return mWifiManager;
+    }
+
+
+    public void getIntentFilter() {
+        IntentFilter mFilter = new IntentFilter();
+        mFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        // WiFi扫描结束时系统会发送该广播，用户可以监听该广播通过调用WifiManager的getScanResults方法来获取到扫描结果
+        mFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+        mFilter.addAction(WifiManager.NETWORK_IDS_CHANGED_ACTION);
+        //密码错误的广播
+        mFilter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
+        mFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        mFilter.addAction(WifiManager.RSSI_CHANGED_ACTION);
+        mFilter.addAction("android.net.wifi.CONFIGURED_NETWORKS_CHANGE");
     }
 
     /**
      * Wi-Fi是否有密码
+     *
      * @param result
      * @return
      */
@@ -92,12 +110,13 @@ public class WifiUtil {
 
     /**
      * 连接wifi
-     * @param wifiName  wifi名称
-     * @param wifiPwd   wifi密码
+     *
+     * @param wifiName wifi名称
+     * @param wifiPwd  wifi密码
      * @return
      */
-    public boolean connectWifi(String wifiName, String wifiPwd){
-        if(!mWifiManager.isWifiEnabled()){
+    public boolean connectWifi(String wifiName, String wifiPwd) {
+        if (!mWifiManager.isWifiEnabled()) {
             mWifiManager.setWifiEnabled(true);
         }
 
@@ -108,11 +127,12 @@ public class WifiUtil {
         WifiConfiguration wifiConfig = createWifiInfo(wifiName, wifiPwd, type);
         int networkId = mWifiManager.addNetwork(wifiConfig);
 
-        return connectWifi(wifiConfig,networkId);
+        return connectWifi(wifiConfig, networkId);
     }
 
     /**
      * 移除wifi
+     *
      * @param mSsid
      */
     private void removeWifi(String mSsid) {
@@ -122,7 +142,7 @@ public class WifiUtil {
             String ssid = wifiConfig.SSID;
             if (ssid.equals(mSsid)) {
                 removeWifi(wifiConfig);
-            }else {
+            } else {
                 mWifiManager.disableNetwork(wifiConfig.networkId);
             }
         }
@@ -130,6 +150,7 @@ public class WifiUtil {
 
     /**
      * 移除wifi
+     *
      * @param wifiConfig
      */
     private void removeWifi(WifiConfiguration wifiConfig) {
@@ -143,7 +164,7 @@ public class WifiUtil {
      * 移除当前保留wifi记录
      */
     public void removeCurrentWifi() {
-        if (TextUtils.isEmpty(mCurrentSSID)){
+        if (TextUtils.isEmpty(mCurrentSSID)) {
             return;
         }
         removeWifi(mCurrentSSID);
@@ -198,37 +219,40 @@ public class WifiUtil {
 
     /**
      * 连接wifi
+     *
      * @param wifiConfig
      * @param networkId
      * @return
      */
     private boolean connectWifi(WifiConfiguration wifiConfig, int networkId) {
         if (networkId == -1) {
-            Log.d("WifiUtils","操作失败,需要您到手机wifi列表中取消对设备连接的保存");
+            Log.d("WifiUtils", "操作失败,需要您到手机wifi列表中取消对设备连接的保存");
             removeWifi(wifiConfig);
             return false;
         } else {
-            return mWifiManager.enableNetwork(networkId,true);
+            return mWifiManager.enableNetwork(networkId, true);
         }
     }
 
     /**
      * 获取当前wifi名称
+     *
      * @return
      */
-    public String getWifiName(){
+    public String getWifiName() {
         WifiInfo info = mWifiManager.getConnectionInfo();
         String wifi_ssid = info != null ? info.getSSID() : null;
         if (!TextUtils.isEmpty(wifi_ssid)) {
             String wifiName = wifi_ssid.substring(1, wifi_ssid.length() - 1);
             return wifiName;
-        }else {
+        } else {
             return "";
         }
     }
 
     /**
      * 通过反射得连接wifi的方法
+     *
      * @param netId
      * @return
      */
@@ -262,6 +286,7 @@ public class WifiUtil {
 
     /**
      * 通过反射得忘记wifi配置的方法
+     *
      * @param netId
      */
     private void forgetNetwork(int netId) {
@@ -279,10 +304,10 @@ public class WifiUtil {
     /**
      * 扫描wifi
      */
-    public void scanWifi(){
+    public void scanWifi() {
         if (mWifiManager.isWifiEnabled()) {
             mWifiManager.startScan();
-        }else {
+        } else {
             mWifiManager.setWifiEnabled(true);
         }
     }

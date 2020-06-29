@@ -1,13 +1,21 @@
 package com.picovr.androidcollection.Utils.system;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import java.lang.reflect.Method;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -155,6 +163,97 @@ public class SystemOperation {
 
         Log.i(TAG, "VM with version " + version + (isART ? " has ART support" : " does not have ART support"));
         return isART;
+    }
+
+
+    public int getIntResult(Context context) {
+        int screenMode;
+        int screenBrightness = 255 / 2;
+        try {
+            screenMode = Settings.System.getInt(context.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE);
+            Log.i(TAG, "当前亮度模式 ： " + screenMode);
+            screenBrightness = Settings.System.getInt(
+                    context.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS);
+            Log.i(TAG, "当前亮度为~ ： " + screenBrightness);
+
+            if (screenMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+                setScreenMode(context, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+            }
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        return screenBrightness;
+    }
+
+    private void setScreenMode(Context context, int screenBrightnessModeManual) {
+        Settings.System.putInt(context.getContentResolver(),
+                Settings.System.SCREEN_BRIGHTNESS_MODE,
+                screenBrightnessModeManual);
+    }
+
+    /**
+     * 设置亮度 0~255
+     *
+     * @param value
+     */
+    public void setScreenBrightness(Context context, float value) {
+
+        int screenMode;
+        try {
+            screenMode = Settings.System.getInt(context.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE);
+            if (screenMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+                setScreenMode(context, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+            }
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (value > 255)
+            value = 255;
+        else if (value < 0)
+            value = 0;
+        Window mWindow = ((Activity) context).getWindow();
+        WindowManager.LayoutParams mParams = mWindow.getAttributes();
+        float f = value / 255.0F;
+        mParams.screenBrightness = f;
+        mWindow.setAttributes(mParams);
+
+        // 保存设置的屏幕亮度值
+        Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, (int) value);
+
+    }
+
+    /**
+     * 设置系统语言
+     *
+     * @param locale
+     */
+    public void updateLanguageNew(Locale locale) {
+        try {
+            Class<?> clazz = Class.forName("com.android.internal.app.LocalePicker");
+            Method method = clazz.getDeclaredMethod("updateLocale", Locale.class);
+            method.invoke(null, locale);
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * app内切换语言
+     *
+     * @param locale
+     */
+    public void updateAppLanguage(Context context,Locale locale) {
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        configuration.locale = locale;
+        resources.updateConfiguration(configuration, dm);
+        Log.i("Common", "updateAPPlanguage");
     }
 
 }
