@@ -193,7 +193,7 @@ struct sigaction sa_old;
  * @param sc
  */
 
-static void my_handler(const int code, siginfo_t *const si, void *const sc) {
+static void my_handler_b(const int code, siginfo_t *const si, void *const sc) {
     LOGE("sign is %d,%s", code, print_sig(si->si_signo, si->si_code));
 
     // 设置旧的监听
@@ -289,5 +289,3 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
 
 }
 
-
-}

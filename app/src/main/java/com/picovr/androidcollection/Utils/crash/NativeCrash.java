@@ -7,7 +7,7 @@ import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 
 import com.picovr.androidcollection.Utils.system.PermissionUtils;
-import com.pvr.breakpad.BreakpadInit;
+//import com.pvr.breakpad.BreakpadInit;
 
 import java.io.File;
 
@@ -24,7 +24,7 @@ public class NativeCrash {
             crashDump.mkdirs();
         }
 
-        BreakpadInit.initBreakpad(crashDump.getAbsolutePath());
+//        BreakpadInit.initBreakpad(crashDump.getAbsolutePath());
 
     }
 
