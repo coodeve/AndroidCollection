@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * @author patrick.ding
@@ -231,5 +232,36 @@ public class TimeUtils {
             standardTime = String.format(Locale.getDefault(), "%02d:%02d:%02d", seconds / 3600, seconds % 3600 / 60, seconds % 60);
         }
         return standardTime;
+    }
+
+
+    /**
+     * 将标准时间转换为当地时间：
+     * 标准时间（一般是GMT时间） ：Sun, 27 Sep 2020 06:52:57 GMT
+     * 本地时间（比如CST时间）   ：Sun, 27 Sep 2020 14:52:57 CST
+     *
+     * @param date     标准时间格式
+     * @param timeZone 选择要转换的时区，默认是本地时区
+     * @return 转换后的时间, 异常返回-1
+     * @throws ParseException
+     */
+    public static long translateDate(String date, TimeZone timeZone) {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat greenwichDate = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.US);
+        if (timeZone != null) {
+            greenwichDate.setTimeZone(timeZone);
+        }
+        try {
+            Date targetDate = greenwichDate.parse(date);
+            cal.setTime(targetDate);
+            System.out.println(String.format("时区 %s, 时间 %s",
+                    cal.getTimeZone().getDisplayName(),
+                    greenwichDate.format(targetDate)));
+            return cal.getTimeInMillis();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 }
