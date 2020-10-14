@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.picovr.androidcollection.Utils.log.Logs;
@@ -16,6 +17,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author patrick.ding
@@ -97,7 +101,7 @@ public class Utils {
     /**
      * 通过命令获取属性参数 , adb shell setprop <key> <value>,设置属性参数
      */
-   public  static String getProperties() {
+    public static String getProperties() {
         String commandLine = null;
         Runtime runtime = Runtime.getRuntime();
         try {
@@ -118,5 +122,46 @@ public class Utils {
         return commandLine;
     }
 
+    /**
+     * 匹配0.0 ，0，0.00字符串
+     *
+     * @param total
+     * @return
+     */
+    public static boolean matchZero(String total) {
+        if (TextUtils.isEmpty(total)) {
+            return false;
+        }
+        String pattern = "^0$|^0.0+$";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(total);
+        return m.find();
+    }
+
+    /**
+     * 匹配数字
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isNumeric(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return false;
+        }
+        // 该正则表达式可以匹配所有的数字 包括负数
+        Pattern pattern = Pattern.compile("-?[0-9]+\\.?[0-9]*");
+        String bigStr;
+        try {
+            bigStr = new BigDecimal(str).toString();
+        } catch (Exception e) {
+            return false;//异常 说明包含非数字。
+        }
+
+        Matcher isNum = pattern.matcher(bigStr); // matcher是全匹配
+        if (!isNum.matches()) {
+            return false;
+        }
+        return true;
+    }
 
 }

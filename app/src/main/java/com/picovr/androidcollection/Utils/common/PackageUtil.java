@@ -6,6 +6,7 @@ import android.app.usage.StorageStatsManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
@@ -218,4 +219,61 @@ public class PackageUtil {
         }
         return appInfo;
     }
+
+    /**
+     * COMPONENT_ENABLED_STATE_DEFAULT = 0,
+     * COMPONENT_ENABLED_STATE_ENABLED = 1,
+     * COMPONENT_ENABLED_STATE_DISABLED = 2,
+     * COMPONENT_ENABLED_STATE_DISABLED_USER = 3,
+     * COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED = 4,
+     *
+     * @param packageName
+     * @return
+     */
+    public boolean isEnabled(Context context, String packageName) {
+        int result = context.getPackageManager().getApplicationEnabledSetting(packageName);
+        return result == 0 || result == 1;
+    }
+
+    /**
+     * 是否是系统app
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isSystemApp(Context context) {
+        PackageManager pm = context.getPackageManager();
+        String packageName = context.getPackageName();
+        if (packageName != null) {
+            try {
+                PackageInfo info = pm.getPackageInfo(packageName, 0);
+                return (info != null) && (info.applicationInfo != null) &&
+                        ((info.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 获取app版本号
+     *
+     * @param context
+     * @param packageName
+     * @return
+     */
+    public int getAppVersionCode(Context context, String packageName) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(packageName, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+
 }

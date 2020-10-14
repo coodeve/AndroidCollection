@@ -264,4 +264,16 @@ public class TimeUtils {
 
         return -1;
     }
+
+    /**
+     * 获取当前标准时间
+     * 本地时间（比如CST时间）   ：Sun, 27 Sep 2020 14:52:57 CST
+     *
+     * @return
+     */
+    public static String getStandardTime() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat greenwichDate = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.US);
+        return greenwichDate.format(cal.getTime());
+    }
 }
