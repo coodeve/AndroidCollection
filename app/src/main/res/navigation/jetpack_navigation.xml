@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/jetpack_navigation"
+    app:startDestination="@id/fragmentWelcome">
+
+    <!--  全局跳转  -->
+    <action
+        android:id="@+id/fragment_action_global"
+        app:destination="@id/fragmentWelcome" />
+
+    <fragment
+        android:id="@+id/fragmentWelcome"
+        android:name="com.picovr.androidcollection.ui.fragment.FragmentWelcome"
+        android:label="FragmentWelcome"
+        tools:layout="@layout/fragment_welcom">
+        <action
+            android:id="@+id/action_fragmentWelcome_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
+        <action
+            android:id="@+id/action_fragmentWelcome_to_fragmentRegister"
+            app:destination="@id/fragmentRegister" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="com.picovr.androidcollection.ui.fragment.FragmentLogin"
+        android:label="FragmentLogin"
+        tools:layout="@layout/fragment_login">
+        <!--    popUpTo: fragmentLogin弹出后的目的地   -->
+        <!--    popUpToInclusive: popUpTo设置的目的地也从返回栈中清除，不设置的话会保留在返回栈中   -->
+        <action
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"
+            app:popUpTo="@id/fragmentWelcome"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="args"
+            android:defaultValue="hello"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentRegister"
+        android:name="com.picovr.androidcollection.ui.fragment.FragmentRegister"
+        android:label="FragmentRegister"
+        tools:layout="@layout/fragment_register">
+        <deepLink
+            android:autoVerify="true"
+            app:uri="coodev://com.coodev/fragment" />
+    </fragment>
+
+
+</navigation>

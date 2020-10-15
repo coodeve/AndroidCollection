@@ -1,0 +1,3 @@
+G:/Github/AndroidCollection/app/.cxx/cmake/debug/arm64-v8a/CMakeFiles/edit_cache.dir
+G:/Github/AndroidCollection/app/.cxx/cmake/debug/arm64-v8a/CMakeFiles/coo.dir
+G:/Github/AndroidCollection/app/.cxx/cmake/debug/arm64-v8a/CMakeFiles/rebuild_cache.dir

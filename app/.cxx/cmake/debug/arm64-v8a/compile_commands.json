@@ -1,0 +1,7 @@
+[
+{
+  "directory": "G:/Github/AndroidCollection/app/.cxx/cmake/debug/arm64-v8a",
+  "command": "F:\\User\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android26 --gcc-toolchain=F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -Dcoo_EXPORTS -I../../../../src/main/cpp/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security -stdlib=libc++  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles\\coo.dir\\src\\main\\cpp\\android_jni.cpp.o -c G:\\Github\\AndroidCollection\\app\\src\\main\\cpp\\android_jni.cpp",
+  "file": "G:/Github/AndroidCollection/app/src/main/cpp/android_jni.cpp"
+}
+]

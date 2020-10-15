@@ -18,6 +18,9 @@ buildscript {
         // systrace-gradle-plugin
         classpath "com.github.dcendents:android-maven-gradle-plugin:1.5"
 //        classpath ("com.geektime.systrace:systrace-gradle-plugin:1.0")
+
+        def nav_version = "2.3.0-alpha01"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
 }
 
