@@ -1,12 +1,7 @@
 package com.picovr.androidcollection.Utils.crash;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Environment;
-import android.support.v4.content.ContextCompat;
 
-import com.picovr.androidcollection.Utils.system.PermissionUtils;
 //import com.pvr.breakpad.BreakpadInit;
 
 import java.io.File;

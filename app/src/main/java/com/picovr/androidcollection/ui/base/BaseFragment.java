@@ -1,12 +1,11 @@
 package com.picovr.androidcollection.ui.base;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ import pub.devrel.easypermissions.PermissionRequest;
  * @author patrick.ding
  * @since 20/2/24
  */
-public abstract class BaseFragemnt extends Fragment implements EasyPermissions.PermissionCallbacks {
+public abstract class BaseFragment extends Fragment implements EasyPermissions.PermissionCallbacks {
 
     protected Context mContext;
 

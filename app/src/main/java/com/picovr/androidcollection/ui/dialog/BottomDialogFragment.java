@@ -5,7 +5,7 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 
 
-public class ButtomDialogFragment extends DialogFragment{
+public class BottomDialogFragment extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return super.onCreateDialog(savedInstanceState);

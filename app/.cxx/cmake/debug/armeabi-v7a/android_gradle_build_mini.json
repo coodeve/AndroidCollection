@@ -1,0 +1,19 @@
+{
+  "buildFiles": [
+    "F:\\User\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
+    "F:\\User\\ndk-bundle\\build\\cmake\\platforms.cmake",
+    "G:\\Github\\AndroidCollection\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "F:\\User\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"G:\\Github\\AndroidCollection\\app\\.cxx\\cmake\\debug\\armeabi-v7a\" clean"
+  ],
+  "buildTargetsCommand": "F:\\User\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"G:\\Github\\AndroidCollection\\app\\.cxx\\cmake\\debug\\armeabi-v7a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "coo-Debug-armeabi-v7a": {
+      "artifactName": "coo",
+      "buildCommand": "F:\\User\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"G:\\Github\\AndroidCollection\\app\\.cxx\\cmake\\debug\\armeabi-v7a\" coo",
+      "abi": "armeabi-v7a",
+      "output": "G:\\Github\\AndroidCollection\\app\\build\\intermediates\\cmake\\debug\\obj\\armeabi-v7a\\libcoo.so"
+    }
+  }
+}

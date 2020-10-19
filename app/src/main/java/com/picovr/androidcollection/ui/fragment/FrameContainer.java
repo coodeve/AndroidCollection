@@ -5,15 +5,10 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.ActionOnlyNavDirections;
 import androidx.navigation.ActivityNavigator;
-import androidx.navigation.NavArgument;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDeepLinkRequest;
-import androidx.navigation.NavDestination;
-import androidx.navigation.NavGraphNavigator;
 import androidx.navigation.NavOptions;
-import androidx.navigation.NavType;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.picovr.androidcollection.R;

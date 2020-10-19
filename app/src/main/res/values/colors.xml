@@ -10,6 +10,7 @@
 
     <color name="btn_text_color_pressed">#FFFFFF</color>
     <color name="btn_text_color_normal">#000000</color>
+    <color name="Button_Text_Hover">#A493FF</color>
 
     <color name="btn_bg_hover">#9C7FD0</color>
 

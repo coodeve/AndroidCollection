@@ -1,12 +1,9 @@
 package com.picovr.androidcollection.test.butterknife;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
-import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
 
 //import com.example.annotation.anno.ViewInjector;
-import com.picovr.androidcollection.R;
+
 
 public class ViewInjectorActivity extends AppCompatActivity {
 

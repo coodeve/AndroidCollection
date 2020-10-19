@@ -2,8 +2,8 @@ package com.picovr.androidcollection.ui.dialog;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -13,7 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.picovr.androidcollection.R;
-import com.picovr.androidcollection.widget.webview.WebHelper;
 
 
 public abstract class BaseBottomDialog extends DialogFragment {

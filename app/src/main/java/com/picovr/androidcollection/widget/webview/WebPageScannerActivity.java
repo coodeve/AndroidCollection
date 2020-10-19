@@ -2,11 +2,9 @@ package com.picovr.androidcollection.widget.webview;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
+
+import androidx.viewpager.widget.ViewPager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.picovr.androidcollection.R;

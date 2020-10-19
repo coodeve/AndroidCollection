@@ -1,7 +1,7 @@
 package com.picovr.androidcollection.widget;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.method.LinkMovementMethod;
@@ -18,7 +18,7 @@ import com.picovr.androidcollection.Utils.log.Logs;
  * @author patrick.ding
  * @since 18/11/2
  */
-public class LinkTextView extends android.support.v7.widget.AppCompatTextView {
+public class LinkTextView extends androidx.appcompat.widget.AppCompatTextView {
     private static final String TAG = LinkTextView.class.getSimpleName();
     private Context mContext;
 

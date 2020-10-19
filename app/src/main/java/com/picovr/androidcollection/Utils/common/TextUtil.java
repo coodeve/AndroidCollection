@@ -1,8 +1,6 @@
 package com.picovr.androidcollection.Utils.common;
 
-import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v4.graphics.TypefaceCompat;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;

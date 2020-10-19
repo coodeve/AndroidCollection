@@ -2,8 +2,8 @@ package com.picovr.androidcollection;
 
 import android.app.ActivityManager;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.widget.SlidingDrawer;
+import androidx.fragment.app.FragmentActivity;
+
 import android.widget.TextView;
 
 import com.donkingliang.labels.LabelsView;

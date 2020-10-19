@@ -8,7 +8,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a"
         }
@@ -43,25 +43,20 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-
-    // v4
-    // implementation 'com.android.support:support-v4:27.1.1'
-
-    // v7
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-
-    // design
-    implementation 'com.android.support:design:27.1.0'
-
-    // test
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    // material
+    implementation 'com.google.android.material:material:1.2.1'
+    // recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     // butterknife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 
     // rxjava ,rxandroid
     implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
@@ -71,7 +66,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     // glide
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
 
     // BaseRecyclerViewAdapterHelper
@@ -116,7 +111,7 @@ dependencies {
 //    implementation project(path: ':annotationlib:annotation')
 //    annotationProcessor project(path: ':annotationlib:complier')
     // cronet
-    implementation 'com.google.android.gms:play-services-cronet:16.0.0'
+    implementation 'com.google.android.gms:play-services-cronet:17.0.0'
     //
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'

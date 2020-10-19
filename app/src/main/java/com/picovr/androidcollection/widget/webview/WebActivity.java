@@ -2,7 +2,7 @@ package com.picovr.androidcollection.widget.webview;
 
 import android.content.Intent;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.widget.FrameLayout;

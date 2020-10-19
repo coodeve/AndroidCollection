@@ -7,4 +7,7 @@
          https://developer.android.com/design/patterns/navigation-drawer.html -->
     <dimen name="navigation_drawer_width">240dp</dimen>
     <dimen name="word_wrap_min_height">10dp</dimen>
+    <dimen name="common_conners_10">10dp</dimen>
+    <dimen name="game_app_list_item_hover_line_width">0.86dp</dimen>
+    <dimen name="game_app_list_item_hover_line_bg_interval">1.71dp</dimen>
 </resources>
