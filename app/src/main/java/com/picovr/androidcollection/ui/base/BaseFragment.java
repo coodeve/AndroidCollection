@@ -3,9 +3,11 @@ package com.picovr.androidcollection.ui.base;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,56 @@ import pub.devrel.easypermissions.PermissionRequest;
  * @since 20/2/24
  */
 public abstract class BaseFragment extends Fragment implements EasyPermissions.PermissionCallbacks {
+
+    /**---------------------AppFragmentManager 部分参数------------------------**/
+    /**
+     * fragment模拟回退栈的启动模式
+     */
+    private int stackMode = AppFragmentManager.STACK_MODE_CLEAR_TOP;
+    /**
+     * fragment模拟回退栈，当fragment回退时，是否remove掉
+     */
+    private boolean canRemove = false;
+    /**
+     * fragment模拟回退栈，id
+     */
+    public String id;
+    /**
+     * fragment模拟回退栈，类型
+     */
+    public int type;
+
+    public void setMode(String id, int type) {
+        this.id = id;
+        this.type = type;
+    }
+
+    /**
+     * 重载数据,用于存在的Fragment的界面刷新工作
+     *
+     * @param args
+     */
+    public void reload(Bundle args) {
+
+    }
+
+    public void setStackMode(int stackMode) {
+        this.stackMode = stackMode;
+    }
+
+    public int getStackMode() {
+        return stackMode;
+    }
+
+    public boolean isCanRemove() {
+        return canRemove;
+    }
+
+    public void setCanRemove(boolean canRemove) {
+        this.canRemove = canRemove;
+    }
+
+    /**--------------------AppFragmentManager 部分参数-------------------------**/
 
     protected Context mContext;
 
