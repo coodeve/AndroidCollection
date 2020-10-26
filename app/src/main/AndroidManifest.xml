@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.picovr.androidcollection">
+    package="com.coodev.androidcollection">
     <!-- 网络 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".App"
+        android:name="com.coodev.androidcollection.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,13 +25,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".test.butterknife.ButterknifeActivity" />
-        <activity android:name=".test.butterknife.ViewInjectorActivity" />
-        <activity android:name=".test.ble.BleClientActivity" />
-        <activity android:name=".test.ble.BleServerActivity" />
-        <activity android:name=".widget.webview.WebActivity" />
+        <activity android:name="com.coodev.androidcollection.test.butterknife.ButterknifeActivity" />
+        <activity android:name="com.coodev.androidcollection.test.butterknife.ViewInjectorActivity" />
+        <activity android:name="com.coodev.androidcollection.test.ble.BleClientActivity" />
+        <activity android:name="com.coodev.androidcollection.test.ble.BleServerActivity" />
+        <activity android:name="com.coodev.androidcollection.widget.webview.WebActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.coodev.androidcollection.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:hardwareAccelerated="true">
             <intent-filter>
@@ -40,14 +40,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.MVPActivity" />
-        <activity android:name=".ui.base.BaseActivity" />
-        <activity android:name=".widget.webview.WebPageScannerActivity" />
+        <activity android:name="com.coodev.androidcollection.mvp.MVPActivity" />
+        <activity android:name="com.coodev.androidcollection.ui.base.BaseActivity" />
+        <activity android:name="com.coodev.androidcollection.widget.webview.WebPageScannerActivity" />
         <activity
-            android:name=".ui.NavigationActivity"
+            android:name="com.coodev.androidcollection.ui.NavigationActivity"
             android:label="@string/title_activity_navigation" /> <!-- X5 Webview -->
         <activity
-            android:name=".widget.x5.MainActivity"
+            android:name="com.coodev.androidcollection.widget.x5.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -69,7 +69,7 @@
         <!-- 用于向外提供数据 -->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.picovr.androidcollection.fileProvider"
+            android:authorities="com.coodev.androidcollection.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

@@ -12,7 +12,7 @@
 
     <fragment
         android:id="@+id/fragmentWelcome"
-        android:name="com.picovr.androidcollection.ui.fragment.FragmentWelcome"
+        android:name="com.coodev.androidcollection.ui.fragment.FragmentWelcome"
         android:label="FragmentWelcome"
         tools:layout="@layout/fragment_welcom">
         <action
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/fragmentLogin"
-        android:name="com.picovr.androidcollection.ui.fragment.FragmentLogin"
+        android:name="com.coodev.androidcollection.ui.fragment.FragmentLogin"
         android:label="FragmentLogin"
         tools:layout="@layout/fragment_login">
         <!--    popUpTo: fragmentLogin弹出后的目的地   -->
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/fragmentRegister"
-        android:name="com.picovr.androidcollection.ui.fragment.FragmentRegister"
+        android:name="com.coodev.androidcollection.ui.fragment.FragmentRegister"
         android:label="FragmentRegister"
         tools:layout="@layout/fragment_register">
         <deepLink

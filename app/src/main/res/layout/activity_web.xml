@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.picovr.androidcollection.MainActivity">
+    tools:context="com.coodev.androidcollection.MainActivity">
 
-    <com.picovr.androidcollection.widget.webview.BrowserView
+    <com.coodev.androidcollection.widget.webview.BrowserView
         android:id="@+id/main_web"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

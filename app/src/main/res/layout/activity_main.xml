@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="com.picovr.androidcollection.MainActivity">
+    tools:context="com.coodev.androidcollection.MainActivity">
 
     <com.donkingliang.labels.LabelsView
         android:id="@+id/labels"

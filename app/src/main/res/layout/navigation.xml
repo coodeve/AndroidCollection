@@ -21,7 +21,7 @@
     <!--这个可以使用NavigationView-->
     <fragment
         android:id="@+id/navigation_drawer"
-        android:name="com.picovr.androidcollection.ui.NavigationDrawerFragment"
+        android:name="com.coodev.androidcollection.ui.NavigationDrawerFragment"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

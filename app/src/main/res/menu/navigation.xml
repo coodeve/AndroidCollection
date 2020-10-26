@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.picovr.androidcollection.ui.NavigationActivity">
+    tools:context="com.coodev.androidcollection.ui.NavigationActivity">
     <item
         android:id="@+id/action_example"
         android:showAsAction="withText|ifRoom"
