@@ -18,6 +18,8 @@ import android.os.storage.StorageManager;
 import android.text.format.Formatter;
 import android.util.Log;
 
+import com.coodev.androidcollection.App;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -275,5 +277,23 @@ public class PackageUtil {
         return -1;
     }
 
+    /**
+     * 更换icon
+     *
+     * @param launcherComponentClassName 启动组件
+     * @param aliasComponentClassName    别名组件
+     */
+    public static void switchIconTask(String launcherComponentClassName, String aliasComponentClassName) {
+        Log.i(TAG, "switchIconTask: " + launcherComponentClassName + "," + aliasComponentClassName);
+        final PackageManager packageManager = App.getContext().getPackageManager();
+        final ComponentName disableComponent = new ComponentName(App.getContext().getPackageName(), launcherComponentClassName);
+        final ComponentName enableComponent = new ComponentName(App.getContext().getPackageName(), aliasComponentClassName);
+        if (packageManager.getComponentEnabledSetting(disableComponent) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED ||
+                packageManager.getComponentEnabledSetting(enableComponent) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED) {
+            return;
+        }
+        packageManager.setComponentEnabledSetting(disableComponent, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+        packageManager.setComponentEnabledSetting(enableComponent, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+    }
 
 }

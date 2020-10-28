@@ -4,6 +4,7 @@ import com.coodev.androidcollection.App;
 import com.coodev.androidcollection.Utils.common.JNIUtil;
 import com.coodev.androidcollection.Utils.crash.NativeCrash;
 import com.coodev.androidcollection.entity.DefaultTestAction;
+import com.coodev.androidcollection.entity.SwitchIcon;
 import com.coodev.androidcollection.entity.TestAction;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class TestActionFactory {
     static {
         mTestActions.add(new DefaultTestAction("测试", 0));
         mTestActions.add(new NativeCrashTest("nativeCrash", 1));
+        mTestActions.add(new SwitchIcon("SwitchIcon", 2));
 
     }
 

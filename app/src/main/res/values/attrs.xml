@@ -67,4 +67,49 @@
             <enum name="bottomLine" value="1" />
         </attr>
     </declare-styleable>
+
+
+    <declare-styleable name="Custom_Round_Image_View">
+        <attr name="all_radius" format="dimension" />
+        <attr name="left_top_radius" format="dimension" />
+        <attr name="right_top_radius" format="dimension" />
+        <attr name="right_bottom_radius" format="dimension" />
+        <attr name="left_bottom_radius" format="dimension" />
+    </declare-styleable>
+
+    <!--自定义折叠textView-->
+    <declare-styleable name="FolderTextView">
+        <attr name="foldText" format="string"/>
+        <attr name="unFoldText" format="string"/>
+        <attr name="foldLine" format="integer"/>
+        <attr name="tailTextColor" format="color"/>
+        <attr name="canFoldAgain" format="boolean"/>
+    </declare-styleable>
+
+
+
+    <declare-styleable name="InfoView">
+        <attr name="infoView_canFlod" format="boolean" />
+        <attr name="infoView_canExpand" format="boolean" />
+        <attr name="infoView_spanCount" format="integer" />
+        <attr name="infoView_rowFoldCount" format="integer" />
+        <attr name="infoView_rowHeight" format="dimension" />
+        <attr name="infoView_textSize" format="dimension" />
+        <attr name="infoView_textColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="NiceImageView">
+        <attr name="is_circle" format="boolean" />
+        <attr name="is_cover_src" format="boolean" />
+        <attr name="corner_radius" format="dimension" />
+        <attr name="corner_top_left_radius" format="dimension" />
+        <attr name="corner_top_right_radius" format="dimension" />
+        <attr name="corner_bottom_left_radius" format="dimension" />
+        <attr name="corner_bottom_right_radius" format="dimension" />
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="inner_border_width" format="dimension" />
+        <attr name="inner_border_color" format="color" />
+        <attr name="mask_color" format="color" />
+    </declare-styleable>
 </resources>

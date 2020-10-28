@@ -7,6 +7,30 @@
   },
   {
     "level": "INFO",
+    "message": "Trying to locate CMake in local SDK repository.",
+    "file": "G:\\Github\\AndroidCollection\\app\\CMakeLists.txt",
+    "tag": "debug|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "- CMake found in SDK at \u0027F:\\User\\cmake\\3.10.2.4988404\u0027 had version \u00273.10.2\u0027",
+    "file": "G:\\Github\\AndroidCollection\\app\\CMakeLists.txt",
+    "tag": "debug|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "CMake \u00273.6.3155560\u0027 found in SDK did not match requested version \u00273.10.2\u0027.",
+    "file": "G:\\Github\\AndroidCollection\\app\\CMakeLists.txt",
+    "tag": "debug|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "CMake \u00273.6.0\u0027 found in SDK did not match requested version \u00273.10.2\u0027.",
+    "file": "G:\\Github\\AndroidCollection\\app\\CMakeLists.txt",
+    "tag": "debug|arm64-v8a"
+  },
+  {
+    "level": "INFO",
     "message": "JSON \u0027G:\\Github\\AndroidCollection\\app\\.cxx\\cmake\\debug\\arm64-v8a\\android_gradle_build.json\u0027 was up-to-date",
     "file": "G:\\Github\\AndroidCollection\\app\\CMakeLists.txt",
     "tag": "debug|arm64-v8a"

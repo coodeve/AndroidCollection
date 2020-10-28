@@ -1,19 +1,28 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
+    <style name="AppTheme" arent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <!--设置全局字体<item name="android:fontFamily">@font/din_bold</item>-->
     </style>
 
-    <declare-styleable name="Custom_Round_Image_View">
-        <attr name="all_radius" format="dimension" />
-        <attr name="left_top_radius" format="dimension" />
-        <attr name="right_top_radius" format="dimension" />
-        <attr name="right_bottom_radius" format="dimension" />
-        <attr name="left_bottom_radius" format="dimension" />
-    </declare-styleable>
+    <style name="FullScreenTranslucentAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 全屏透明背景 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
 
+    <style name="FullScreenAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 全屏透明背景 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 
     <!--dialog显示动画-->
     <style name="BottomDialogStyle">
@@ -36,43 +45,19 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
-    <!--自定义折叠textView-->
-    <declare-styleable name="FolderTextView">
-        <attr name="foldText" format="string"/>
-        <attr name="unFoldText" format="string"/>
-        <attr name="foldLine" format="integer"/>
-        <attr name="tailTextColor" format="color"/>
-        <attr name="canFoldAgain" format="boolean"/>
-    </declare-styleable>
-
     <style name="Dialog_back_style" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/top_2_center</item>
         <item name="android:windowExitAnimation">@anim/center_2_bottom</item>
     </style>
 
-    <declare-styleable name="InfoView">
-        <attr name="infoView_canFlod" format="boolean" />
-        <attr name="infoView_canExpand" format="boolean" />
-        <attr name="infoView_spanCount" format="integer" />
-        <attr name="infoView_rowFoldCount" format="integer" />
-        <attr name="infoView_rowHeight" format="dimension" />
-        <attr name="infoView_textSize" format="dimension" />
-        <attr name="infoView_textColor" format="color" />
-    </declare-styleable>
 
-    <declare-styleable name="NiceImageView">
-        <attr name="is_circle" format="boolean" />
-        <attr name="is_cover_src" format="boolean" />
-        <attr name="corner_radius" format="dimension" />
-        <attr name="corner_top_left_radius" format="dimension" />
-        <attr name="corner_top_right_radius" format="dimension" />
-        <attr name="corner_bottom_left_radius" format="dimension" />
-        <attr name="corner_bottom_right_radius" format="dimension" />
-        <attr name="border_width" format="dimension" />
-        <attr name="border_color" format="color" />
-        <attr name="inner_border_width" format="dimension" />
-        <attr name="inner_border_color" format="color" />
-        <attr name="mask_color" format="color" />
-    </declare-styleable>
+    <style name="CardViewNormal" parent="CardView.Light">
+        <!--<item name="cardUseCompatPadding">false</item>-->
+        <!--<item name="cardPreventCornerOverlap">true</item>-->
+        <item name="cardElevation">10dp</item>
+        <item name="cardCornerRadius">10px</item>
+        <item name="cardBackgroundColor">#00000000</item>
+
+    </style>
 
 </resources>
