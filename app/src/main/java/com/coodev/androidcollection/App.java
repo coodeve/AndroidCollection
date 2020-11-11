@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.ProcessLifecycleOwner;
+
+import com.coodev.androidcollection.mvvm.lifecycle.ApplicationObserver;
 import com.tencent.smtt.sdk.QbSdk;
 
 /**
@@ -18,6 +21,7 @@ public class App extends Application {
         super.onCreate();
         mContext = getApplicationContext();
         initX5();
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(new ApplicationObserver());
     }
 
     public static Context getContext() {

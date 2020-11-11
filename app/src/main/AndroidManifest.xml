@@ -3,19 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.coodev.androidcollection">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 相机 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 外部存储 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- 蓝牙 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -26,35 +13,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat"
         tools:ignore="GoogleAppIndexingWarning">
-        <!-- 闪屏页 -->
-        <activity android:name=".ui.SplashActivity"
+        <activity android:name=".mvvm.lifecycle.LifeCycleActivity" />
+
+        <activity
+            android:name=".ui.SplashActivity"
             android:theme="@style/FullScreenAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- icon更换 -->
-        <activity-alias
-            android:name=".MainAliasActivity"
-            android:enabled="false"
-            android:icon="@mipmap/ic_launcher_test"
-            android:targetActivity=".ui.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-alias>
-
-        <!-- 主页 -->
-        <activity android:name=".MainActivity"
+        </activity> <!-- 闪屏页 -->
+        <activity
+            android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:hardwareAccelerated="true"/>
-        <!-- 其他界面 -->
-        <activity android:name=".test.butterknife.ButterknifeActivity" />
-        <activity android:name=".test.butterknife.ViewInjectorActivity" />
-        <activity android:name=".test.ble.BleClientActivity" />
+            android:hardwareAccelerated="true" /> <!-- X5 Webview -->
+        <activity android:name=".test.butterknife.ButterknifeActivity" /> <!-- icon更换 -->
+        <activity android:name=".test.butterknife.ViewInjectorActivity" /> <!-- 主页 -->
+        <activity android:name=".test.ble.BleClientActivity" /> <!-- 其他界面 -->
         <activity android:name=".test.ble.BleServerActivity" />
         <activity android:name=".widget.webview.WebActivity" />
         <activity android:name=".mvp.MVPActivity" />
@@ -63,7 +39,6 @@
         <activity
             android:name=".ui.NavigationActivity"
             android:label="@string/title_activity_navigation" />
-        <!-- X5 Webview -->
         <activity
             android:name=".widget.x5.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -82,10 +57,17 @@
                 <data android:scheme="https" />
             </intent-filter>
         </activity>
+        <activity-alias
+            android:name=".MainAliasActivity"
+            android:enabled="false"
+            android:icon="@mipmap/ic_launcher_test"
+            android:targetActivity=".ui.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-
-        <!-- 用于向外提供数据 -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.coodev.androidcollection.fileProvider"
@@ -94,7 +76,23 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-        </provider>
-    </application>
+        </provider> <!-- 用于向外提供数据 -->
+        <service
+            android:name=".mvvm.lifecycle.LifeCycleService"
+            android:enabled="true"
+            android:exported="true"></service>
+    </application> <!-- 相机 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 外部存储 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 蓝牙 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>

@@ -1,5 +1,10 @@
 package com.coodev.androidcollection.Utils.system;
 
+import android.content.Context;
+import android.provider.Settings;
+
+import androidx.annotation.NonNull;
+
 import java.lang.reflect.Method;
 
 /**
@@ -10,6 +15,7 @@ public class PropertyUtils {
 
     /**
      * 获取属性值
+     *
      * @param propName
      * @return
      */
@@ -28,6 +34,7 @@ public class PropertyUtils {
 
     /**
      * 写入属性值
+     *
      * @param name
      * @param value
      */
@@ -40,6 +47,51 @@ public class PropertyUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * adb shell settings get global [key]
+     *
+     * @param context
+     * @param key
+     * @return
+     */
+    public static String getSettingsGlobal(Context context, @NonNull String key) {
+        return Settings.Global.getString(context.getContentResolver(), key);
+    }
+
+    /**
+     * adb shell settings put global [key] [value]
+     *
+     * @param context
+     * @param key
+     * @param value
+     */
+    public static boolean putSettingsGlobal(Context context, @NonNull String key, @NonNull String value) {
+        return Settings.Global.putString(context.getContentResolver(), key, value);
+    }
+
+    /**
+     * adb shell settings get global [key]
+     *
+     * @param context
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static int getSettingsGlobal(Context context, @NonNull String key, int defaultValue) {
+        return Settings.Global.getInt(context.getContentResolver(), key, defaultValue);
+    }
+
+    /**
+     * adb shell settings put global [key] [value]
+     *
+     * @param context
+     * @param key
+     * @param value
+     */
+    public static boolean putSettingsGlobal(Context context, @NonNull String key, int value) {
+        return Settings.Global.putInt(context.getContentResolver(), key, value);
     }
 
 
