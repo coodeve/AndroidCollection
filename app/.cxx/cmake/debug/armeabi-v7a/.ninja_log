@@ -5,3 +5,10 @@
 1461	2457	625396395	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libcoo.so	6440b2fd96760d29
 22	6193	626694192	CMakeFiles/coo.dir/src/main/cpp/android_jni.cpp.o	b9770173efda7af4
 6193	6912	626694193	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libcoo.so	6440b2fd96760d29
+0	8	0	clean	249df15f0ae733a7
+2	1329	626794342	CMakeFiles/coo.dir/src/main/cpp/android_jni.cpp.o	b9770173efda7af4
+1329	1844	626794342	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libcoo.so	6440b2fd96760d29
+0	10	0	clean	249df15f0ae733a7
+0	7	0	clean	249df15f0ae733a7
+1	444	626794735	CMakeFiles/coo.dir/src/main/cpp/android_jni.cpp.o	b9770173efda7af4
+444	967	626794735	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libcoo.so	6440b2fd96760d29

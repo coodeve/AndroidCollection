@@ -1,5 +1,6 @@
 package com.coodev.androidcollection.ui.fragment;
 
+import android.app.PendingIntent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,14 +10,25 @@ import androidx.navigation.ActivityNavigator;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDeepLinkRequest;
 import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.coodev.androidcollection.R;
 
+
+/**
+ * Navigation 使用
+ * App bar支持：ActionBar，Toolbar，CollapsingToolbarLayout
+ * 导航菜单支持：DrawLayout+NavigationView，BottomNavigationView
+ * 支持深层连接：DeepLink
+ */
 public class FrameContainer extends AppCompatActivity {
 
     private NavController mNavController;
     private NavHostFragment mNavHostFragment;
+    private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,6 +37,13 @@ public class FrameContainer extends AppCompatActivity {
 
     }
 
+    /**
+     * 处理activity的appbar
+     */
+    private void initAppBar(AppCompatActivity activity) {
+        mAppBarConfiguration = new AppBarConfiguration.Builder(mNavController.getGraph()).build();
+        NavigationUI.setupActionBarWithNavController(activity, mNavController, mAppBarConfiguration);
+    }
 
     /**
      * 动态加载navigation的fragment
@@ -68,15 +87,33 @@ public class FrameContainer extends AppCompatActivity {
         mNavController.getNavigatorProvider().addNavigator(activityNavigator);
     }
 
+
     /**
      * 导航控制跳转 ，深层连接跳转
      * 起始就是url匹配跳转
+     * 此种方式需要在xml中设置 <deepLink/>标签,同时Activity中设置<nav-graph/>标签
      *
      * @param url
      */
     private void navigationFragmentDeepLink(String url) {
         NavDeepLinkRequest navDeepLinkRequest = NavDeepLinkRequest.Builder.fromUri(Uri.parse("coodev://com.coodev/fragment")).build();
         NavHostFragment.findNavController(mNavHostFragment).navigate(navDeepLinkRequest);
+    }
+
+    /**
+     * 创建DeepLink的PendingIntent
+     * 此种方式不需要在xml中设置 <deepLink/>标签
+     *
+     * @param graphID
+     * @param destinationID
+     * @return
+     */
+    private PendingIntent createDeepLinkPendingIntent(int graphID, int destinationID) {
+        return mNavController.createDeepLink()
+                .setArguments(null)
+                .setGraph(graphID)
+                .setDestination(destinationID)
+                .createPendingIntent();
     }
 
     /**
