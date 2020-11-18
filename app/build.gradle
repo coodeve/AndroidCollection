@@ -20,6 +20,13 @@ android {
             }
         }
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                // 设置Room升级版本的历史记录位置
+                arguments = ["room.schemaLocation": "$projectDir/schemes".toString()]
+            }
+        }
+
     }
 
     externalNativeBuild {
@@ -54,6 +61,11 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     // viewmodel
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+    //room
+    implementation 'androidx.room:room-runtime:2.2.5'
+    annotationProcessor 'androidx.room:room-compiler:2.2.5'
+    // workmanager
+    implementation 'androidx.work:work-runtime:2.2.0'
     // material
     implementation 'com.google.android.material:material:1.2.1'
     // recyclerview

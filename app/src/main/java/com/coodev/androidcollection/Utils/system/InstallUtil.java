@@ -2,13 +2,18 @@ package com.coodev.androidcollection.Utils.system;
 
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.IIntentReceiver;
+import android.content.IIntentSender;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageInstaller;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.IBinder;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
@@ -17,12 +22,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author patrick.ding
@@ -42,7 +50,7 @@ public class InstallUtil {
     }
 
     /**
-     * Android9以下，使用
+     * Android9以下，使用,同步方法
      * <uses-permission android:name="android.permission.DELETE_PACKAGES" />
      * <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
      * <p>
@@ -50,7 +58,7 @@ public class InstallUtil {
      * <p>
      * 需要系统权限
      */
-    private static class ShellInstall implements IInstall {
+    private static class ShellInstallSync implements IInstall {
 
         @Override
         public void install(Context context, String packageName, String filePath, InstallCallback callback) {
@@ -76,10 +84,15 @@ public class InstallUtil {
                 String normalString = getStringFromStream(inputStream);
                 process.destroy();
                 if (errorString == null && normalString != null) {
-                    callback.install(packageName, true, normalString);
+                    if (callback != null) {
+                        callback.install(packageName, true, normalString);
+                    }
                     return;
                 }
-                callback.install(packageName, false, errorString);
+
+                if (callback != null) {
+                    callback.install(packageName, false, errorString);
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -90,7 +103,7 @@ public class InstallUtil {
     }
 
     /**
-     * android9及以上，使用
+     * android9及以上，使用,这是一个异步方法
      * <!-- 应用卸载权限 -->
      * <uses-permission android:name="android.permission.DELETE_PACKAGES" />
      * <!-- 应用安装权限 -->
@@ -102,7 +115,7 @@ public class InstallUtil {
      * <p>
      * 主要通过系统类{@link android.content.pm.PackageInstaller}来进行静默安装
      */
-    private static class PackageInstall implements IInstall {
+    private static class PackageInstallAsync implements IInstall {
 
         private static PackageInstaller sPackageInstaller;
 
@@ -243,6 +256,170 @@ public class InstallUtil {
         }
     }
 
+
+    /**
+     * android9及以上，使用,这是一个同步的方法
+     * <!-- 应用卸载权限 -->
+     * <uses-permission android:name="android.permission.DELETE_PACKAGES" />
+     * <!-- 应用安装权限 -->
+     * <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+     * <p>
+     * <uses-permission android:name="android.permission.REPLACE_EXISTING_PACKAGE" />
+     * <p>
+     * 需要系统权限
+     * <p>
+     * 主要通过系统类{@link android.content.pm.PackageInstaller}来进行静默安装
+     */
+    private static class PackageInstallSync implements IInstall {
+
+        private boolean dontKillApp;
+
+        @Override
+        public void install(Context context, String packageName, String apkPath, InstallCallback callback) {
+            if (TextUtils.isEmpty(apkPath) || TextUtils.isEmpty(packageName)) {
+                throw new IllegalArgumentException("file params is null");
+            }
+            // 包参数
+            PackageInfo packageArchiveInfo = context.getPackageManager().getPackageArchiveInfo(apkPath, PackageManager.MATCH_UNINSTALLED_PACKAGES);
+            if (packageArchiveInfo == null) {
+                String msg = "installQ: Failed to parse APK file : " + apkPath;
+                if (callback != null) {
+                    callback.install(packageName, false, msg);
+                }
+                return;
+            }
+            String targetPackageName = packageArchiveInfo.packageName;
+            File file = new File(apkPath);
+            if (!file.isFile()) {
+                final String msg = "installQ: File is not a file : " + apkPath;
+                if (callback != null) {
+                    callback.install(packageName, false, msg);
+                }
+                return;
+            }
+            // 安装设置参数
+            final PackageInstaller packageInstaller = context.getPackageManager().getPackageInstaller();
+            final PackageInstaller.SessionParams sessionParams = new PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL);
+            sessionParams.setAppPackageName(targetPackageName);
+            setDontKillApp(sessionParams, dontKillApp);
+            // 开始安装
+            PackageInstaller.Session session = null;
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
+            try {
+                //创建Session
+                int sessionId = packageInstaller.createSession(sessionParams);
+                //开启Session
+                session = packageInstaller.openSession(sessionId);
+                //获取输出流，用于将apk写入session
+                outputStream = session.openWrite(targetPackageName, 0, -1);
+                inputStream = new FileInputStream(file);
+                byte[] buffer = new byte[8192];
+                int n;
+                //读取apk文件写入session
+                while ((n = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, n);
+                }
+
+                session.fsync(outputStream);
+                //写完需要关闭流，否则会抛异常“files still open”
+                inputStream.close();
+                inputStream = null;
+                outputStream.close();
+                outputStream = null;
+
+                LocalIntentReceiver receiver = new LocalIntentReceiver();
+                session.commit(receiver.getIntentSender());
+
+                final Intent result = receiver.getResult();
+                final int status = result.getIntExtra(PackageInstaller.EXTRA_STATUS, PackageInstaller.STATUS_FAILURE);
+                String statusMessage = result.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE);
+                if (status == PackageInstaller.STATUS_SUCCESS) {
+                    if (callback != null) {
+                        callback.install(packageName, true, null);
+                    }
+                } else {
+                    if (callback != null) {
+                        callback.install(packageName, false, statusMessage);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (callback != null) {
+                    callback.install(packageName, false, e.getMessage());
+                }
+            } finally {
+                if (session != null) {
+                    try {
+                        session.abandon();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                close(inputStream);
+                close(outputStream);
+            }
+
+        }
+
+        private static void setDontKillApp(PackageInstaller.SessionParams sessionParams, boolean dontKillApp) {
+            if (!dontKillApp) {
+                return;
+            }
+            try {
+                Method dontkillApp = sessionParams.getClass().getMethod("setDontKillApp", boolean.class);
+                dontkillApp.invoke(sessionParams, dontKillApp);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    private static class LocalIntentReceiver {
+        private final SynchronousQueue<Intent> mResult = new SynchronousQueue<>();
+
+        private IIntentSender.Stub mLocalSender = new IIntentSender.Stub() {
+            @Override
+            public void send(int code, Intent intent, String resolvedType, IBinder whitelistToken,
+                             IIntentReceiver finishedReceiver, String requiredPermission, Bundle options) {
+                try {
+                    mResult.offer(intent, 5, TimeUnit.SECONDS);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+
+        public IntentSender getIntentSender() {
+            final Constructor<IntentSender> constructor;
+            try {
+                constructor = IntentSender.class.getConstructor(IBinder.class);
+                constructor.setAccessible(true);
+                final IntentSender intentSender = constructor.newInstance((IIntentSender) mLocalSender);
+                return intentSender;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        public Intent getResult() {
+            try {
+                return mResult.take();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    /**
+     * 用于 {@link ShellInstallSync}
+     *
+     * @param inputStream
+     * @return
+     */
     private static String getStringFromStream(InputStream inputStream) {
         ByteArrayOutputStream byteArrayOutputStream = null;
         try {
