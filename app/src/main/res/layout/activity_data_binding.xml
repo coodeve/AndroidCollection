@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!--    可使用自定义类型    -->
+        <variable
+            name="binding_bean"
+            type="com.coodev.androidcollection.entity.DataBindingBean" />
+
+        <!--    可使用基本类型    -->
+        <variable
+            name="message"
+            type="String" />
+
+        <variable
+            name="language"
+            type="String" />
+
+        <!--    可应用类    -->
+        <import type="com.coodev.androidcollection.Utils.common.TextUtil" />
+
+        <variable
+            name="EventClick"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="networkImage"
+            type="String" />
+        <variable
+            name="localImage"
+            type="int" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{binding_bean.name}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{message}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+        <TextView
+            android:id="@+id/tv_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{TextUtil.translateLanguage(language)}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_message" />
+
+        <Button
+            android:id="@+id/tv_click"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click"
+            android:textAllCaps="false"
+            android:onClick="@{EventClick.onClick}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_language" />
+
+        <!--   数据传递,在代码里set设置     -->
+        <include
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_click"
+            android:id="@+id/level_two"
+            layout="@layout/activity_data_binding_level_two" />
+
+
+        <ImageView
+            app:image="@{networkImage}"
+            app:imageResource="@{localImage}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/level_two"
+            android:id="@+id/img_adapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_adapter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

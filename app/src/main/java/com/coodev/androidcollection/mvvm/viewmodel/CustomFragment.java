@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 public class CustomFragment extends Fragment {
 
     private MutableLiveData<Integer> mLiveData;
+    private TimerViewModel mTimerViewModel;
 
     @Nullable
     @Override
@@ -24,19 +25,27 @@ public class CustomFragment extends Fragment {
 
     private void init() {
         // 可用于fragment间通信
-        final TimerViewModel timerViewModel = new ViewModelProvider(getActivity()).get(TimerViewModel.class);
-        mLiveData = (MutableLiveData<Integer>) timerViewModel.getLiveData();
-        mLiveData.observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
+        mTimerViewModel = new ViewModelProvider(getActivity()).get(TimerViewModel.class);
+        mLiveData = (MutableLiveData<Integer>) mTimerViewModel.getLiveData();
+        // 相当于监听通信
+        mLiveData.observe(this, integer -> {
 
-            }
         });
     }
 
-
+    /**
+     * 相当于发送信息
+     *
+     * @param value
+     */
     private void setValue(int value) {
         mLiveData.setValue(value);
     }
 
+    @Override
+    public void onDestroyView() {
+        mLiveData.removeObservers(this);
+        mTimerViewModel.onCleared();
+        super.onDestroyView();
+    }
 }

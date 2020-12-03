@@ -26,6 +26,10 @@ public abstract class UserDatabase extends RoomDatabase {
 //                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
 //                    .fallbackToDestructiveMigration()// 防止升级失败引发的异常(由少了部分migration引起)
 //                    .build();
+            // 本地数据库读取
+//            mInstance = Room.databaseBuilder(context,UserDatabase.class,DB_NAME)
+//                    .createFromAsset("本地数据库地址")
+//                    .build();
         }
         return mInstance;
     }

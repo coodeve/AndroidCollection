@@ -9,6 +9,8 @@ import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,6 +51,7 @@ public class TextUtil {
 
     /**
      * 从assest中的字体进行设置
+     *
      * @param textView
      * @param fontPath
      */
@@ -68,6 +71,7 @@ public class TextUtil {
 
     /**
      * 关键字高亮
+     *
      * @param color
      * @param text
      * @param keyword
@@ -128,5 +132,34 @@ public class TextUtil {
         }
         return true;
     }
+
+    /**
+     * 语言翻译，将标准语言字符（比如，zh，zh-HK）换成系统对应翻译（多语言）
+     *
+     * @param lang
+     * @return
+     */
+    public static String translateLanguage(List<String> lang) {
+        String defaultStr = "—— ——";
+        if (lang == null || lang.size() <= 0) {
+            return defaultStr;
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0, len = lang.size(); i < len; i++) {
+            String language = lang.get(i);
+            Locale locale = Locale.forLanguageTag(language);
+            builder.append(locale.getDisplayName());
+            if (i < len - 1) {
+                builder.append(",");
+            }
+        }
+
+        return builder.toString();
+    }
+
+    public static String translateLanguage(String lang) {
+        return Locale.forLanguageTag(lang).getDisplayName();
+    }
+
 
 }

@@ -19,6 +19,7 @@ public class ViewModelTestActivity extends AppCompatActivity {
 
     private TimerViewModel mTimerViewModel;
     private TextView mMsg;
+    private MutableLiveData<Integer> mLiveData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,8 +33,8 @@ public class ViewModelTestActivity extends AppCompatActivity {
         // 获取viewmodel实例，同一个activity应该只有一个
         mTimerViewModel = new ViewModelProvider(this).get(TimerViewModel.class);
         // 使用LiveData
-        final MutableLiveData<Integer> liveData = (MutableLiveData<Integer>) mTimerViewModel.getLiveData();
-        liveData.observe(this, new Observer<Integer>() {
+        mLiveData = (MutableLiveData<Integer>) mTimerViewModel.getLiveData();
+        mLiveData.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 // 数据变化，显示数据或者其他处理
@@ -46,16 +47,16 @@ public class ViewModelTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 数据更新 主线程
-                liveData.setValue(0);
+                mLiveData.setValue(0);
                 // 数据更新 子线程
-                liveData.postValue(0);
+                mLiveData.postValue(0);
             }
         });
 
     }
 
     /**
-     * Room和LiveData结合使用
+     * Room和LiveData,ViewModel结合使用
      */
     private void testRoomWithLiveData() {
         final RoomViewModel roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
@@ -70,6 +71,7 @@ public class ViewModelTestActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        mLiveData.removeObservers(this);
         mTimerViewModel.onCleared();
         super.onDestroy();
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <!--    和传递过来页面的数据一致即可   -->
+        <variable
+            name="binding_bean"
+            type="com.coodev.androidcollection.entity.DataBindingBean" />
+    </data>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{binding_bean.name}" />
+
+
+
+
+</layout>
