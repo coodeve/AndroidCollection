@@ -1,7 +1,7 @@
 [
 {
-  "directory": "G:/Github/AndroidCollection/app/.cxx/cmake/debug/armeabi-v7a",
-  "command": "F:\\User\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi26 --gcc-toolchain=F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -Dcoo_EXPORTS -I../../../../src/main/cpp/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mfpu=vfpv3-d16 -fno-addrsig -march=armv7-a -mthumb -mfpu=neon -Wa,--noexecstack -Wformat -Werror=format-security -stdlib=libc++  -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles\\coo.dir\\src\\main\\cpp\\android_jni.cpp.o -c G:\\Github\\AndroidCollection\\app\\src\\main\\cpp\\android_jni.cpp",
-  "file": "G:/Github/AndroidCollection/app/src/main/cpp/android_jni.cpp"
+  "directory": "/Users/EnvisionBoundary/Github/AndroidCollection/app/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=armv7-none-linux-androideabi26 --gcc-toolchain=/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -Dcoo_EXPORTS -I../../../../src/main/cpp/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC   -o CMakeFiles/coo.dir/src/main/cpp/android_jni.cpp.o -c /Users/EnvisionBoundary/Github/AndroidCollection/app/src/main/cpp/android_jni.cpp",
+  "file": "/Users/EnvisionBoundary/Github/AndroidCollection/app/src/main/cpp/android_jni.cpp"
 }
 ]

@@ -1,5 +1,5 @@
 {
-  "ndkFolder": "F:\\User\\ndk-bundle",
+  "ndkFolder": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle",
   "messages": [
     {
       "level": "INFO",
@@ -7,7 +7,7 @@
     },
     {
       "level": "INFO",
-      "message": "ndk.dir in local.properties is F:\\User\\ndk-bundle"
+      "message": "ndk.dir in local.properties is /Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle"
     },
     {
       "level": "INFO",
@@ -15,23 +15,23 @@
     },
     {
       "level": "INFO",
-      "message": "sdkFolder is F:\\User"
+      "message": "sdkFolder is /Users/EnvisionBoundary/Library/Android/sdk"
     },
     {
       "level": "INFO",
-      "message": "Considering F:\\User\\ndk-bundle by ndk.dir"
+      "message": "Considering /Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle by ndk.dir"
     },
     {
       "level": "INFO",
-      "message": "Considering F:\\User\\ndk-bundle in SDK ndk-bundle folder"
+      "message": "Considering /Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle in SDK ndk-bundle folder"
     },
     {
       "level": "INFO",
-      "message": "Considering F:\\User\\ndk\\20.0.5594570 in SDK ndk folder"
+      "message": "Considering /Users/EnvisionBoundary/Library/Android/sdk/ndk/21.0.6113669 in SDK ndk folder"
     },
     {
       "level": "INFO",
-      "message": "Found requested ndk.dir (F:\\User\\ndk-bundle) which has version 19.2.5345600"
+      "message": "Found requested ndk.dir (/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle) which has version 22.0.6917172-rc1"
     }
   ]
 }

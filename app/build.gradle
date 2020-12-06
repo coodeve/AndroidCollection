@@ -56,7 +56,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.3.0'
@@ -69,7 +69,11 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.2.5'
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
     // workmanager
-    implementation 'androidx.work:work-runtime:2.2.0'
+    implementation 'androidx.work:work-runtime:2.4.0'
+    // page
+    implementation 'androidx.paging:paging-runtime:2.1.2'
+
+
     // material
     implementation 'com.google.android.material:material:1.2.1'
     // recyclerview
@@ -133,7 +137,7 @@ dependencies {
 //    annotationProcessor project(path: ':annotationlib:complier')
     // cronet
     implementation 'com.google.android.gms:play-services-cronet:17.0.0'
-    //
+    // retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
@@ -149,7 +153,7 @@ dependencies {
     implementation 'org.xutils:xutils:3.5.0'
 
     // jetpack navigation
-    def nav_version = "2.3.0"
+    def nav_version = "2.3.2"
     // Java language implementation
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"

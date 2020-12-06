@@ -1,6 +1,9 @@
 package com.coodev.androidcollection.dao.room;
 
+import android.service.autofill.Dataset;
+
 import androidx.lifecycle.LiveData;
+import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -23,6 +26,9 @@ public interface UserDao {
     @Update
     void update(User user);
 
+    @Query("DELETE FROM User")
+    void clear();
+
     /**
      * 结合LiveData
      *
@@ -33,4 +39,11 @@ public interface UserDao {
 
     @Query("SELECT * FROM User WHERE id = :id")
     User queryUser(int id);
-}
+
+    /**
+     * 结合Paging
+     * @return
+     */
+    @Query("SELECT * FROM user")
+    DataSource.Factory<Integer,User> getUser();
+ }

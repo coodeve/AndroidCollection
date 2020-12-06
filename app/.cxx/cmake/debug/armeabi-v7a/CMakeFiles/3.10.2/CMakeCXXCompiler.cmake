@@ -1,7 +1,7 @@
-set(CMAKE_CXX_COMPILER "F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe")
+set(CMAKE_CXX_COMPILER "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "Clang")
-set(CMAKE_CXX_COMPILER_VERSION "8.0")
+set(CMAKE_CXX_COMPILER_VERSION "11.0.5")
 set(CMAKE_CXX_COMPILER_VERSION_INTERNAL "")
 set(CMAKE_CXX_COMPILER_WRAPPER "")
 set(CMAKE_CXX_STANDARD_COMPUTED_DEFAULT "14")
@@ -11,17 +11,17 @@ set(CMAKE_CXX11_COMPILE_FEATURES "cxx_std_11;cxx_alias_templates;cxx_alignas;cxx
 set(CMAKE_CXX14_COMPILE_FEATURES "cxx_std_14;cxx_aggregate_default_initializers;cxx_attribute_deprecated;cxx_binary_literals;cxx_contextual_conversions;cxx_decltype_auto;cxx_digit_separators;cxx_generic_lambdas;cxx_lambda_init_captures;cxx_relaxed_constexpr;cxx_return_type_deduction;cxx_variable_templates")
 set(CMAKE_CXX17_COMPILE_FEATURES "cxx_std_17")
 
-set(CMAKE_CXX_PLATFORM_ID "")
+set(CMAKE_CXX_PLATFORM_ID "Darwin")
 set(CMAKE_CXX_SIMULATE_ID "")
 set(CMAKE_CXX_SIMULATE_VERSION "")
 
 
 
-set(CMAKE_AR "F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/arm-linux-androideabi-ar.exe")
+set(CMAKE_AR "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ar")
 set(CMAKE_CXX_COMPILER_AR "CMAKE_CXX_COMPILER_AR-NOTFOUND")
-set(CMAKE_RANLIB "F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/arm-linux-androideabi-ranlib.exe")
+set(CMAKE_RANLIB "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/llvm-ranlib")
 set(CMAKE_CXX_COMPILER_RANLIB "CMAKE_CXX_COMPILER_RANLIB-NOTFOUND")
-set(CMAKE_LINKER "F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/arm-linux-androideabi-ld.exe")
+set(CMAKE_LINKER "CMAKE_LINKER-NOTFOUND")
 set(CMAKE_COMPILER_IS_GNUCXX )
 set(CMAKE_CXX_COMPILER_LOADED 1)
 set(CMAKE_CXX_COMPILER_WORKS TRUE)
@@ -70,6 +70,6 @@ endif()
 
 
 
-set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "c++;m;gcc;gcc;dl;c;gcc;gcc;dl")
-set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/lib64/clang/8.0.2/lib/linux/arm;F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/lib/gcc/arm-linux-androideabi/4.9.x/armv7-a/thumb;F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/arm-linux-androideabi/lib/armv7-a/thumb;F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi/26;F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/arm-linux-androideabi;F:/User/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib")
+set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "c++;m;gcc;dl;c;gcc;dl")
+set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/11.0.5/lib/linux/arm;/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/lib/gcc/arm-linux-androideabi/4.9.x/armv7-a/thumb;/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/arm-linux-androideabi/lib/armv7-a/thumb;/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/26;/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi;/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib")
 set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")

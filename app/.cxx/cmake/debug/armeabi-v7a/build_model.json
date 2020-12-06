@@ -5,9 +5,9 @@
     "environmentVariables": []
   },
   "cmake": {
-    "cmakeArtifactsBaseFolder": "G:\\Github\\AndroidCollection\\app\\.cxx\\cmake\\debug\\armeabi-v7a",
-    "cmakeServerLogFile": "G:\\Github\\AndroidCollection\\app\\.cxx\\cmake\\debug\\armeabi-v7a\\cmake_server_log.txt",
-    "cmakeWrappingBaseFolder": "G:\\Github\\AndroidCollection\\app\\.cxx\\cxx\\debug\\armeabi-v7a",
+    "cmakeArtifactsBaseFolder": "/Users/EnvisionBoundary/Github/AndroidCollection/app/.cxx/cmake/debug/armeabi-v7a",
+    "cmakeServerLogFile": "/Users/EnvisionBoundary/Github/AndroidCollection/app/.cxx/cmake/debug/armeabi-v7a/cmake_server_log.txt",
+    "cmakeWrappingBaseFolder": "/Users/EnvisionBoundary/Github/AndroidCollection/app/.cxx/cxx/debug/armeabi-v7a",
     "effectiveConfiguration": {
       "name": "traditional-android-studio-cmake-environment",
       "description": "Composite reified CMakeSettings configuration",
@@ -15,9 +15,9 @@
       "inheritEnvironments": [
         "ndk"
       ],
-      "buildRoot": "G:\\Github\\AndroidCollection\\app\\.cxx\\cmake\\debug\\armeabi-v7a",
-      "cmakeToolchain": "F:\\User\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
-      "cmakeExecutable": "F:\\User\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
+      "buildRoot": "/Users/EnvisionBoundary/Github/AndroidCollection/app/.cxx/cmake/debug/armeabi-v7a",
+      "cmakeToolchain": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake",
+      "cmakeExecutable": "/Users/EnvisionBoundary/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake",
       "variables": [
         {
           "name": "CMAKE_BUILD_TYPE",
@@ -25,7 +25,7 @@
         },
         {
           "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "F:\\User\\ndk-bundle\\build\\cmake\\android.toolchain.cmake"
+          "value": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake"
         },
         {
           "name": "ANDROID_ABI",
@@ -33,7 +33,7 @@
         },
         {
           "name": "ANDROID_NDK",
-          "value": "F:\\User\\ndk-bundle"
+          "value": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle"
         },
         {
           "name": "ANDROID_PLATFORM",
@@ -45,7 +45,7 @@
         },
         {
           "name": "CMAKE_ANDROID_NDK",
-          "value": "F:\\User\\ndk-bundle"
+          "value": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle"
         },
         {
           "name": "CMAKE_EXPORT_COMPILE_COMMANDS",
@@ -53,11 +53,11 @@
         },
         {
           "name": "CMAKE_LIBRARY_OUTPUT_DIRECTORY",
-          "value": "G:\\Github\\AndroidCollection\\app\\build\\intermediates\\cmake\\debug\\obj\\armeabi-v7a"
+          "value": "/Users/EnvisionBoundary/Github/AndroidCollection/app/build/intermediates/cmake/debug/obj/armeabi-v7a"
         },
         {
           "name": "CMAKE_MAKE_PROGRAM",
-          "value": "F:\\User\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
+          "value": "/Users/EnvisionBoundary/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja"
         },
         {
           "name": "CMAKE_SYSTEM_NAME",
@@ -70,14 +70,14 @@
       ]
     }
   },
-  "cxxBuildFolder": "G:\\Github\\AndroidCollection\\app\\.cxx\\cmake\\debug\\armeabi-v7a",
+  "cxxBuildFolder": "/Users/EnvisionBoundary/Github/AndroidCollection/app/.cxx/cmake/debug/armeabi-v7a",
   "info": {
     "abi": "ARMEABI_V7A",
     "bitness": 32,
     "deprecated": false,
     "default": true
   },
-  "originalCxxBuildFolder": "G:\\Github\\AndroidCollection\\app\\.cxx\\cmake\\debug\\armeabi-v7a",
+  "originalCxxBuildFolder": "/Users/EnvisionBoundary/Github/AndroidCollection/app/.cxx/cmake/debug/armeabi-v7a",
   "variant": {
     "buildSystemArgumentList": [],
     "buildTargetSet": [],
@@ -90,24 +90,24 @@
     "module": {
       "buildSystem": "CMAKE",
       "cmake": {
-        "cmakeExe": "F:\\User\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
+        "cmakeExe": "/Users/EnvisionBoundary/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake",
         "minimumCmakeVersion": "3.10.2",
-        "ninjaExe": "F:\\User\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
+        "ninjaExe": "/Users/EnvisionBoundary/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja"
       },
-      "cmakeToolchainFile": "F:\\User\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
-      "cxxFolder": "G:\\Github\\AndroidCollection\\app\\.cxx",
+      "cmakeToolchainFile": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake",
+      "cxxFolder": "/Users/EnvisionBoundary/Github/AndroidCollection/app/.cxx",
       "gradleModulePathName": ":app",
-      "intermediatesFolder": "G:\\Github\\AndroidCollection\\app\\build\\intermediates",
-      "makeFile": "G:\\Github\\AndroidCollection\\app\\CMakeLists.txt",
-      "moduleBuildFile": "G:\\Github\\AndroidCollection\\app\\build.gradle",
-      "moduleRootFolder": "G:\\Github\\AndroidCollection\\app",
+      "intermediatesFolder": "/Users/EnvisionBoundary/Github/AndroidCollection/app/build/intermediates",
+      "makeFile": "/Users/EnvisionBoundary/Github/AndroidCollection/app/CMakeLists.txt",
+      "moduleBuildFile": "/Users/EnvisionBoundary/Github/AndroidCollection/app/build.gradle",
+      "moduleRootFolder": "/Users/EnvisionBoundary/Github/AndroidCollection/app",
       "ndkDefaultAbiList": [
         "ARMEABI_V7A",
         "ARM64_V8A",
         "X86",
         "X86_64"
       ],
-      "ndkFolder": "F:\\User\\ndk-bundle",
+      "ndkFolder": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle",
       "ndkMetaAbiList": [
         {
           "abi": "ARMEABI_V7A",
@@ -136,7 +136,7 @@
       ],
       "ndkMetaPlatforms": {
         "min": 16,
-        "max": 28,
+        "max": 30,
         "aliases": {
           "20": 19,
           "25": 24,
@@ -151,7 +151,9 @@
           "N-MR1": 24,
           "O": 26,
           "O-MR1": 27,
-          "P": 28
+          "P": 28,
+          "Q": 29,
+          "R": 30
         }
       },
       "ndkSupportedAbiList": [
@@ -160,30 +162,30 @@
         "X86",
         "X86_64"
       ],
-      "ndkVersion": "19.2.5345600",
+      "ndkVersion": "22.0.6917172-rc1",
       "project": {
-        "compilerSettingsCacheFolder": "G:\\Github\\AndroidCollection\\.cxx",
-        "cxxFolder": "G:\\Github\\AndroidCollection\\.cxx",
+        "compilerSettingsCacheFolder": "/Users/EnvisionBoundary/Github/AndroidCollection/.cxx",
+        "cxxFolder": "/Users/EnvisionBoundary/Github/AndroidCollection/.cxx",
         "isBuildOnlyTargetAbiEnabled": true,
         "isCmakeBuildCohabitationEnabled": false,
         "isNativeCompilerSettingsCacheEnabled": false,
-        "rootBuildGradleFolder": "G:\\Github\\AndroidCollection",
-        "sdkFolder": "F:\\User"
+        "rootBuildGradleFolder": "/Users/EnvisionBoundary/Github/AndroidCollection",
+        "sdkFolder": "/Users/EnvisionBoundary/Library/Android/sdk"
       },
       "splitsAbiFilterSet": [],
       "stlSharedObjectMap": {
         "LIBCXX_SHARED": {
-          "ARMEABI_V7A": "F:\\User\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\arm-linux-androideabi\\libc++_shared.so",
-          "ARM64_V8A": "F:\\User\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\libc++_shared.so",
-          "X86": "F:\\User\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\i686-linux-android\\libc++_shared.so",
-          "X86_64": "F:\\User\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\x86_64-linux-android\\libc++_shared.so"
+          "ARMEABI_V7A": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so",
+          "ARM64_V8A": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so",
+          "X86": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/i686-linux-android/libc++_shared.so",
+          "X86_64": "/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/x86_64-linux-android/libc++_shared.so"
         },
         "LIBCXX_STATIC": {},
         "NONE": {},
         "SYSTEM": {}
       }
     },
-    "objFolder": "G:\\Github\\AndroidCollection\\app\\build\\intermediates\\cmake\\debug\\obj",
+    "objFolder": "/Users/EnvisionBoundary/Github/AndroidCollection/app/build/intermediates/cmake/debug/obj",
     "variantName": "debug",
     "validAbiList": [
       "ARMEABI_V7A",

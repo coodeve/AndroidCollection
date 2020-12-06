@@ -1,7 +1,7 @@
-Executable : F:\User\cmake\3.10.2.4988404\bin\ninja.exe
+Executable : /Users/EnvisionBoundary/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja
 arguments : 
 -C
-G:\Github\AndroidCollection\app\.cxx\cmake\debug\armeabi-v7a
+/Users/EnvisionBoundary/Github/AndroidCollection/app/.cxx/cmake/debug/armeabi-v7a
 coo
 jvmArgs : 
 

@@ -1,9 +1,9 @@
-set(CMAKE_HOST_SYSTEM "Windows-10.0.19041")
-set(CMAKE_HOST_SYSTEM_NAME "Windows")
-set(CMAKE_HOST_SYSTEM_VERSION "10.0.19041")
-set(CMAKE_HOST_SYSTEM_PROCESSOR "AMD64")
+set(CMAKE_HOST_SYSTEM "Darwin-19.6.0")
+set(CMAKE_HOST_SYSTEM_NAME "Darwin")
+set(CMAKE_HOST_SYSTEM_VERSION "19.6.0")
+set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
 
-include("F:/User/ndk-bundle/build/cmake/android.toolchain.cmake")
+include("/Users/EnvisionBoundary/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake")
 
 set(CMAKE_SYSTEM "Android-1")
 set(CMAKE_SYSTEM_NAME "Android")
