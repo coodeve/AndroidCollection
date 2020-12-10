@@ -84,13 +84,13 @@ public class VolumeRecord implements Parcelable {
     public void dump(IndentingPrintWriter pw) {
         pw.println("VolumeRecord:");
         pw.increaseIndent();
-        pw.printPair("type", com.pvr.filemanager.utils.DebugUtils.valueToString(VolumeInfo.class, "TYPE_", type));
+        pw.printPair("type", com.coodev.filemanager.utils.DebugUtils.valueToString(VolumeInfo.class, "TYPE_", type));
         pw.printPair("fsUuid", fsUuid);
         pw.printPair("partGuid", partGuid);
         pw.println();
         pw.printPair("nickname", nickname);
         pw.printPair("userFlags",
-                com.pvr.filemanager.utils.DebugUtils.flagsToString(VolumeRecord.class, "USER_FLAG_", userFlags));
+                com.coodev.filemanager.utils.DebugUtils.flagsToString(VolumeRecord.class, "USER_FLAG_", userFlags));
         pw.println();
 //        pw.printPair("createdMillis", TimeUtils.formatForLogging(createdMillis));
 //        pw.printPair("lastTrimMillis", TimeUtils.formatForLogging(lastTrimMillis));

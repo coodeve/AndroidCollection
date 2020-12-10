@@ -34,7 +34,7 @@ import android.util.SparseIntArray;
 
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.Preconditions;
-import com.pvr.filemanager.utils.DebugUtils;
+import com.coodev.filemanager.utils.DebugUtils;
 
 import java.io.CharArrayWriter;
 import java.io.File;

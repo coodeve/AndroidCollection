@@ -7,6 +7,7 @@ buildscript {
         maven { url "https://jitpack.io" }
         jcenter()
         mavenLocal()
+        maven{ url './app_asm_plugin_repo'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.4'
@@ -24,6 +25,9 @@ buildscript {
 
         // greendao
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
+
+        // 自定义插件app_asm_plugin
+        classpath 'coodev.plugin:app_asm_plugin:1.0.0'
     }
 }
 
@@ -33,6 +37,7 @@ allprojects {
         maven { url "https://jitpack.io" }
         jcenter()
         mavenLocal()
+        maven{ url './app_asm_plugin_repo'}
     }
 }
 

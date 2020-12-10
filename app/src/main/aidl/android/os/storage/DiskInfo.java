@@ -21,7 +21,7 @@ import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import com.pvr.filemanager.utils.DebugUtils;
+import com.coodev.filemanager.utils.DebugUtils;
 import com.android.internal.util.IndentingPrintWriter;
 import com.android.internal.util.Preconditions;
 

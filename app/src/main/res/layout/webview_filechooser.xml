@@ -43,7 +43,7 @@
 
     <TextView
         android:background="@drawable/webview_filechooser_background_corner"
-        android:id="@+id/tv_camera"
+        android:id="@+id/tv_video"
         android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

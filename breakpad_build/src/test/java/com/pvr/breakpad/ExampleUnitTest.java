@@ -1,4 +1,4 @@
-package com.pvr.breakpad;
+package com.coodev.breakpad;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.pvr.breakpad;
+package com.coodev.breakpad;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

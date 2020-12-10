@@ -7,3 +7,4 @@
 .externalNativeBuild
 /.idea/
 /app/.cxx/
+/app_asm_plugin_repo/

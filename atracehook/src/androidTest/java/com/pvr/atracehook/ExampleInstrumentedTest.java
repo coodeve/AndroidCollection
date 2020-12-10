@@ -1,4 +1,4 @@
-package com.pvr.atracehook;
+package com.coodev.atracehook;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

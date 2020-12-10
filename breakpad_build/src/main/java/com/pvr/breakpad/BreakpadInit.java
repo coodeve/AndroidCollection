@@ -1,4 +1,4 @@
-package com.pvr.breakpad;
+package com.coodev.breakpad;
 
 
 public class BreakpadInit {

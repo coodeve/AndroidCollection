@@ -7,8 +7,8 @@ import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.util.Log;
 
-import com.pvr.verify.ICallback;
-import com.pvr.verify.IVerify;
+import com.coodev.verify.ICallback;
+import com.coodev.verify.IVerify;
 
 public class VerifyService extends Service {
 

@@ -9,4 +9,4 @@ include ':app'
 //        ':systrace-gradle-plugin',
 //        ':systrace_sample_android',
 //        ':verifycheck'
-
+include ':app_asm_plugin'
