@@ -18,13 +18,14 @@ public class TwoWayDataBindingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mViewDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_two_way_databinding);
-        mViewDataBinding.setCustomViewModel(new TwoWayViewModel());
+        mViewDataBinding.setViewModel(new TwoWayViewModel());
+        init();
     }
 
     /**
      * 使用{@link TwoWayDataBinding}
      */
     private void init() {
-        mViewDataBinding.setCustomObserver(new TwoWayDataBinding());
+        mViewDataBinding.setObserver(new TwoWayDataBinding());
     }
 }

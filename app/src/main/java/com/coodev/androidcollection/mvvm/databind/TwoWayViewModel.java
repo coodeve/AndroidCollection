@@ -14,6 +14,7 @@ public class TwoWayViewModel extends BaseObservable {
 
     public TwoWayViewModel() {
         mLoginInfo = new LoginInfo();
+        mLoginInfo.userName = "Patrick";
     }
 
     @Bindable

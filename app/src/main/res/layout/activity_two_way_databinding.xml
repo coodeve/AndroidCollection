@@ -4,11 +4,11 @@
 
     <data>
         <variable
-            name="custom_viewModel"
+            name="viewModel"
             type="com.coodev.androidcollection.mvvm.databind.TwoWayViewModel" />
 
         <variable
-            name="custom_observer"
+            name="observer"
             type="com.coodev.androidcollection.mvvm.databind.TwoWayDataBinding" />
     </data>
 
@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
         <!--   注意,这里是 = 号     -->
         <EditText
-            android:text="@={custom_viewModel.getUserName}"
+            android:text="@={viewModel.userName}"
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:text="@={custom_observer.getUserName}"
+            android:text="@={observer.userName}"
             android:id="@+id/user_name_ob"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
