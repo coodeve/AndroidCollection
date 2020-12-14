@@ -2,6 +2,7 @@ package com.coodev.androidcollection.entity;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.lang.annotation.Target;
 import java.util.List;
 
 public class Movies {
