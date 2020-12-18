@@ -1,6 +1,7 @@
 package com.coodev.androidcollection.Utils.system;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.hardware.display.DisplayManager;
 import android.util.Log;
 import android.view.Display;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -129,6 +131,34 @@ public class DisplayUtils {
             return displayType;
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
+     * 获取焦点所在的Stack对应的DisplayId，默认0
+     *
+     * @param context
+     * @return
+     */
+    public static int getFocusedStackDisplayId(Context context) {
+        try {
+            ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            Method getServiceMethod = activityManager.getClass().getDeclaredMethod("getService");
+            Object iActivityManagerObj = getServiceMethod.invoke(activityManager);
+            Class iActivityManagerClass = iActivityManagerObj.getClass();
+            Object focusedStackInfoObj;
+            Method getFocusedStackInfoMethod = iActivityManagerClass.getDeclaredMethod("getFocusedStackInfo");
+            focusedStackInfoObj = getFocusedStackInfoMethod.invoke(iActivityManagerObj);
+            Field stackIdField = focusedStackInfoObj.getClass().getDeclaredField("stackId");
+            int stackId = stackIdField.getInt(focusedStackInfoObj);
+            Field displayIdField = focusedStackInfoObj.getClass().getDeclaredField("displayId");
+            int displayId = displayIdField.getInt(focusedStackInfoObj);
+            Log.i("AppUtils", "focusedStackId = " + stackId + ", focusedStackDisplayId = " + displayId);
+            return displayId;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.i("AppUtils", "getFocusedStackDisplayId exception!");
         }
         return 0;
     }

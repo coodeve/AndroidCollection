@@ -31,7 +31,7 @@
         </activity> <!-- X5 Webview -->
         <activity android:name=".mvvm.databind.TwoWayDataBindingActivity"/>
         <activity android:name=".mvvm.databind.DataBindingActivity" />
-        <activity android:name=".test.butterknife.ButterknifeActivity" /> <!-- icon更换 -->
+        <activity android:name=".test.butterknife.ButterKnifeActivity" /> <!-- icon更换 -->
         <activity android:name=".test.butterknife.ViewInjectorActivity" /> <!-- 主页 -->
         <activity android:name=".test.ble.BleClientActivity" /> <!-- 其他界面 -->
         <activity android:name=".test.ble.BleServerActivity" />

@@ -67,7 +67,7 @@ def version_code = 1;
 def include_package = "top.coodev"
 def jar_file_name_debug = "dev_sdk$version_name-$version_code-debug.jar"
 def jar_file_name_release = "dev_sdk$version_name-$version_code-release.jar"
-def out_dir_name = "build/libs"
+def out_dir_name = "lib"
 
 // 创建jar包
 task buildJar(type: Jar, dependsOn: ['build']) {
@@ -81,14 +81,15 @@ task buildJar(type: Jar, dependsOn: ['build']) {
     exclude "**/BuildConfig\$.class"
     exclude "**/R.class"
     exclude "**/R\$.class"
+    println "jar file $jar_file_name_debug compiled "
 }
 // jar混淆
-task buildJarProguard(type: ProGuardTask, dependsOn: buildJar){
+task buildJarProguard(type: ProGuardTask, dependsOn: buildJar) {
     injars "$jar_file_name_debug"
     outjars "lib/$jar_file_name_release"
     configuration "proguard-rules.pro"
+    println "jar file $jar_file_name_release compiled "
 }
-
 
 
 dependencies {
@@ -110,69 +111,44 @@ dependencies {
     implementation 'androidx.work:work-runtime:2.4.0'
     // page
     implementation 'androidx.paging:paging-runtime:2.1.2'
-
-
     // material
     implementation 'com.google.android.material:material:1.2.1'
     // recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-
     // butterknife
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
-
     // rxjava ,rxandroid
     implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-
     // eventbus
     implementation 'org.greenrobot:eventbus:3.1.1'
-
     // glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
-
     // BaseRecyclerViewAdapterHelper
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
-
     // basepopu
     implementation 'com.github.razerdp:BasePopup:2.1.4'
-
     // 权限申请
     implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
-
-    // For developers using AndroidX in their applications
-
-    // implementation 'pub.devrel:easypermissions:3.0.0'
-
     // For developers using the Android Support Library
     implementation 'pub.devrel:easypermissions:2.0.1'
-
     // photoview
     implementation 'com.bm.photoview:library:1.4.1'
-
     // photoView
     implementation 'com.github.chrisbanes:PhotoView:2.1.4'
-
     // utilcode
     implementation 'com.blankj:utilcode:1.25.9'
-
     //抖音分享
     implementation 'com.bytedance.ies.ugc.aweme:open-sdk:0.0.1.4'
-
     // apache common
     implementation 'org.apache.commons:commons-lang3:3.7'
-
     // gson
     implementation 'com.google.code.gson:gson:2.8.6'
-
     // okhttp & okio
     implementation 'com.squareup.okhttp3:okhttp:4.8.0'
     implementation 'com.squareup.okio:okio:2.7.0'
-
-    // anotationlib
-//    implementation project(path: ':annotationlib:annotation')
-//    annotationProcessor project(path: ':annotationlib:complier')
     // cronet
     implementation 'com.google.android.gms:play-services-cronet:17.0.0'
     // retrofit
@@ -183,18 +159,15 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     // 标签控件
     implementation 'com.github.donkingliang:LabelsView:1.5.0'
-
-    // breakpad
-//    implementation project(path: ":breakpad_build")
-
     //xUtils3
     implementation 'org.xutils:xutils:3.5.0'
-
     // jetpack navigation
     def nav_version = "2.3.2"
-    // Java language implementation
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
     // greenDao
     implementation 'org.greenrobot:greendao:3.2.2'
+    // apt
+    implementation project(path: ':app_apt_annotation')
+    annotationProcessor project(path: ':app_apt_compiler')
 }

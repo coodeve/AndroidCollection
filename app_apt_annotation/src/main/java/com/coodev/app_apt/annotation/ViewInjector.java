@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
  * 参考:{@link javax.lang.model.element.Element}
  */
 @Target(ElementType.FIELD)
-@Retention(RetentionPolicy.CLASS)
-public @interface GetSet {
-    String value() default "";
+@Retention(RetentionPolicy.SOURCE)
+public @interface ViewInjector {
+    int value() default 0;
 }
 

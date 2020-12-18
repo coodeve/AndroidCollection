@@ -10,7 +10,7 @@ import com.coodev.androidcollection.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ButterknifeActivity extends AppCompatActivity {
+public class ButterKnifeActivity extends AppCompatActivity {
 
     @BindView(R.id.tv_test)
     TextView mTextView;

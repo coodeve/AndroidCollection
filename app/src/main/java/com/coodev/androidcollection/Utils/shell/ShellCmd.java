@@ -9,6 +9,8 @@ import android.os.Process;
 public class ShellCmd {
     /**
      * 获取activity栈
+     * dumpsys activity -a | sed -n -e "/Display #/p" -e   "/Stack #/p" -e "/Running activities/,/Run #0/p" -e "/mResumedActivity: /p"
+     *
      */
     public static final String COMMAND = "dumpsys activity -a | sed -n -e \"/Display #/p\" -e   \"/Stack #/p\" -e \"/Running activities/,/Run #/p\"";
 

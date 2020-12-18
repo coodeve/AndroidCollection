@@ -10,4 +10,5 @@ include ':app'
 //        ':systrace_sample_android',
 //        ':verifycheck'
 include ':app_asm_plugin'
-include ':app_apt'
+include ':app_apt_compiler'
+include ':app_apt_annotation'
