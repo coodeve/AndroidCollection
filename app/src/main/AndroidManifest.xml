@@ -55,7 +55,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="pvrweb" />
+                <data android:scheme="coo" />
                 <data android:scheme="http" />
                 <data android:scheme="https" />
             </intent-filter>

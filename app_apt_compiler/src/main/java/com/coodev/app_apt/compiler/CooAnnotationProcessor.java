@@ -1,7 +1,7 @@
 package com.coodev.app_apt.compiler;
 
 import com.coodev.app_apt.compiler.handler.AnnotationHandler;
-import com.coodev.app_apt.compiler.handler.GetSetHandler;
+import com.coodev.app_apt.compiler.handler.ViewInjectorHandler;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,21 +16,16 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 
-/**
- * 自定义注解处理器
- */
-@SupportedAnnotationTypes("com.coodev.app_apt.compiler.annotation.*")
+@SupportedAnnotationTypes("com.coodev.app_apt.annotation.*")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class CooAnnotationProcessor extends AbstractProcessor {
 
     private AnnotationProcessorUtils mAnnotationProcessorUtils = null;
-    /**
-     * 注解处理器集合
-     */
+
     private List<AnnotationHandler> mAnnotationHandlers = new LinkedList<>();
 
     private void registerAnnotationHandler() {
-        mAnnotationHandlers.add(new GetSetHandler());
+        mAnnotationHandlers.add(new ViewInjectorHandler());
     }
 
     @Override

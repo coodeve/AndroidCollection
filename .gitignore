@@ -8,3 +8,6 @@
 /.idea/
 /app/.cxx/
 /app_asm_plugin_repo/
+/app_apt_annotation/repository/
+/app_apt_compiler/repository/
+/app_asm_plugin/repository/

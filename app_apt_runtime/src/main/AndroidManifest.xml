@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.coodev.app_apt_runtime">
+
+    <application android:name="RuntimeApplication">
+
+    </application>
+</manifest>
