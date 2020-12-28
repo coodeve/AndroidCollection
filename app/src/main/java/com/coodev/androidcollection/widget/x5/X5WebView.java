@@ -2,7 +2,11 @@ package com.coodev.androidcollection.widget.x5;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -22,10 +26,13 @@ import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
+import java.util.List;
+
 public class X5WebView extends WebView {
     private final static String TAG = X5WebView.class.getSimpleName();
     private static final long NET_SLOW_TIME = 8000;
     private final Context context;
+    private final PackageManager mPackageManager;
     TextView title;
     private ProgressBar mProgressBar;
 
@@ -42,6 +49,23 @@ public class X5WebView extends WebView {
          * 防止加载网页时调起系统浏览器
          */
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            if (!url.startsWith("http")
+                    && !url.startsWith("https")
+                    && !url.startsWith("file")) {
+                Intent intent = null;
+                if (url.startsWith("tel")) {
+                    intent = new Intent();
+                    intent.setData(Uri.parse(url));
+                } else {
+                    intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                }
+                List<ResolveInfo> resolveInfos = mPackageManager.queryIntentActivities(intent, PackageManager.GET_INTENT_FILTERS);
+                if (resolveInfos.size() > 0) {
+                    context.startActivity(intent);
+                }
+                return true;
+            }
             return false;
         }
 
@@ -122,6 +146,7 @@ public class X5WebView extends WebView {
     public X5WebView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         this.context = context;
+        this.mPackageManager = (PackageManager) context.getPackageManager();
         this.setWebViewClient(client);
         this.setWebChromeClient(mWebChromeClient);
         this.setDownloadListener(new X5DownloadListener());
@@ -188,7 +213,7 @@ public class X5WebView extends WebView {
 
         @Override
         public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimeType, long contentLength) {
-            DownloadUtils.downloadBySystem(getContext(),url, contentDisposition, mimeType);
+            DownloadUtils.downloadBySystem(getContext(), url, contentDisposition, mimeType);
             mHandler.sendEmptyMessage(MainActivity.START_DOWNLOAD_FILE);
         }
     }

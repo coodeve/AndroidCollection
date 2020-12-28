@@ -5,6 +5,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -12,6 +14,7 @@ import android.os.Build;
 import android.os.Message;
 
 import androidx.appcompat.app.AlertDialog;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +53,7 @@ public class BrowserView extends WebView implements DownloadListener {
     private WebHelper mWebHelper;
     private FrameLayout mFrameLayout;
     private List<String> mListImgSrc;
+    private PackageManager mPackageManager;
 
     public BrowserView(Context context) {
         super(context);
@@ -83,7 +87,7 @@ public class BrowserView extends WebView implements DownloadListener {
     @SuppressLint("JavascriptInterface")
     private void initView(Context context) {
         this.mContext = context;
-
+        mPackageManager = mContext.getPackageManager();
         mWebHelper = new WebHelper(mContext);
 
         initSetting();
@@ -206,23 +210,31 @@ public class BrowserView extends WebView implements DownloadListener {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString();
-            if (url == null) {
+            if ("".equals(url)) {
                 return false;
             }
             Log.i(TAG, "shouldOverrideUrlLoading: " + url);
-            try {
-                if (url.startsWith("http:") || url.startsWith("https:")) {
-                    view.loadUrl(url);
-                    return true;
+            if (!url.startsWith("http")
+                    && !url.startsWith("https")
+                    && !url.startsWith("file")) {
+                Intent intent = null;
+                if (url.startsWith("tel")) {
+                    intent = new Intent();
+                    intent.setData(Uri.parse(url));
                 } else {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    mContext.startActivity(intent);
-                    return true;
+                    intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
                 }
-            } catch (Exception e) {
-                //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
-                return false;
+                List<ResolveInfo> resolveInfos = mPackageManager.queryIntentActivities(intent, PackageManager.GET_INTENT_FILTERS);
+                if (resolveInfos.size() > 0) {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getContext().startActivity(intent);
+                }
+                return true;
             }
+
+            view.loadUrl(url);
+            return true;
         }
 
         @Override
@@ -467,7 +479,7 @@ public class BrowserView extends WebView implements DownloadListener {
     }
 
 
-    public  List<String> getImageUrlsFromHtml(String htmlCode) {
+    public List<String> getImageUrlsFromHtml(String htmlCode) {
         mListImgSrc = new ArrayList<String>();
         Pattern p = Pattern.compile("<img\\b[^>]*\\bsrc\\b\\s*=\\s*('|\")?([^'\"\n\r\f>]+(\\.jpg|\\.bmp|\\.eps|\\.gif|\\.mif|\\.miff|\\.png|\\.tif|\\.tiff|\\.svg|\\.wmf|\\.jpe|\\.jpeg|\\.dib|\\.ico|\\.tga|\\.cut|\\.pic|\\b)\\b)[^>]*>", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(htmlCode);
