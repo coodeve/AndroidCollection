@@ -8,11 +8,23 @@ import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
@@ -161,5 +173,43 @@ public class TextUtil {
         return Locale.forLanguageTag(lang).getDisplayName();
     }
 
+    /**
+     * 格式化json
+     *
+     * @param json 字符串
+     * @return
+     */
+    public static String formatJson(String json) {
+        try {
+            if (json.startsWith("{")) {
+                json = new JSONObject(json).toString(4);
+            } else if (json.startsWith("[")) {
+                json = new JSONArray(json).toString(4);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
 
+    /**
+     * 格式化xml
+     *
+     * @param xml 字符串
+     * @return
+     */
+    public static String formatXml(String xml) {
+        try {
+            Source xmlInput = new StreamSource(new StringReader(xml));
+            final StreamResult xmlOut = new StreamResult(new StringWriter());
+            final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amout", "4");
+            transformer.transform(xmlInput, xmlOut);
+            xml = xmlOut.getWriter().toString().replaceFirst(">", ">" + System.lineSeparator());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return xml;
+    }
 }
