@@ -1,4 +1,3 @@
-import proguard.gradle.ProGuardTask
 
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
@@ -85,13 +84,34 @@ task buildJar(type: Jar, dependsOn: ['build']) {
     println "jar file $jar_file_name_debug compiled "
 }
 // jar混淆
-task buildJarProguard(type: ProGuardTask, dependsOn: buildJar) {
+task buildJarProguard(type: proguard.gradle.ProGuardTask, dependsOn: buildJar) {
     injars "$jar_file_name_debug"
     outjars "lib/$jar_file_name_release"
     configuration "proguard-rules.pro"
     println "jar file $jar_file_name_release compiled "
 }
 
+// 调用window cmd
+task buildAndInstall(type:Exec,description:'build and install after signapk'){
+    // 需要在doFirst中执行，否则Exec命令会出错
+    doFirst {
+        println "task[$name] is running..."
+        copy {
+            from "build/outputs/apk/debug/app-debug.apk"
+            into "E:\\Assest\\Auto_sign_s\\sign_S"
+            rename {
+                String fileName ->
+                    "123.apk"
+            }
+        }
+        workingDir 'E:\\Assest\\Auto_sign_s\\sign_S'
+        commandLine 'cmd',"/c","APK_Sign_Platform_123"
+        println "task[$name] end."
+    }
+
+}
+// 设置到build之后执行
+build.finalizedBy(buildAndInstall)
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
