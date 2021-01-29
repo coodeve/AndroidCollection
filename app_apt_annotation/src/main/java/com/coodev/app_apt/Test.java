@@ -1,4 +1,4 @@
-package com.coodev.app_apt.compiler.annotation;
+package com.coodev.app_apt;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

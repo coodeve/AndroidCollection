@@ -2,7 +2,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 // 自定义插件
-//apply plugin: 'lifecycle_asm'
+apply plugin: 'lifecycle-plugin'
 
 android {
     compileSdkVersion 29
@@ -193,6 +193,6 @@ dependencies {
     annotationProcessor "com.alibaba:arouter-compiler:1.5.1"
     // apt
     implementation project(':app_apt_annotation')
-    annotationProcessor project(path: ':app_apt_compiler')
+//    annotationProcessor project(path: ':app_apt_compiler')
 
 }

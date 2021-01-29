@@ -1,6 +1,5 @@
 package com.coodev.androidcollection.Utils.io;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.InetSocketAddress;
@@ -80,6 +79,7 @@ public class NIOUtil {
         }
     }
 
+
     /**
      * 创建读写管道
      *
@@ -105,14 +105,14 @@ public class NIOUtil {
      * configureBlocking可以设置是否阻塞
      * <p>
      * <p>
-     * Bytebuffer {@link ByteBuffer}部分方法说明：
+     * ByteBuffer {@link ByteBuffer}部分方法说明：
      * position()：将要读取或者写入的下一个位置
      * capacity()：容量
      * limit(): 可访问数据的末尾位置，读写无法超过这个位置
-     * clear(): 将位置设置为0，并将limit设置为最大容量capacity。数据并没有删除，
+     * clear(): 将position设置为0，并将limit设置为最大容量capacity。数据并没有删除，
      * 可以是个get方法或者改变位置和限度进行读取。
      * reset(): 将当前位置设置为mark位置
-     * rewind(): 将位置置为0，不改变limit
+     * rewind(): 将position置为0，不改变limit
      * flip(): limit设置为当前position位置，position位置再置为0
      * remainning(): 返回缓冲区当前位置和限度位置之间的元素个数
      * compact(): 如果buffer还有未读取的数据,但此时想写入数据,并且读数据不进行覆盖,可以用此方法

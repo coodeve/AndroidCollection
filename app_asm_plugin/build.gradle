@@ -18,12 +18,14 @@ sourceCompatibility = "8"
 targetCompatibility = "8"
 
 
-group = 'top.coodev'
-version = '1.0.0'
+
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: uri('./repository'))
+            pom.groupId = 'top.coodev'
+            pom.artifactId = 'lifecycle-plugin'
+            pom.version = '1.0.0'
+            repository(url: uri('../repository'))
         }
     }
 }
