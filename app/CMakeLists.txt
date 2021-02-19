@@ -7,7 +7,7 @@ add_library(
     coo
     SHARED
     ${CURRENT_DIR}/src/main/cpp/android_jni.cpp
-#    ${CURRENT_DIR}/src/main/cpp/native_crash_cache.cpp
+    ${CURRENT_DIR}/src/main/cpp/native_crash_cache.cpp
 )
 
 # Specifies a path to native header files.

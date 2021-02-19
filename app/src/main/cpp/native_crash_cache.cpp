@@ -40,7 +40,7 @@ void my_handler(int code, struct siginfo *pSiginfo, void *sc) {
  */
     Dl_info dl_info;
     char *addr;
-    if (dladdr(addr, &dl_info) != 0 && dl_info.dli_fname != NULL) {
+    if (dladdr(addr, &dl_info) != 0 && dl_info.dli_fname != nullptr) {
         void *const nearest = dl_info.dli_saddr;
         //相对偏移地址
         const uintptr_t addr_relative =
@@ -59,10 +59,10 @@ void my_handler(int code, struct siginfo *pSiginfo, void *sc) {
 }
 
 void *DumpThreadEntry(void *argv) {
-    JNIEnv *env = NULL;
-    JavaVM *gJavaVM;
+    JNIEnv *env = nullptr;
+    JavaVM *javaVm = NULL;
     int estatus = 1;
-    if (gJavaVM->AttachCurrentThread(&env, NULL) != JNI_OK) {
+    if (javaVm->AttachCurrentThread(&env, nullptr) != JNI_OK) {
         LOGE("AttachCurrentThread() failed");
         estatus = 0;
         return &estatus;
@@ -77,9 +77,10 @@ void *DumpThreadEntry(void *argv) {
 
         //告诉信号处理函数已经处理完了
         //notifyThrowException();
+        break;
     }
 
-    if (gJavaVM->DetachCurrentThread() != JNI_OK) {
+    if (javaVm->DetachCurrentThread() != JNI_OK) {
         LOGE("DetachCurrentThread() failed");
         estatus = 0;
         return &estatus;
@@ -99,8 +100,8 @@ void *DumpThreadEntry(void *argv) {
 void nativeInit(JNIEnv *env, jclass javaClass, jstring packageNameStr, jstring tombstoneFilePathStr,
                 jobject obj) {
     pthread_t thd;
-    int ret = pthread_create(&thd, NULL, reinterpret_cast<void *(*)(void *)>(DumpThreadEntry),
-                             NULL);
+    int ret = pthread_create(&thd, nullptr, reinterpret_cast<void *(*)(void *)>(DumpThreadEntry),
+                             nullptr);
     if (ret) {
         LOGI("%s", "pthread_create error");
     }
@@ -115,7 +116,7 @@ void nativeInit(JNIEnv *env, jclass javaClass, jstring packageNameStr, jstring t
  */
 char *getThreadName(pid_t tid) {
     if (tid <= 1) {
-        return NULL;
+        return nullptr;
     }
     size_t THREAD_NAME_LENGTH = 100;
 
@@ -123,8 +124,8 @@ char *getThreadName(pid_t tid) {
     char *line = (char *) calloc(1, THREAD_NAME_LENGTH);
 
     snprintf(path, PATH_MAX, "proc/%d/comm", tid);
-    FILE *commFile = NULL;
-    if (commFile = fopen(path, "r")) {
+    FILE *commFile = nullptr;
+    if ((commFile = fopen(path, "r"))) {
         fgets(line, THREAD_NAME_LENGTH, commFile);
         fclose(commFile);
     }
@@ -239,53 +240,4 @@ jint initCrash(JNIEnv *env, jobject jobj, jint arg) {
 }
 
 
-jint testCrash(JNIEnv *env, jobject jobj, jint arg) {
-    LOGI("%s", "testCrash");
-
-    return 0;
-}
-
-jint testStaticCrash(JNIEnv *jniEnv, jclass jcls, int arg) {
-    LOGI("%s", "testStaticCrash");
-    // 引起crash
-    volatile int *a = (int *) (NULL);
-    *a = 1;
-    return 0;
-}
-
-static const char *JNIUTIL_CLASS_NAME = "com/pvr/picotest/NativeInterface";
-
-static JNINativeMethod methods[] = {
-        {"testCrash",       "(I)I", (void *) testCrash},
-        {"testStaticCrash", "(I)I", (void *) testStaticCrash},
-        {"initCrash",       "(I)I", (void *) initCrash}
-};
-
-jint registerNativeMethods(JNIEnv *jniEnv, const char *class_name, JNINativeMethod *method,
-                           int num_methods) {
-    jclass targetClass = jniEnv->FindClass(class_name);
-    if (NULL != targetClass) {
-        return jniEnv->RegisterNatives(targetClass, method, num_methods);
-    }
-
-    return JNI_ERR;
-}
-
-JNIEXPORT jint JNI_OnLoad(JavaVM *vm, void *reserved) {
-    LOGI("%s", "jni init load");
-    JNIEnv *jniEnv = NULL;
-    if (JNI_OK != vm->GetEnv(reinterpret_cast<void **>(&jniEnv), JNI_VERSION_1_4)) {
-        return JNI_ERR;
-    }
-    int numbers = sizeof(methods) / sizeof(methods[0]);
-    LOGI("number=%d", numbers);
-    if (JNI_OK != registerNativeMethods(jniEnv, JNIUTIL_CLASS_NAME, methods, numbers)) {
-        LOGI("%s", "register error");
-        return JNI_ERR;
-    }
-
-    LOGI("%s", "jni init success");
-    return JNI_VERSION_1_4;
-
-}
 
