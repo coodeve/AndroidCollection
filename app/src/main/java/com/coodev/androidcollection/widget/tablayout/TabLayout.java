@@ -71,12 +71,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * <pre>
- *   @author  : lucien.feng
- *   e-mail  : fengfei0205@gmail.com
- *   time    : 2019/01/10 13:08
- *   desc    : 可以修改下划线的tablayout(不影响点击区域，不用和文字大小相等);修改下划线宽度在line 1434
- * </pre>
+ * 可以修改下划线的tablayout(不影响点击区域，不用和文字大小相等);修改下划线宽度在line 1434
  */
 @ViewPager.DecorView
 public class TabLayout extends HorizontalScrollView {

@@ -146,6 +146,30 @@ public class TextUtil {
     }
 
     /**
+     * 判断字符串是否为URL
+     * 匹配 协议://域名
+     * 不匹配纯域名，比如 xxx.com或者com.xxx
+     *
+     * @param urls 需要判断的String类型url
+     * @return true:是URL；false:不是URL
+     */
+    public static boolean isUrl(String urls) {
+        boolean isurl = false;
+        //设置正则表达式
+        String regex = "(([a-zA-Z]+://)([a-z0-9]+[.])|(www.))"
+                + "\\w+[.|\\/]([a-z0-9]{0,})?[[.]([a-z0-9]{0,})]+((/[\\S&&[^,;\u4E00-\u9FA5]]+)+)?([.][a-z0-9]{0,}+|/?)";
+        //对比
+        Pattern pat = Pattern.compile(regex.trim());
+        Matcher mat = pat.matcher(urls.trim());
+        //判断是否匹配
+        isurl = mat.matches();
+        if (isurl) {
+            isurl = true;
+        }
+        return isurl;
+    }
+
+    /**
      * 语言翻译，将标准语言字符（比如，zh，zh-HK）换成系统对应翻译（多语言）
      *
      * @param lang

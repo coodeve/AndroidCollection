@@ -6,10 +6,10 @@ import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
 /**
- * websocket客户端
+ * webSocket客户端
  * <p>
- * 可以在建立websocket的服务端，可以找到相关服务端框架
- * websocket的地址，一般使用 ws:// 开头
+ * 可以在建立webSocket的服务端，可以找到相关服务端框架
+ * webSocket的地址，一般使用 ws:// 开头
  */
 public class WebSocketHelper {
 
@@ -17,7 +17,7 @@ public class WebSocketHelper {
     private WebSocket mWebSocket;
     private WebSocketListener webSocketListener;
 
-    public void createWebsocket(OkHttpClient mOkHttpClient, Request request, WebSocketListener webSocketListener) {
+    public void createWebSocket(OkHttpClient mOkHttpClient, Request request, WebSocketListener webSocketListener) {
         this.webSocketListener = webSocketListener;
         mWebSocket = mOkHttpClient.newWebSocket(request, webSocketListener);
     }

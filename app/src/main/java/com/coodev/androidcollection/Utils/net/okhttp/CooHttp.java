@@ -73,7 +73,16 @@ public class CooHttp {
     }
 
     /**
-     * 异步请求,回调在主线程
+     * 异步请求，回调格式是String
+     * @param request
+     * @param stringCallback
+     */
+    public void request(Request request, StringCallback stringCallback) {
+        mOkHttpClient.newCall(request).enqueue(stringCallback);
+    }
+
+    /**
+     * 异步请求,回调在Android主线程
      *
      * @param request
      * @param callback
@@ -105,14 +114,14 @@ public class CooHttp {
     }
 
     /**
-     * 构建一个websocket连接
+     * 构建一个webSocket连接
      *
      * @param request
      * @return
      */
-    public WebSocketHelper buildWebsocket(Request request, WebSocketListener webSocketListener) {
+    public WebSocketHelper buildWebSocket(Request request, WebSocketListener webSocketListener) {
         WebSocketHelper webSocketHelper = new WebSocketHelper();
-        webSocketHelper.createWebsocket(mOkHttpClient, request, webSocketListener);
+        webSocketHelper.createWebSocket(mOkHttpClient, request, webSocketListener);
         return webSocketHelper;
     }
 }

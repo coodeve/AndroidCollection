@@ -12,12 +12,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 /**
- * <pre>
- *   @author  : lucien.feng
- *   e-mail  : fengfei0205@gmail.com
- *   time    : 2019/03/06 15:01
- *   desc    : udp广播
- * </pre>
+ * udp广播
  */
 public class UdpBroadcast {
 

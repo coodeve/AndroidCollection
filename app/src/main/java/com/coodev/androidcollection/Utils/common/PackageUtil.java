@@ -77,7 +77,7 @@ public class PackageUtil {
      * @param path
      * @return
      */
-    public static Resources getExtrResources(Context context, String path) {
+    public static Resources getExtResources(Context context, String path) {
         AssetManager am = createAssetManager(path);
         return new Resources(am, context.getResources().getDisplayMetrics(), context.getResources().getConfiguration());
     }
