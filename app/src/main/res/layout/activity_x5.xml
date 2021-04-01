@@ -7,12 +7,12 @@
     tools:context=".MainActivity">
 
 
-    <com.coodev.innerweb.X5WebView
+    <com.coodev.androidcollection.widget.x5.X5WebView
         android:id="@+id/X5WebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.coodev.innerweb.X5WebView>
+    </com.coodev.androidcollection.widget.x5.X5WebView>
 
     <ProgressBar
         android:layout_marginTop="-6dp"

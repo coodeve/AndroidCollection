@@ -194,5 +194,7 @@ dependencies {
     // apt
     implementation project(':app_apt_annotation')
 //    annotationProcessor project(path: ':app_apt_compiler')
+    // xlog
+    implementation 'com.elvishew:xlog:1.6.1'
 
 }

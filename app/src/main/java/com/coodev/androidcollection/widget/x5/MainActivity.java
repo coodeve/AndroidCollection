@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         initView();
         dispatchLoadUrlMode(intent);
         mFrameLayout = findViewById(android.R.id.content);
+        mFrameLayout.setScaleX(0.4f);
+        mFrameLayout.setScaleY(0.4f);
     }
 
     private void setScreenConfig() {
