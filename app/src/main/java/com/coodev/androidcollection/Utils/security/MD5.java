@@ -1,10 +1,5 @@
 package com.coodev.androidcollection.Utils.security;
 
-/**
- * MD5
- * Created by dragon on 2016/6/17.
- */
-
 import java.security.MessageDigest;
 
 public class MD5 {

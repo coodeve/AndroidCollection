@@ -28,7 +28,7 @@ buildscript {
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
 
         // 自定义插件app_asm_plugin
-        classpath 'top.coodev:lifecycle-plugin:1.0.0'
+//        classpath 'top.coodev:lifecycle-plugin:1.0.0'
     }
 }
 

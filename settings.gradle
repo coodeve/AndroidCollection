@@ -9,7 +9,7 @@ include ':app'
 //        ':systrace-gradle-plugin',
 //        ':systrace_sample_android',
 //        ':verifycheck'
-include ':app_asm_plugin'
+//include ':app_asm_plugin'
 //include ':app_apt_compiler'
 //include ':app_apt_runtime'
-include ':app_apt_annotation'
+//include ':app_apt_annotation'

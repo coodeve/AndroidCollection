@@ -7,11 +7,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.StatFs;
 import android.os.storage.StorageManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
+
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -221,6 +224,24 @@ public class FileUtil {
         }
     }
 
+    /**
+     * 获取目标路径可用内存大小
+     *
+     * @param statFs StatFs
+     * @return 可用大小/byte
+     */
+    public static long getFreeSpaceBytes(@NonNull StatFs statFs) {
+        // NEED CHECK PERMISSION?
+        long freeSpaceBytes;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            freeSpaceBytes = statFs.getAvailableBytes();
+        } else {
+            //noinspection deprecation
+            freeSpaceBytes = statFs.getAvailableBlocks() * (long) statFs.getBlockSize();
+        }
+
+        return freeSpaceBytes;
+    }
 
     /**
      * Uri to file.
