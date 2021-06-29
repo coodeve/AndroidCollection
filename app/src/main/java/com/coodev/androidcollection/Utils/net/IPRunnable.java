@@ -20,6 +20,14 @@ import java.util.regex.Pattern;
  * 获取公网ip
  */
 public class IPRunnable implements Runnable {
+    /**
+     * 可用获取外网ip的url
+     */
+    private static final String[] ipPool = new String[]{
+            "https://pv.sohu.com/cityjson?ie=utf-8",
+            "https://whois.pconline.com.cn/ipJson.jsp",
+            "https://txt.go.sohu.com/ip/soip",
+    };
 
     private static ThreadPoolExecutor sThreadPoolExecutor =
             new ThreadPoolExecutor(

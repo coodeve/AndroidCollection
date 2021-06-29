@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Method;
 
 /**
- * 基于MemoryFile
+ * 基于Android的MemoryFile，实现一段共享内存
  */
 public class MemorySharedUtils {
 

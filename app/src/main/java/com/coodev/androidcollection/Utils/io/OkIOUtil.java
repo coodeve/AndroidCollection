@@ -1,6 +1,7 @@
 package com.coodev.androidcollection.Utils.io;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import okio.Buffer;
@@ -48,6 +49,18 @@ public class OkIOUtil {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+
+    public static void printLines(File file) {
+        try (BufferedSource bufferedSource = Okio.buffer(Okio.source(file))) {
+            String line;
+            while ((line = bufferedSource.readUtf8Line()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
