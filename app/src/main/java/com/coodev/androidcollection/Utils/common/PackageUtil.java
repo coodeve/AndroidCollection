@@ -31,7 +31,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 import com.coodev.androidcollection.App;
-import com.coodev.androidcollection.Utils.security.MD5;
+import com.coodev.androidcollection.Utils.security.MD5Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -333,7 +333,7 @@ public class PackageUtil {
         String[] signArray = new String[length];
         for (int i = 0; i < length; i++) {
             Signature signature = signatures[i];
-            signArray[i] = MD5.hexdigest(signature.toByteArray());
+            signArray[i] = MD5Util.md5(String.valueOf(signature.toByteArray()));
         }
         return signArray;
     }
@@ -686,7 +686,7 @@ public class PackageUtil {
      * @param packageName
      * @param flags
      */
-    public void deletePackage(PackageManager packageManager, IPackageDeleteObserver iPackageDeleteObserver,String packageName, int flags) {
+    public void deletePackage(PackageManager packageManager, IPackageDeleteObserver iPackageDeleteObserver, String packageName, int flags) {
         try {
             Class<?>[] deleteTypes = new Class[]{String.class, IPackageDeleteObserver.class, int.class};
             Method deleteMethod = packageManager.getClass().getMethod("deletePackage", deleteTypes);

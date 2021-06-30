@@ -1,4 +1,3 @@
-
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 // 自定义插件
@@ -27,7 +26,7 @@ android {
             annotationProcessorOptions {
                 // 设置Room升级版本的历史记录位置
                 arguments = ["room.schemaLocation": "$projectDir/schemes".toString(),
-                             AROUTER_MODULE_NAME: project.getName()]
+                             AROUTER_MODULE_NAME  : project.getName()]
             }
         }
 
@@ -92,7 +91,7 @@ task buildJarProguard(type: proguard.gradle.ProGuardTask, dependsOn: buildJar) {
 }
 
 // 调用window cmd
-task buildAndInstall(type:Exec,description:'build and install after signapk'){
+task buildAndInstall(type: Exec, description: 'build and install after signapk') {
     // 需要在doFirst中执行，否则Exec命令会出错
     doFirst {
         println "task[$name] is running..."
@@ -105,7 +104,7 @@ task buildAndInstall(type:Exec,description:'build and install after signapk'){
             }
         }
         workingDir 'E:\\Assest\\Auto_sign_s\\sign_S'
-        commandLine 'cmd',"/c","APK_Sign_Platform_123"
+        commandLine 'cmd', "/c", "APK_Sign_Platform_123"
         println "task[$name] end."
     }
 
@@ -145,7 +144,7 @@ dependencies {
     // eventbus
     implementation 'org.greenrobot:eventbus:3.1.1'
     // glide
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
     // BaseRecyclerViewAdapterHelper
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
@@ -165,6 +164,8 @@ dependencies {
     implementation 'com.bytedance.ies.ugc.aweme:open-sdk:0.0.1.4'
     // apache common
     implementation 'org.apache.commons:commons-lang3:3.7'
+    // apache codec
+    implementation 'commons-codec:commons-codec:1.11'
     // gson
     implementation 'com.google.code.gson:gson:2.8.6'
     // okhttp & okio
@@ -187,7 +188,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
     // greenDao
-    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'org.greenrobot:greendao:3.3.0'
     // ARouter
     implementation "com.alibaba:arouter-api:1.5.1"
     annotationProcessor "com.alibaba:arouter-compiler:1.5.1"
@@ -196,5 +197,6 @@ dependencies {
 //    annotationProcessor project(path: ':app_apt_compiler')
     // xlog
     implementation 'com.elvishew:xlog:1.6.1'
-
+    // google guava
+    implementation 'com.google.guava:guava:30.1.1-android'
 }
