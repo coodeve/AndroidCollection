@@ -17,6 +17,9 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 
+/**
+ * 使用一个第三方库 com.elvishew:xlog
+ */
 public class XLogUtils {
 
     /**

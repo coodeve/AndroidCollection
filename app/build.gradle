@@ -195,8 +195,10 @@ dependencies {
     // apt
 //    implementation project(':app_apt_annotation')
 //    annotationProcessor project(path: ':app_apt_compiler')
-    // xlog
+    // elvishew-xlog
     implementation 'com.elvishew:xlog:1.6.1'
     // google guava
     implementation 'com.google.guava:guava:30.1.1-android'
+    // tencent-xlog
+    implementation 'com.tencent.mars:mars-core:1.2.5'
 }
