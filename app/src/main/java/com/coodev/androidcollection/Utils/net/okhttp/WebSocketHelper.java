@@ -26,7 +26,7 @@ public class WebSocketHelper {
         mWebSocket.send(msg);
     }
 
-    public void cannel() {
+    public void cancel() {
         mWebSocket.cancel();
     }
 
@@ -35,7 +35,7 @@ public class WebSocketHelper {
     }
 
     private void reConnect() {
-        CooHttp.getOkhttpClient().newWebSocket(mWebSocket.request(), webSocketListener);
+        CooHttp.getOkHttpClient().newWebSocket(mWebSocket.request(), webSocketListener);
     }
 
 

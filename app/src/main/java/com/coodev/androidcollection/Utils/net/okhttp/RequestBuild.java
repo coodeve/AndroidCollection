@@ -1,11 +1,10 @@
 package com.coodev.androidcollection.Utils.net.okhttp;
 
-import com.coodev.androidcollection.Utils.io.FileUtil;
+import com.blankj.utilcode.util.FileUtils;
 
 import org.json.JSONObject;
 
 import java.io.File;
-import java.lang.invoke.MethodType;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,8 +18,8 @@ public class RequestBuild {
     /**
      * 创建一个get请求
      *
-     * @param url
-     * @return
+     * @param url 地址
+     * @return Request
      */
     public Request createGetRequest(String url) {
         return new Request.Builder().url(url).get().build();
@@ -36,9 +35,9 @@ public class RequestBuild {
      * <p>
      * key1=value1&key2=value2
      *
-     * @param url
-     * @param params
-     * @return
+     * @param url    地址
+     * @param params 参数集合
+     * @return Request
      */
     public Request createPostRequestForm(String url, Map<String, String> params) {
         FormBody.Builder builder = new FormBody.Builder();
@@ -60,9 +59,9 @@ public class RequestBuild {
      * <p>
      * json字符串
      *
-     * @param url
-     * @param params
-     * @return
+     * @param url    地址
+     * @param params 参数集合
+     * @return Request
      */
     public Request createPostRequestRaw(String url, Map<String, Object> params) {
         JSONObject jsonObject = new JSONObject(params);
@@ -83,13 +82,12 @@ public class RequestBuild {
      * <p>
      * 字符串
      *
-     * @param url
-     * @param params
-     * @return
+     * @param url    地址
+     * @param params 字符串
+     * @return Request
      */
     public Request createPostRequestRaw(String url, String params) {
-        RequestBody requestBody =
-                FormBody.create(MediaType.parse("application/json"), params);
+        RequestBody requestBody = FormBody.create(MediaType.parse("application/json"), params);
         return new Request.Builder().url(url).post(requestBody).build();
     }
 
@@ -117,13 +115,13 @@ public class RequestBuild {
      * 二进制数据0100001010101001001010
      * xxxooo--
      *
-     * @param url
-     * @param filePath
+     * @param url      地址
+     * @param filePath 文件路径
      * @param mimeType like "image/jpg"
-     * @return
+     * @return Request
      */
     public Request createUploadRequest(String url, String filePath, String mimeType) {
-        String fileName = FileUtil.getFileName(filePath);
+        String fileName = FileUtils.getFileName(filePath);
         if (fileName == null) {
             return null;
         }
@@ -139,14 +137,14 @@ public class RequestBuild {
     /**
      * 上传文件，携带表单参数
      *
-     * @param url
-     * @param filePath
-     * @param mimeType
-     * @param requestParams
-     * @return
+     * @param url           地址
+     * @param filePath      文件路径
+     * @param mimeType      like "image/jpg"
+     * @param requestParams 请求参数
+     * @return Request
      */
     public Request createUploadRequest(String url, String filePath, String mimeType, Map<String, String> requestParams) {
-        String fileName = FileUtil.getFileName(filePath);
+        String fileName = FileUtils.getFileName(filePath);
         if (fileName == null) {
             return null;
         }

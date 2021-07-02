@@ -1,6 +1,13 @@
 package com.coodev.androidcollection;
 
+import com.coodev.androidcollection.Utils.net.okhttp.CooHttp;
+import com.coodev.androidcollection.Utils.net.okhttp.RequestBuild;
+
 import org.junit.Test;
+
+import java.util.HashMap;
+
+import okhttp3.Request;
 
 import static org.junit.Assert.*;
 

@@ -1,7 +1,5 @@
 package com.coodev.androidcollection.Utils.net.okhttp;
 
-import android.util.Log;
-
 import com.coodev.androidcollection.Utils.net.SSLManager;
 
 import java.io.IOException;
@@ -27,37 +25,31 @@ public class CooHttp {
     public static class HttpLogger implements HttpLoggingInterceptor.Logger {
         @Override
         public void log(String message) {
-            Log.i(TAG, message);
+            System.out.println(message);
         }
     }
 
 
     static {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+        mOkHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(TIME_OUT_CONNECT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT_READ, TimeUnit.SECONDS)
                 .followRedirects(true)
                 .retryOnConnectionFailure(true)
                 .hostnameVerifier(SSLManager.getEmptyHostNameVerifier())// https的支持
-                .sslSocketFactory(SSLManager.getSSLContextNone().getSocketFactory(), SSLManager.getEmptyTrustManager());// https的支持
-
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLogger());
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        builder.addNetworkInterceptor(httpLoggingInterceptor);
-
-
+                .sslSocketFactory(SSLManager.getSSLContextNone().getSocketFactory(), SSLManager.getEmptyTrustManager())// https的支持
+                .build();
     }
 
 
-    public static OkHttpClient getOkhttpClient() {
+    public static OkHttpClient getOkHttpClient() {
         return mOkHttpClient;
     }
 
     /**
      * 加载拦截器
      *
-     * @param interceptor
+     * @param interceptor interceptor
      */
     public static void addInterceptor(Interceptor interceptor) {
         mOkHttpClient = mOkHttpClient.newBuilder().addInterceptor(interceptor).build();
@@ -66,16 +58,23 @@ public class CooHttp {
     /**
      * 加载网路拦截器
      *
-     * @param interceptor
+     * @param interceptor interceptor
      */
     public static void addNetworkInterceptor(Interceptor interceptor) {
         mOkHttpClient = mOkHttpClient.newBuilder().addNetworkInterceptor(interceptor).build();
     }
 
+    public static void addDefaultNetworkInterceptor() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLogger());
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        addNetworkInterceptor(httpLoggingInterceptor);
+    }
+
     /**
      * 异步请求，回调格式是String
-     * @param request
-     * @param stringCallback
+     *
+     * @param request        Request
+     * @param stringCallback interceptor
      */
     public void request(Request request, StringCallback stringCallback) {
         mOkHttpClient.newCall(request).enqueue(stringCallback);
@@ -84,8 +83,8 @@ public class CooHttp {
     /**
      * 异步请求,回调在Android主线程
      *
-     * @param request
-     * @param callback
+     * @param request  Request
+     * @param callback Callback
      */
     public void request(Request request, Callback callback) {
         mOkHttpClient.newCall(request).enqueue(new WrapperCallback(callback));
@@ -94,8 +93,8 @@ public class CooHttp {
     /**
      * 同步请求
      *
-     * @param request
-     * @return
+     * @param request Request
+     * @return Response
      */
     public Response request(Request request) throws IOException {
         return mOkHttpClient.newCall(request).execute();
@@ -105,9 +104,9 @@ public class CooHttp {
     /**
      * 下载文件
      *
-     * @param request
-     * @param saveFilePath
-     * @param downloadListener
+     * @param request          request
+     * @param saveFilePath     saveFilePath
+     * @param downloadListener DownloadCallback.DownloadListener
      */
     public void downloadFile(Request request, String saveFilePath, DownloadCallback.DownloadListener downloadListener) {
         mOkHttpClient.newCall(request).enqueue(new DownloadCallback(saveFilePath, downloadListener).get());
@@ -116,8 +115,8 @@ public class CooHttp {
     /**
      * 构建一个webSocket连接
      *
-     * @param request
-     * @return
+     * @param request request
+     * @return WebSocketListener
      */
     public WebSocketHelper buildWebSocket(Request request, WebSocketListener webSocketListener) {
         WebSocketHelper webSocketHelper = new WebSocketHelper();
