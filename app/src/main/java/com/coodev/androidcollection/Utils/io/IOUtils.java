@@ -1,7 +1,11 @@
 package com.coodev.androidcollection.Utils.io;
 
+import org.xutils.common.util.IOUtil;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +16,8 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Enumeration;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -100,6 +106,7 @@ public class IOUtils {
     /**
      * 解压压缩文件
      * 压缩大量小文件时，建议使用ZipInputStream
+     *
      * @param sourceFile
      * @param targetDir
      */
@@ -132,6 +139,7 @@ public class IOUtils {
 
     /**
      * 加压压缩文件
+     *
      * @param sourceFile
      * @param targetDir
      */
@@ -222,5 +230,39 @@ public class IOUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * 压缩字节码
+     *
+     * @param source 原数据
+     * @return 压缩后的数据
+     */
+    public static byte[] decompress(byte[] source) {
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+            IOUtil.copy(new GZIPInputStream(new ByteArrayInputStream(source)), byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new byte[0];
+    }
+
+    /**
+     * 压缩字节码
+     *
+     * @param source 元数据
+     * @return 压缩后的数据
+     */
+    public static byte[] compress(byte[] source) {
+        try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(source)) {
+            final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            IOUtil.copy(byteArrayInputStream, new GZIPOutputStream(byteArrayOutputStream));
+            return byteArrayOutputStream.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new byte[0];
     }
 }

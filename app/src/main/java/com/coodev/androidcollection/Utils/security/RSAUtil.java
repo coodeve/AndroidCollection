@@ -158,7 +158,7 @@ public class RSAUtil {
     /**
      * 私钥加密
      *
-     * @param data      原文
+     * @param data       原文
      * @param privateKey base64编码的私钥
      * @return base64编码的字符串
      * @throws Exception

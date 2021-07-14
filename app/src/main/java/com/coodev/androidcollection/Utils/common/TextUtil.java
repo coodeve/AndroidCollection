@@ -236,4 +236,20 @@ public class TextUtil {
         }
         return xml;
     }
+
+    /**
+     * 建议加密方式
+     * 通过异或 加密/解密 字符串
+     *
+     * @param value  原始字符串
+     * @param secret 异或值
+     * @return 异或后的字符串
+     */
+    public static String encryptAndDecrypt(String value, char secret) {
+        byte[] bt = value.getBytes();
+        for (int i = 0; i < bt.length; i++) {
+            bt[i] = (byte) (bt[i] ^ (int) secret);
+        }
+        return new String(bt, 0, bt.length);
+    }
 }
