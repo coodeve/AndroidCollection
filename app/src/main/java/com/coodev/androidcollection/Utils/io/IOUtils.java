@@ -21,6 +21,7 @@ import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 public class IOUtils {
 
@@ -36,10 +37,78 @@ public class IOUtils {
     }
 
     /**
+     * 将目标文件夹中的所有文件（不包含子文件），压缩到目标文件中
+     *
+     * @param folderPath  要压缩的文件夹绝对路径
+     * @param zipFilePath 压缩后的文件绝对路径
+     * @throws IOException IOException
+     */
+    public static void compress(String folderPath, String zipFilePath) throws IOException {
+        File folder = new File(folderPath);
+        if (!folder.exists() || !folder.isDirectory()) {
+            throw new IOException("Folder " + folderPath + " does't exist or isn't a directory");
+        }
+
+        File zipFile = new File(zipFilePath);
+        if (!zipFile.exists()) {
+            File zipFolder = zipFile.getParentFile();
+            if (!zipFolder.exists()) {
+                if (!zipFolder.mkdirs()) {
+                    throw new IOException("Zip folder " + zipFolder.getAbsolutePath() + " not created");
+                }
+            }
+            if (!zipFile.createNewFile()) {
+                throw new IOException("Zip file " + zipFilePath + " not created");
+            }
+        }
+
+        BufferedInputStream bis;
+        ZipOutputStream zos = new ZipOutputStream(
+                new BufferedOutputStream(new FileOutputStream(zipFile)));
+        try {
+            final int BUFFER_SIZE = 8 * 1024; // 8K
+            byte[] buffer = new byte[BUFFER_SIZE];
+            for (String fileName : folder.list()) {
+                if (fileName.equals(".") || fileName.equals("..")) {
+                    continue;
+                }
+
+                File file = new File(folder, fileName);
+                if (!file.isFile()) {
+                    continue;
+                }
+
+                FileInputStream fis = new FileInputStream(file);
+                bis = new BufferedInputStream(fis, BUFFER_SIZE);
+                try {
+                    ZipEntry entry = new ZipEntry(fileName);
+                    zos.putNextEntry(entry);
+                    int count;
+                    while ((count = bis.read(buffer, 0, BUFFER_SIZE)) != -1) {
+                        zos.write(buffer, 0, count);
+                    }
+                } finally {
+                    try {
+                        bis.close();
+                    } catch (IOException e) {
+                        // Ignore
+                    }
+                }
+            }
+        } finally {
+            try {
+                zos.close();
+            } catch (IOException e) {
+                // Ignore
+            }
+        }
+    }
+
+    /**
      * 下载小文件
      *
-     * @param url
-     * @throws IOException
+     * @param url 下载路径
+     * @throws IOException IOException
      */
     public static void saveBinaryFile(URL url) throws IOException {
         URLConnection urlConnection = url.openConnection();
@@ -53,7 +122,7 @@ public class IOUtils {
         try {
             inputStream = urlConnection.getInputStream();
             BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-            byte buffer[] = new byte[contentLength];
+            byte[] buffer = new byte[contentLength];
             int offset = 0;
             int read = 0;
             while (offset < contentLength) {
@@ -83,9 +152,9 @@ public class IOUtils {
     /**
      * 字节转为文件，比如字节转bitmap
      *
-     * @param bytes
-     * @param filePath
-     * @return
+     * @param bytes    字节
+     * @param filePath 文件路径
+     * @return File文件
      */
     public static File saveBinaryFile(byte[] bytes, String filePath) {
         File file = new File(filePath);
@@ -107,8 +176,8 @@ public class IOUtils {
      * 解压压缩文件
      * 压缩大量小文件时，建议使用ZipInputStream
      *
-     * @param sourceFile
-     * @param targetDir
+     * @param sourceFile 原文件
+     * @param targetDir  目标文件
      */
     public static void zipReadByZipInput(File sourceFile, File targetDir) {
         FileInputStream fis = null;
@@ -140,8 +209,8 @@ public class IOUtils {
     /**
      * 加压压缩文件
      *
-     * @param sourceFile
-     * @param targetDir
+     * @param sourceFile 原文件
+     * @param targetDir  目标文件
      */
     public static void zipReadByZipFile(File sourceFile, File targetDir) {
         ZipFile zipFile = null;
@@ -196,7 +265,7 @@ public class IOUtils {
             int len = 0;
             byte[] bytes = new byte[1024];
             ZipEntry entry = null;
-            Enumeration<ZipEntry> entries = (Enumeration<ZipEntry>) zipFile.entries();
+            Enumeration<? extends ZipEntry> entries =  zipFile.entries();
             while (entries.hasMoreElements()) {
                 entry = entries.nextElement();
 

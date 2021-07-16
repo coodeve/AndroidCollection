@@ -120,8 +120,8 @@ public class RequestBuild {
      * @param mimeType like "image/jpg"
      * @return Request
      */
-    public Request createUploadRequest(String url, String filePath, String mimeType) {
-        String fileName = FileUtils.getFileName(filePath);
+    public Request createUploadRequest(String url, String fileKey, String filePath, String mimeType) {
+        String fileName = fileKey != null ? fileKey : FileUtils.getFileName(filePath);
         if (fileName == null) {
             return null;
         }
@@ -143,8 +143,8 @@ public class RequestBuild {
      * @param requestParams 请求参数
      * @return Request
      */
-    public Request createUploadRequest(String url, String filePath, String mimeType, Map<String, String> requestParams) {
-        String fileName = FileUtils.getFileName(filePath);
+    public Request createUploadRequest(String url, String fileKey, String filePath, String mimeType, Map<String, String> requestParams) {
+        String fileName = fileKey != null ? fileKey : FileUtils.getFileName(filePath);
         if (fileName == null) {
             return null;
         }
