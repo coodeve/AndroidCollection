@@ -13,6 +13,40 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 
 public class ViewUtils {
+
+    public class ViewClickTimes {
+        /**
+         * 连续点击有效时间
+         */
+        private int counts = 5;// 点击次数
+        private long duration = 1000;// 规定有效时间
+        private long[] mHits = new long[counts];
+        private Runnable action;
+
+        public ViewClickTimes() {
+        }
+
+        public ViewClickTimes(int counts, long duration) {
+            this.counts = counts;
+            this.duration = duration;
+        }
+
+        public void setAction(Runnable action) {
+            this.action = action;
+        }
+
+        public void checkTimes(View v) {
+            System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+            mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+            if (mHits[0] >= (SystemClock.uptimeMillis() - duration)) {
+                mHits = new long[counts];
+                if (action != null) {
+                    action.run();
+                }
+            }
+        }
+    }
+
     /**
      * 只调用此view上的点击回调函数回调函数
      *

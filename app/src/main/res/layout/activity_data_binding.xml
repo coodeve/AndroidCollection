@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -25,11 +26,31 @@
             type="android.view.View.OnClickListener" />
 
         <variable
+            name="EventClick2"
+            type="com.coodev.androidcollection.mvvm.databind.DataBindingActivity.EventClick2" />
+
+        <variable
             name="networkImage"
             type="String" />
+
         <variable
             name="localImage"
             type="int" />
+
+        <!--   可以这么定义，如果有重复，可以定义别名     -->
+        <import type="com.blankj.utilcode.util.StringUtils" />
+
+        <variable
+            name="string_utils"
+            type="StringUtils" />
+
+        <import
+            alias="MyFileUtils"
+            type="com.coodev.androidcollection.Utils.io.FileUtil" />
+
+        <variable
+            name="file_utils"
+            type="MyFileUtils" />
 
     </data>
 
@@ -41,7 +62,7 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{binding_bean.name}"
+            android:text="@{binding_bean.name,default=coodev}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,40 +82,52 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_message" />
 
+        <!--   onClick和回调方法签名一致，不用 "->" 符号   -->
         <Button
             android:id="@+id/tv_click"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{EventClick.onClick}"
             android:text="Click"
             android:textAllCaps="false"
-            android:onClick="@{EventClick.onClick}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_language" />
 
-        <!--   数据传递,在代码里set设置     -->
-        <include
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_click"
-            android:id="@+id/level_two"
-            layout="@layout/activity_data_binding_level_two" />
+        <!--   onClick和回调方法签名不一致，使用 "->" 符号   -->
+        <Button
+            android:id="@+id/tv_click2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->EventClick2.onClickHere()}"
+            android:text="Click2"
+            android:textAllCaps="false"
+            app:layout_constraintLeft_toRightOf="@id/tv_click"
+            app:layout_constraintTop_toBottomOf="@id/tv_language" />
 
 
         <ImageView
+            android:id="@+id/img_adapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:image="@{networkImage}"
             app:imageResource="@{localImage}"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/level_two"
-            android:id="@+id/img_adapter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_click" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/img_adapter"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/img_adapter" />
 
+
+        <!--   数据传递,在代码里set设置     -->
+        <include
+            android:id="@+id/level_two"
+            layout="@layout/activity_data_binding_level_two"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

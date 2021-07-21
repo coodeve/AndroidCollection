@@ -18,6 +18,12 @@ import com.coodev.androidcollection.entity.DataBindingBean;
  */
 public class DataBindingActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static class EventClick2 {
+        public void onClickHere() {
+            // do something
+        }
+    }
+
     private ActivityDataBindingBinding mViewDataBinding;
 
     @Override
@@ -29,7 +35,6 @@ public class DataBindingActivity extends AppCompatActivity implements View.OnCli
         mViewDataBinding.setMessage("this is databinding test ");
         mViewDataBinding.setBindingBean(dataBindingBean);
         // 上述操作后,就关联到了view,不需要主动设置参数
-
         // 数据传给include界面
         mViewDataBinding.levelTwo.setBindingBean(dataBindingBean);
         // click操作
@@ -42,7 +47,7 @@ public class DataBindingActivity extends AppCompatActivity implements View.OnCli
     /**
      * recyclerView处理
      */
-    public void handleRecyclerView(){
+    public void handleRecyclerView() {
         mViewDataBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 

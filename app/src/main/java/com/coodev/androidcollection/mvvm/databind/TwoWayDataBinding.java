@@ -6,9 +6,10 @@ import com.coodev.androidcollection.entity.LoginInfo;
 
 /**
  * 使用{@link androidx.databinding.ObservableField}
+ * 其他的基本可以适应类似{@link androidx.databinding.ObservableInt}
  */
 public class TwoWayDataBinding {
-    private ObservableField<LoginInfo> mLoginInfoObservableField;
+    private final ObservableField<LoginInfo> mLoginInfoObservableField;
 
     public TwoWayDataBinding() {
         final LoginInfo loginInfo = new LoginInfo();
