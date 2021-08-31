@@ -1,4 +1,4 @@
-    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.coodev.androidcollection">
 
@@ -29,7 +29,7 @@
             <!--     用于navigation组件       -->
             <nav-graph android:value="@navigation/jetpack_navigation" />
         </activity> <!-- X5 Webview -->
-        <activity android:name=".mvvm.databind.TwoWayDataBindingActivity"/>
+        <activity android:name=".mvvm.databind.TwoWayDataBindingActivity" />
         <activity android:name=".mvvm.databind.DataBindingActivity" />
         <activity android:name=".test.butterknife.ButterKnifeActivity" /> <!-- icon更换 -->
         <activity android:name=".test.butterknife.ViewInjectorActivity" /> <!-- 主页 -->
@@ -85,6 +85,11 @@
             android:name=".mvvm.lifecycle.LifeCycleService"
             android:enabled="true"
             android:exported="false" />
+
+        <service
+            android:name=".mvvm.workmanager.JobBackgroundService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
     </application> <!-- 外部存储 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 蓝牙 -->
