@@ -8,6 +8,8 @@ add_library(
     SHARED
     ${CURRENT_DIR}/src/main/cpp/android_jni.cpp
     ${CURRENT_DIR}/src/main/cpp/native_crash_cache.cpp
+    ${CURRENT_DIR}/src/main/cpp/md5.cpp
+    ${CURRENT_DIR}/src/main/cpp/map_md5.cpp
 )
 
 # Specifies a path to native header files.
